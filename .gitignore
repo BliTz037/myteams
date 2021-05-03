@@ -1,0 +1,6 @@
+myteams_server
+myteams_cli
+*.o
+bootstrap
+check
+valgrind

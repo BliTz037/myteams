@@ -10,7 +10,11 @@ MAIN_SERVER =	server/main.c
 MAIN_CLI = cli/main.c
 
 ## SRC
-SRC_SERVER	=
+SRC_SERVER	= 	server/server.c	\
+				server/server_init.c	\
+				server/server_command_buffer.c	\
+				server/server_commands.c	\
+				server/server_user_connection.c	\
 
 SRC_CLI	 =
 
@@ -33,8 +37,8 @@ all: server cli
 
 server:	$(NAME_SERVER)
 
-$(NAME_SERVER): $(OBJ_MAIN_SERVER) $(OBJ_SOBJ_MAIN_SERVER)
-			$(CC) -o $(NAME_SERVER) $(OBJ_MAIN_SERVER) $(OBJ_SOBJ_MAIN_SERVER) $(CPPFLAGS)
+$(NAME_SERVER): $(OBJ_MAIN_SERVER) $(OBJ_SERVER)
+			$(CC) -o $(NAME_SERVER) $(OBJ_MAIN_SERVER) $(OBJ_SERVER) $(CPPFLAGS)
 
 cli:	$(NAME_CLI)
 $(NAME_CLI): 	$(OBJ_CLI) $(OBJ_MAIN_CLI)

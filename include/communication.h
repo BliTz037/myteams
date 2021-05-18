@@ -8,9 +8,7 @@
 #ifndef COMMUNICATION_H_
 #define COMMUNICATION_H_
 
-#define MAX_NAME_LENGTH 32
-#define MAX_DESCRIPTION_LENGTH 255
-#define MAX_BODY_LENGTH 512
+#include "teams.h"
 
 typedef enum command
 {
@@ -21,8 +19,16 @@ typedef struct request_s
 {
     int code;
     command command;
-    char parameters[4096];
-
+    union
+    {
+        char name[MAX_NAME_LENGTH];
+        char body[MAX_BODY_LENGTH];
+        char description[MAX_DESCRIPTION_LENGTH];
+        int team_uuid;
+    };
+    int user_uuid;
+    int channel_uuid;
+    int thread_uuid;
 } request_t;
 
 typedef struct response_s

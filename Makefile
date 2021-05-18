@@ -15,6 +15,10 @@ SRC_SERVER	= 	server/server.c	\
 				server/server_command_buffer.c	\
 				server/server_commands.c	\
 				server/server_user_connection.c	\
+				server/teams.c	\
+				server/channel.c	\
+				server/thread.c	\
+				server/message.c	\
 
 SRC_CLI	 =
 
@@ -31,7 +35,7 @@ OBJ_MAIN_CLI = 	$(MAIN_CLI:.c=.o)
 
 CC		=	gcc
 
-CPPFLAGS		+=	-Wall -Wextra -I include -g3
+CPPFLAGS		+=	-Wall -Wextra -I include -I libs/myteams -g3
 
 all: server cli
 

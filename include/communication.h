@@ -17,8 +17,6 @@ typedef enum command
 
 typedef struct request_s
 {
-    int code;
-    command command;
     union
     {
         char name[MAX_NAME_LENGTH];
@@ -26,6 +24,8 @@ typedef struct request_s
         char description[MAX_DESCRIPTION_LENGTH];
         int team_uuid;
     };
+    int code;
+    command command;
     int user_uuid;
     int channel_uuid;
     int thread_uuid;

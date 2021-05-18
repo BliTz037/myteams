@@ -15,7 +15,7 @@ struct client_t
 {
     struct sockaddr_in data_address;
     int socket;
-    char command[1024];
+    int uuid;
 };
 
 #endif

@@ -12,7 +12,20 @@
 
 typedef enum command
 {
+    HELP,
+    LOGIN,
+    LOGOUT,
+    USERS,
+    USER,
+    SEND,
+    MESSAGES,
+    SUBSCRIBE,
+    SUBSCRIBED,
+    UNSUBSCRIBE,
     USE,
+    CREATE,
+    LIST,
+    INFO,
 } command;
 
 typedef struct request_s

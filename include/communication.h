@@ -46,17 +46,17 @@ typedef struct message_s
     int user_uuid;
 } message_t;
 
-enum subcribe
+typedef enum subcribe
 {
     SUBSCRIBE,
     SUBSCRIBED,
     UNSUBSCRIBE
-};
+} subscribe;
 
 typedef struct subscribe_s
 {
     int team_uuid;
-    subcribe subcribe_type;
+    subscribe subcribe_type;
 } subscribe_t;
 
 typedef struct teams_manipulation_s
@@ -70,7 +70,7 @@ typedef struct channel_manipulation_s
     char channel_name[MAX_NAME_LENGTH];
     char channel_description[MAX_DESCRIPTION_LENGTH];
     int team_uuid;
-} create_teams_t;
+} channel_manipulation_t;
 
 typedef struct thread_manipulation_s
 {
@@ -78,7 +78,7 @@ typedef struct thread_manipulation_s
     char thread_message[MAX_BODY_LENGTH];
     int team_uuid;
     int channel_uuid;
-} thread_teams_t;
+} thread_manipulation_t;
 
 typedef struct message_manipulation_s
 {
@@ -86,24 +86,24 @@ typedef struct message_manipulation_s
     int team_uuid;
     int channel_uuid;
     int thread_uuid;
-} message_teams_t;
+} message_manipulation_t;
 
-enum service_type
+typedef enum service_type
 {
     TEAMS,
     CHANNEL,
     THREAD,
     MESSAGE,
-};
+} service_type;
 
 typedef struct create_s
 {
     union
     {
-        teams_manipulation_s teams;
-        channel_manipulation_s channel;
-        thread_manipulation_s thread;
-        message_manipulation_s messasge;
+        teams_manipulation_t teams;
+        channel_manipulation_t channel;
+        thread_manipulation_t thread;
+        message_manipulation_t messasge;
     };
     service_type type;
 } create_t;
@@ -112,10 +112,10 @@ typedef struct list_s
 {
     union
     {
-        teams_manipulation_s teams;
-        channel_manipulation_s channel;
-        thread_manipulation_s thread;
-        message_manipulation_s messasge;
+        teams_manipulation_t teams;
+        channel_manipulation_t channel;
+        thread_manipulation_t thread;
+        message_manipulation_t messasge;
     };
     service_type type;
 } list_t;
@@ -124,10 +124,10 @@ typedef struct info_s
 {
     union
     {
-        teams_manipulation_s teams;
-        channel_manipulation_s channel;
-        thread_manipulation_s thread;
-        message_manipulation_s messasge;
+        teams_manipulation_t teams;
+        channel_manipulation_t channel;
+        thread_manipulation_t thread;
+        message_manipulation_t messasge;
     };
     service_type type;
 } info_t;

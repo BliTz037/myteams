@@ -49,7 +49,7 @@ typedef struct server_t
     client_t clients[MAX_CLIENTS];
     int control_socket;
     int address_size;
-    teams_t teams[MAX_TEAMS]
+    teams_t teams[MAX_TEAMS];
 } server_t;
 
 int launch_server(int port);

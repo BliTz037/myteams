@@ -18,8 +18,7 @@ char const *user_uuid)
         {
             strcpy(server->teams[i].name, name);
             strcpy(server->teams[i].description, description);
-            strcpy(server->teams[i].uuid, "afaire");
-            server_event_team_created(server->teams[i].uuid, name, user_uuid);
+            //server_event_team_created(server->teams[i].uuid, name, user_uuid);
             return;
         }
     }

@@ -46,17 +46,10 @@ typedef struct message_s
     int user_uuid;
 } message_t;
 
-typedef enum subcribe
-{
-    SUBSCRIBE,
-    SUBSCRIBED,
-    UNSUBSCRIBE
-} subscribe;
 
 typedef struct subscribe_s
 {
     int team_uuid;
-    subscribe subcribe_type;
 } subscribe_t;
 
 typedef struct teams_manipulation_s

@@ -12,7 +12,6 @@ MAIN_CLI = cli/main.c
 ## SRC
 SRC_SERVER	= 	server/server.c	\
 				server/server_init.c	\
-				server/server_command_buffer.c	\
 				server/server_commands.c	\
 				server/server_user_connection.c	\
 				server/teams.c	\

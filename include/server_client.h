@@ -14,7 +14,6 @@ typedef struct client_t client_t;
 struct client_t
 {
     struct sockaddr_in data_address;
-    char command[4096];
     int socket;
     int uuid;
 };

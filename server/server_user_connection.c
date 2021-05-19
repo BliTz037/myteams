@@ -16,5 +16,4 @@ void close_connection(server_t *server, int fd, int client)
     write(fd, message, strlen(message));
     close(fd);
     server->clients[client].socket = 0;
-    memset(server->clients[client].command, 0, 1024);
 }

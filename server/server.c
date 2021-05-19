@@ -15,30 +15,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-static int handle_command_buffer(server_t *server, int sd, int client)
-{
-    char buffer[1024];
-    int check_command;
-    int valread;
-    char *command;
-
-    if ((valread = read(sd, buffer, sizeof(buffer))) == 0)
-        close_connection(server, sd, client);
-    else {
-        buffer[valread] = '\0';
-        command = get_command_buffer(server, client, buffer);
-        if (command == NULL)
-            return 0;
-        check_command = handle_commands(server, command, client);
-        if (check_command == 1)
-            return 1;
-        else if (check_command == -1)
-            return -1;
-        free (command);
-    }
-    return 0;
-}
-
 static int select_socket(server_t *server)
 {
     int max_sd = server->control_socket;
@@ -68,11 +44,7 @@ static int handle_existing_connection(server_t *server)
         sd = server->clients[i].socket;
         if (!FD_ISSET(sd, &server->readfds))
             continue;
-        command_return = handle_command_buffer(server, sd, i);
-        if (command_return == 1)
-            return 1;
-        else if (command_return == -1)
-            return -1;
+        printf("strucutre arrived\n");
     }
     return 0;
 }
@@ -80,18 +52,18 @@ static int handle_existing_connection(server_t *server)
 static int handle_new_connection(server_t *server)
 {
     int new_socket;
-    char *message = "220 Service ready for new user.\n";
+    //char *message = "220 Service ready for new user.\n";
 
     if ((new_socket = accept(server->control_socket,
     (struct sockaddr *)&server->address,
     (socklen_t *)&server->address_size)) < 0)
         return -1;
-    write(new_socket, message, strlen(message));
+    //write(new_socket, message, strlen(message));
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
         if (server->clients[i].socket == 0)
         {
-            server->clients[i].socket = new_socket;           
+            server->clients[i].socket = new_socket;
             break;
         }
     }

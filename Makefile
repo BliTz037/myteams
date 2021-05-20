@@ -45,7 +45,7 @@ OBJ_MAIN_CLI = 	$(MAIN_CLI:.c=.o)
 
 CC		=	gcc
 
-CPPFLAGS		+=	-Wall -Wextra -I include -I libs/myteams -g3
+CPPFLAGS		+=	-L./libs/myteams -Wall -Wextra -I include -I libs/myteams -lmyteams -g3
 
 all: server cli
 

@@ -18,6 +18,7 @@ SRC_SERVER	= 	server/server.c	\
 				server/channel.c	\
 				server/thread.c	\
 				server/message.c	\
+				server/save.c
 
 SRC_CLI	 =		cli/command/create.c	\
 				cli/command/info.c	\

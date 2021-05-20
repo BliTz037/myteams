@@ -9,13 +9,15 @@
 #define SERVER_CLIENT_H_
 
 #include <netinet/in.h>
+#include "teams.h"
 
 typedef struct client_t client_t;
 struct client_t
 {
     struct sockaddr_in data_address;
     int socket;
-    int uuid;
+    char uuid[36];
+    char name[MAX_NAME_LENGTH];
 };
 
 #endif

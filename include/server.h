@@ -21,7 +21,7 @@
 
 typedef struct thread_t
 {
-    int uuid;
+    char uuid[36];
     char message[MAX_COMMENTS];
     char comments[MAX_COMMENTS][MAX_BODY_LENGTH];
     char title[MAX_NAME_LENGTH];
@@ -29,7 +29,7 @@ typedef struct thread_t
 
 typedef struct channel_t
 {
-    int uuid;
+    char uuid[36];
     thread_t threads[MAX_THREADS];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
@@ -37,7 +37,7 @@ typedef struct channel_t
 
 typedef struct teams_t
 {
-    int uuid;
+    char uuid[36];
     channel_t channels[MAX_CHANNEL];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
@@ -56,6 +56,7 @@ typedef struct server_t
 int launch_server(int port);
 int init_server(server_t *server, int port);
 void close_connection(server_t *server, int fd, int client);
+char *generate_uuid();
 
 //Data handling
 int save_data(const char *path, server_t *server);

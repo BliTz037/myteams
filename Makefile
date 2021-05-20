@@ -14,14 +14,15 @@ SRC_SERVER	= 	server/server_handling/server.c	\
 				server/server_handling/server_init.c	\
 				server/server_handling/server_user_connection.c	\
 				server/teams/teams.c	\
-				server/channel.c	\
-				server/thread.c	\
-				server/message.c	\
+				server/channels/channel.c	\
+				server/threads/thread.c	\
+				server/messages/message.c	\
 				server/save.c	\
 				server/requests/request.c	\
 				server/requests/create.c	\
 				server/requests/info.c	\
 				server/requests/list.c	\
+				server/uuid.c	\
 
 SRC_CLI	 =		cli/command/create.c	\
 				cli/command/info.c	\

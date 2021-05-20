@@ -15,8 +15,18 @@ void handle_request(server_t *server, int client, request_t *request);
 void create(server_t *server, int client, request_t *request);
 void list(server_t *server, int client, request_t *request);
 void info(server_t *server, int client, request_t *request);
+
 // Teams
 void addTeam(server_t *server, create_t *create, int client);
+
+//Channels
+void addChannel(server_t *server, create_t *create, int client);
+
+//Threads
+void addThread(server_t *server, create_t *create, int client);
+
+//Messages
+void addMessage(server_t *server, create_t *create, int client);
 
 typedef struct request_function_s
 {

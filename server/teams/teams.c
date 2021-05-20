@@ -9,20 +9,22 @@
 #include "communication.h"
 #include <string.h>
 #include "logging_server.h"
+#include <uuid/uuid.h>
+#include <stdlib.h>
 
 void addTeam(server_t *server, create_t *create, int client)
-{
+{   
+    char *uuid = generate_uuid();
 
-    char uuid_b[64];
-    
     for (int i = 0; i != MAX_TEAMS; i++)
     {
         if (strlen(server->teams[i].name) == 0)
         {
             strcpy(server->teams[i].name, create->teams.team_name);
             strcpy(server->teams[i].description, create->teams.team_description);
-            sprintf(uuid_b, "%d", server->teams[i].uuid);
-            server_event_team_created(uuid_b, create->teams.team_name, create->teams.team_description);
+            strcpy(server->teams[i].uuid, uuid);
+            server_event_team_created(uuid, create->teams.team_name, create->teams.team_description);
+            free(uuid);
             return;
         }
     }

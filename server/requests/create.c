@@ -7,11 +7,25 @@
 
 #include "server.h"
 #include "communication.h"
+#include "server_request.h"
 
 void create(server_t *server, int client, request_t *request)
 {
     create_t *create = &request->create;
 
-    if (create->type == TEAMS)
-        addTeam(server, create, client);
+    switch (create->type)
+    {
+        case TEAMS:
+            addTeam(server, create, client);
+            break;
+        case CHANNEL:
+            addChannel(server, create, client);
+            break;
+        case THREAD:
+            addThread(server, create, client);
+            break;
+        case MESSAGE:
+            addMessage(server, create, client);
+            break;
+    }
 }

@@ -32,23 +32,23 @@ typedef struct login_s
 
 typedef struct user_s
 {
-    int user_uuid;
+    char user_uuid[36];
 } user_t;
 
 typedef struct send_s
 {
-    int user_uuid;
+    char user_uuid[36];
     char body[MAX_BODY_LENGTH];
 } send_t;
 
 typedef struct message_s
 {
-    int user_uuid;
+    char user_uuid[36];
 } message_t;
 
 typedef struct subscribe_s
 {
-    int team_uuid;
+    char team_uuid[36];
 } subscribe_t;
 
 typedef struct teams_manipulation_s
@@ -61,23 +61,23 @@ typedef struct channel_manipulation_s
 {
     char channel_name[MAX_NAME_LENGTH];
     char channel_description[MAX_DESCRIPTION_LENGTH];
-    int team_uuid;
+    char team_uuid[36];
 } channel_manipulation_t;
 
 typedef struct thread_manipulation_s
 {
     char thread_title[MAX_NAME_LENGTH];
     char thread_message[MAX_BODY_LENGTH];
-    int team_uuid;
-    int channel_uuid;
+    char team_uuid[36];
+    char channel_uuid[36];
 } thread_manipulation_t;
 
 typedef struct message_manipulation_s
 {
     char body[MAX_BODY_LENGTH];
-    int team_uuid;
-    int channel_uuid;
-    int thread_uuid;
+    char team_uuid[36];
+    char channel_uuid[36];
+    char thread_uuid[36];
 } message_manipulation_t;
 
 typedef enum service_type

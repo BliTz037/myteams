@@ -11,6 +11,6 @@
 
 void command_subscribed(char **argv, request_t *msg)
 {
-    msg->subcribe.team_uuid = atoi(argv[SUBSCRIBED_TEAMID_INDEX]);
+    strcpy(msg->subcribe.team_uuid, argv[SUBSCRIBED_TEAMID_INDEX]);
     msg->command = SUBSCRIBED;
 }

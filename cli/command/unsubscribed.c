@@ -11,6 +11,6 @@
 
 void command_unsubscribed(char **argv, request_t *msg)
 {
-    msg->subcribe.team_uuid = atoi(argv[UNSUBSCRIBED_TEAMID_INDEX]);
+    strcpy(msg->subcribe.team_uuid, argv[UNSUBSCRIBED_TEAMID_INDEX]);
     msg->command = UNSUBSCRIBE;
 }

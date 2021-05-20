@@ -13,7 +13,7 @@
 
 void command_send(char **argv, request_t *msg)
 {
-    msg->send.user_uuid = atoi(argv[SEND_USERNAME_INDEX]);
+    strcpy(msg->send.user_uuid, argv[SEND_USERNAME_INDEX]);
     strcpy(msg->send.body, argv[SEND_BODY_INDEX]);
     msg->command = SEND;
 }

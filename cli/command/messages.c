@@ -11,6 +11,6 @@
 
 void command_messages(char **argv, request_t *msg)
 {
-    msg->message.user_uuid = atoi(argv[MESSAGE_USERNAME_ID_INDEX]);
+    strcpy(msg->message.user_uuid, argv[MESSAGE_USERNAME_ID_INDEX]);
     msg->command = MESSAGES;
 }

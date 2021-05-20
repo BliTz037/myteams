@@ -7,7 +7,7 @@
 
 ## MAIN
 MAIN_SERVER =	server/main.c
-MAIN_CLI = cli/main.c
+MAIN_CLI = 	cli/main.c	\
 
 ## SRC
 SRC_SERVER	= 	server/server.c	\
@@ -19,7 +19,18 @@ SRC_SERVER	= 	server/server.c	\
 				server/thread.c	\
 				server/message.c	\
 
-SRC_CLI	 =
+SRC_CLI	 =		cli/command/create.c	\
+				cli/command/info.c	\
+				cli/command/list.c	\
+				cli/command/login.c	\
+				cli/command/logout.c	\
+				cli/command/messages.c	\
+				cli/command/send.c	\
+				cli/command/subscribe.c	\
+				cli/command/subscribed.c	\
+				cli/command/unsubscribed.c	\
+				cli/command/user.c	\
+				cli/parser.c
 
 ## NAME
 NAME_SERVER	=	myteams_server

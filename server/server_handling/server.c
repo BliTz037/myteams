@@ -6,6 +6,7 @@
 */
 
 #include "server.h"
+#include "communication.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>
@@ -14,6 +15,15 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "logging_server.h"
+
+static void get_client_request(server_t *server, int sd, int client)
+{
+    request_t *request = malloc(sizeof(request));
+
+    read(sd, &request, sizeof(request));
+    free(request);
+}
 
 static int select_socket(server_t *server)
 {
@@ -44,7 +54,7 @@ static int handle_existing_connection(server_t *server)
         sd = server->clients[i].socket;
         if (!FD_ISSET(sd, &server->readfds))
             continue;
-        printf("strucutre arrived\n");
+        get_client_request(server, sd, i);
     }
     return 0;
 }

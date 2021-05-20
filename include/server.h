@@ -55,7 +55,7 @@ typedef struct server_t
 int launch_server(int port);
 int init_server(server_t *server, int port);
 void close_connection(server_t *server, int fd, int client);
-char *get_command_buffer(server_t *server, int client, char input[1024]);
-int handle_commands(server_t *server, char *message, int client);
+
+
 
 #endif /* !SERVER_H_ */

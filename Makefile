@@ -30,6 +30,7 @@ SRC_CLI	 =		cli/command/create.c	\
 				cli/command/subscribed.c	\
 				cli/command/unsubscribed.c	\
 				cli/command/user.c	\
+				cli/server.c \
 				cli/parser.c
 
 ## NAME

@@ -44,9 +44,9 @@ int fill_request_struct(char *command, request_t *msg)
 {
     int i = 0;
     char **tab = str_to_word_array(command, "[]");
-    void (*parser[])(char **, request_t *) = 
+    void (*parser[])(char **, request_t *) =
     {command_login, command_logout, command_user, command_send,
-    command_messages,command_subscribe, command_subscribed, 
+    command_messages,command_subscribe, command_subscribed,
     command_unsubscribed,command_create, command_list, command_info};
 
     for (i = 0; commmand_str[i] != NULL && strcmp(tab[0], commmand_str[i]) != 0; i++);

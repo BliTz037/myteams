@@ -22,7 +22,8 @@ void display(request_t *msg)
     printf("COMMAND : '%s'\n", commmand_str[msg->command]);
     printf("\tlogin.username: '%s'\n", msg->login.username);
     printf("\tuser.user_uuid: '%d'\n", msg->user.user_uuid);
-    printf("\tsend.user_uuid: '%d'\n\t\tsend.body: '%s'\n", msg->send.user_uuid, msg->send.body);
+    printf("\tsend.user_uuid: '%d'\n\t\tsend.body: '%s'\n",
+    msg->send.user_uuid, msg->send.body);
     printf("\tmessage.user_uuid: '%d'\n", msg->message.user_uuid);
     printf("\tsubcribe.team_uuid: '%d'\n", msg->subcribe.team_uuid);
 

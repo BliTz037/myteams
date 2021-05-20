@@ -46,7 +46,6 @@ typedef struct message_s
     int user_uuid;
 } message_t;
 
-
 typedef struct subscribe_s
 {
     int team_uuid;

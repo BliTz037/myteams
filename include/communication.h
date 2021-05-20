@@ -141,10 +141,50 @@ typedef struct request_s
     command command;
 } request_t;
 
+typedef struct user_info_s
+{
+    char uuid[36];
+    char name[MAX_NAME_LENGTH];
+} user_info_t;
+
+typedef struct user_response_s
+{
+    user_info_t users[MAX_CLIENTS];
+} user_response_t;
+
+typedef struct messages_response_s
+{
+    char comments[MAX_COMMENTS][MAX_BODY_LENGTH];
+} message_response_t;
+
+typedef struct subscribed_response_s
+{
+    union{
+        teams_t teams[MAX_TEAMS];
+        user_info_t users[MAX_CLIENTS];
+    };
+} subscribed_response_t;
+
+typedef struct infos_response_s
+{
+    union{
+        teams_t teams[MAX_TEAMS];
+        channel_t channel[MAX_CHANNEL];
+        thread_t thread[MAX_THREADS];
+        message_t comments[MAX_COMMENTS];
+    };
+} infos_response_t;
+
+
 typedef struct response_s
 {
+    union {
+        user_response_t user;
+        message_response_t message;
+        subscribed_response_t subscribed;
+        infos_response_t infos;
+    };
     int code;
-    char response[4096];
 
 } response_t;
 

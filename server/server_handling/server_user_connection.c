@@ -12,8 +12,6 @@
 
 void close_connection(server_t *server, int fd, int client)
 {
-    char *message = "221 Service closing control connection.\n";
-    write(fd, message, strlen(message));
     close(fd);
     server->clients[client].socket = 0;
 }

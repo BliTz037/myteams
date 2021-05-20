@@ -10,15 +10,18 @@ MAIN_SERVER =	server/main.c
 MAIN_CLI = 	cli/main.c	\
 
 ## SRC
-SRC_SERVER	= 	server/server.c	\
-				server/server_init.c	\
-				server/server_commands.c	\
-				server/server_user_connection.c	\
+SRC_SERVER	= 	server/server_handling/server.c	\
+				server/server_handling/server_init.c	\
+				server/server_handling/server_user_connection.c	\
 				server/teams.c	\
 				server/channel.c	\
 				server/thread.c	\
 				server/message.c	\
-				server/save.c
+				server/save.c \
+				server/requests/request.c	\
+				server/requests/create.c	\
+				server/requests/info.c	\
+				server/requests/list.c	\
 
 SRC_CLI	 =		cli/command/create.c	\
 				cli/command/info.c	\

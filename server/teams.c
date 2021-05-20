@@ -6,10 +6,11 @@
 */ 
 
 #include "server.h"
+#include "communication.h"
 #include <string.h>
 #include "logging_server.h"
 
-void addTeam(server_t *server, char const *name, char const *description,
+static void addTeam(server_t *server, char const *name, char const *description,
 char const *user_uuid)
 {
     for (int i = 0; i != MAX_TEAMS; i++)
@@ -22,4 +23,9 @@ char const *user_uuid)
             return;
         }
     }
+}
+
+void handle_team(server_t *server, int client, request_t *request)
+{
+
 }

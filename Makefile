@@ -13,11 +13,11 @@ MAIN_CLI = 	cli/main.c	\
 SRC_SERVER	= 	server/server_handling/server.c	\
 				server/server_handling/server_init.c	\
 				server/server_handling/server_user_connection.c	\
-				server/teams.c	\
+				server/teams/teams.c	\
 				server/channel.c	\
 				server/thread.c	\
 				server/message.c	\
-				server/save.c \
+				server/save.c	\
 				server/requests/request.c	\
 				server/requests/create.c	\
 				server/requests/info.c	\

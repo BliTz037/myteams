@@ -10,5 +10,8 @@
 
 void create(server_t *server, int client, request_t *request)
 {
-    
+    create_t *create = &request->create;
+
+    if (create->type == TEAMS)
+        addTeam(server, create, client);
 }

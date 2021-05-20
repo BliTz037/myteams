@@ -57,8 +57,7 @@ int launch_server(int port);
 int init_server(server_t *server, int port);
 void close_connection(server_t *server, int fd, int client);
 
-
-
+//Data handling
 int save_data(const char *path, server_t *server);
 int load_data(const char *path, server_t *server);
 

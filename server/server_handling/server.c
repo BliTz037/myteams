@@ -16,12 +16,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "logging_server.h"
+#include "server_request.h"
 
 static void get_client_request(server_t *server, int sd, int client)
 {
     request_t *request = malloc(sizeof(request));
 
     read(sd, &request, sizeof(request));
+    handle_request(server, client, request);
     free(request);
 }
 
@@ -62,16 +64,14 @@ static int handle_existing_connection(server_t *server)
 static int handle_new_connection(server_t *server)
 {
     int new_socket;
-    //char *message = "220 Service ready for new user.\n";
 
     if ((new_socket = accept(server->control_socket,
     (struct sockaddr *)&server->address,
     (socklen_t *)&server->address_size)) < 0)
         return -1;
-    //write(new_socket, message, strlen(message));
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
-        if (server->clients[i].socket == 0)
+        if (server->clients[i].socket == 0 && strlen(server->clients[i].name) == 0)
         {
             server->clients[i].socket = new_socket;
             break;

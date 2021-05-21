@@ -172,7 +172,7 @@ typedef struct infos_response_s
         teams_t teams[MAX_TEAMS];
         channel_t channel[MAX_CHANNEL];
         thread_t thread[MAX_THREADS];
-        message_t comments[MAX_COMMENTS];
+        comment_t comments[MAX_COMMENTS];
     };
 } infos_response_t;
 

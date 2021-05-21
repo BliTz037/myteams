@@ -10,10 +10,20 @@
 #include "logging_server.h"
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel)
+static void add_channel_response(response_t *response,
+channel_t *channel)
+{
+    response->code = 200;
+    response->infos.channel[0] = *channel;
+}
+
+static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel,
+int fd)
 {
     char *uuid = generate_uuid();
+    response_t *response = malloc(sizeof(response_t));
 
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
@@ -22,8 +32,10 @@ static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel)
             strcpy(team->channels[i].name, channel->channel_name);
             strcpy(team->channels[i].description, channel->channel_description);
             strcpy(team->channels[i].uuid, uuid);
-            free(uuid);
             server_event_channel_created(team->uuid, uuid, team->channels[i].name);
+            add_channel_response(response, &team->channels[i]);
+            write(fd, response, sizeof(response_t));
+            free(uuid);
             return;
         }
     }
@@ -35,7 +47,8 @@ void add_channel(server_t *server, create_t *create, int client)
     {
         if (strcmp(create->channel.team_uuid, server->teams[i].uuid) == 0)
         {
-            add_channel_in_team(&server->teams[i], &create->channel);
+            add_channel_in_team(&server->teams[i], &create->channel,
+            server->clients[client].socket);
             return;
         }
     }

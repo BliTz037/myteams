@@ -13,15 +13,18 @@ MAIN_CLI = 	cli/main.c	\
 SRC_SERVER	= 	server/server_handling/server.c	\
 				server/server_handling/server_init.c	\
 				server/server_handling/server_user_connection.c	\
-				server/teams/teams.c	\
-				server/channels/channel.c	\
-				server/threads/thread.c	\
-				server/messages/message.c	\
+				server/teams/add_teams.c	\
+				server/teams/teams_info.c	\
+				server/channels/add_channel.c	\
+				server/channels/channels_info.c	\
+				server/threads/add_thread.c	\
+				server/threads/threads_info.c	\
+				server/messages/add_message.c	\
+				server/messages/messages_info.c	\
 				server/save.c	\
 				server/requests/request.c	\
 				server/requests/create.c	\
 				server/requests/info.c	\
-				server/requests/list.c	\
 				server/uuid.c	\
 
 SRC_CLI	 =		cli/command/create.c	\

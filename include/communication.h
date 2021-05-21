@@ -101,18 +101,6 @@ typedef struct create_s
     service_type type;
 } create_t;
 
-typedef struct list_s
-{
-    union
-    {
-        teams_manipulation_t teams;
-        channel_manipulation_t channel;
-        thread_manipulation_t thread;
-        message_manipulation_t messasge;
-    };
-    service_type type;
-} list_t;
-
 typedef struct info_s
 {
     union
@@ -135,7 +123,6 @@ typedef struct request_s
         message_t message;
         subscribe_t subcribe;
         create_t create;
-        list_t list;
         info_t info;
     };
     int code;

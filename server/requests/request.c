@@ -8,6 +8,20 @@
 #include "server.h"
 #include "communication.h"
 #include "server_request.h"
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void request_error(int fd, int code)
+{
+    response_t *response = malloc(sizeof(request_t));
+
+    response->code = code;
+
+    write(fd, response, sizeof(response_t));
+    free(response);
+}
+
 
 void handle_request(server_t *server, int client, request_t *request)
 {

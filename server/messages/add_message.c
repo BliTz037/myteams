@@ -33,6 +33,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             user_uuid, message_info->body);
             add_message_response(response, &thread->comments[i]);
             write(fd, &response, sizeof(response_t));
+            free(response);
             return;
         }
     }

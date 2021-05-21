@@ -50,7 +50,6 @@ static int select_socket(server_t *server)
 static int handle_existing_connection(server_t *server)
 {
     int sd;
-    int command_return;
 
     for (int i = 0; i < MAX_CLIENTS; i++) {
         sd = server->clients[i].socket;

@@ -38,6 +38,7 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
             add_thread_response(response, &channel->threads[i]);
             write(fd, response, sizeof(response_t));
             free (uuid);
+            free(response);
         }
     }
 }

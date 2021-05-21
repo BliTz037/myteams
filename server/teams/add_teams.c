@@ -36,6 +36,7 @@ void add_team(server_t *server, create_t *create, int client)
             add_team_response(response, &server->teams[i]);
             write(fd, response, sizeof(response_t));
             free(uuid);
+            free(response);
             return;
         }
     }

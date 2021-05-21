@@ -36,6 +36,7 @@ int fd)
             add_channel_response(response, &team->channels[i]);
             write(fd, response, sizeof(response_t));
             free(uuid);
+            free(response);
             return;
         }
     }

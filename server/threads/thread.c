@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static void addThreadInChannel(channel_t *channel,
+static void add_thread_in_channel(channel_t *channel,
 thread_manipulation_t *thread_info, char *user_uuid)
 {
      char *uuid = generate_uuid();
@@ -29,19 +29,19 @@ thread_manipulation_t *thread_info, char *user_uuid)
     }
 }
 
-static void findChannel(teams_t *team, thread_manipulation_t *thread_info, char *user_uuid)
+static void find_channel(teams_t *team, thread_manipulation_t *thread_info, char *user_uuid)
 {
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(thread_info->channel_uuid, team->channels[i].uuid))
         {
-            addThreadInChannel(&team->channels[i], thread_info, user_uuid);
+            add_thread_in_channel(&team->channels[i], thread_info, user_uuid);
             return;
         }
     }
 }
 
-void addThread(server_t *server, create_t *create, int client)
+void add_thread(server_t *server, create_t *create, int client)
 {
     thread_manipulation_t *thread_info = &create->thread;
 
@@ -49,7 +49,7 @@ void addThread(server_t *server, create_t *create, int client)
     {
         if (strcmp(thread_info->team_uuid, server->teams[i].uuid))
         {
-            findChannel(&server->teams[i], thread_info, server->clients[client].uuid);
+            find_channel(&server->teams[i], thread_info, server->clients[client].uuid);
             return;
         }
     }

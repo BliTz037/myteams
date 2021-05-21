@@ -12,7 +12,7 @@
 #include <uuid/uuid.h>
 #include <stdlib.h>
 
-void addTeam(server_t *server, create_t *create, int client)
+void add_team(server_t *server, create_t *create, int client)
 {   
     char *uuid = generate_uuid();
 

@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static void addMessageInThread(thread_t *thread,
+static void add_message_in_thread(thread_t *thread,
 message_manipulation_t *message_info, char *user_uuid)
 {
     for (int i = 0; i != MAX_COMMENTS; i++)
@@ -26,7 +26,7 @@ message_manipulation_t *message_info, char *user_uuid)
     }
 }
 
-static void findThread(channel_t *channel,
+static void find_thread(channel_t *channel,
 message_manipulation_t *message_info, char *user_uuid)
 {
 
@@ -34,26 +34,26 @@ message_manipulation_t *message_info, char *user_uuid)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {
-            addMessageInThread(&channel->threads[i], message_info, user_uuid);
+            add_message_in_thread(&channel->threads[i], message_info, user_uuid);
             return;
         }
     }
 }
 
-static void findChannel(teams_t *team,
+static void find_channel(teams_t *team,
 message_manipulation_t *message_info, char *user_uuid)
 {
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(message_info->channel_uuid, team->channels[i].uuid))
         {
-            findThread(&team->channels[i], message_info, user_uuid);
+            find_thread(&team->channels[i], message_info, user_uuid);
             return;
         }
     }
 }
 
-void addMessage(server_t *server, create_t *create, int client)
+void add_message(server_t *server, create_t *create, int client)
 {
     message_manipulation_t *message_info = &create->messasge;
 
@@ -61,7 +61,7 @@ void addMessage(server_t *server, create_t *create, int client)
     {
         if (strcmp(message_info->team_uuid, server->teams[i].uuid))
         {
-            findChannel(&server->teams[i], message_info, server->clients[client].uuid);
+            find_channel(&server->teams[i], message_info, server->clients[client].uuid);
             return;
         }
     }

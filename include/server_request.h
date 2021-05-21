@@ -17,16 +17,16 @@ void list(server_t *server, int client, request_t *request);
 void info(server_t *server, int client, request_t *request);
 
 // Teams
-void addTeam(server_t *server, create_t *create, int client);
+void add_team(server_t *server, create_t *create, int client);
 
 //Channels
-void addChannel(server_t *server, create_t *create, int client);
+void add_channel(server_t *server, create_t *create, int client);
 
 //Threads
-void addThread(server_t *server, create_t *create, int client);
+void add_thread(server_t *server, create_t *create, int client);
 
 //Messages
-void addMessage(server_t *server, create_t *create, int client);
+void add_message(server_t *server, create_t *create, int client);
 
 typedef struct request_function_s
 {

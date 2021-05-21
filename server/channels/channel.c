@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static void addChannelinTeam(teams_t *team, channel_manipulation_t *channel)
+static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel)
 {
     char *uuid = generate_uuid();
 
@@ -29,13 +29,13 @@ static void addChannelinTeam(teams_t *team, channel_manipulation_t *channel)
     }
 }
 
-void addChannel(server_t *server, create_t *create, int client)
+void add_channel(server_t *server, create_t *create, int client)
 {
     for(int i = 0; i != MAX_TEAMS; i++)
     {
         if (strcmp(create->channel.team_uuid, server->teams[i].uuid) == 0)
         {
-            addChannelinTeam(&server->teams[i], &create->channel);
+            add_channel_in_team(&server->teams[i], &create->channel);
             return;
         }
     }

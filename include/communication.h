@@ -9,6 +9,7 @@
 #define COMMUNICATION_H_
 
 #include "teams.h"
+#include "server.h"
 
 typedef enum command
 {
@@ -175,7 +176,6 @@ typedef struct infos_response_s
     };
 } infos_response_t;
 
-
 typedef struct response_s
 {
     union {
@@ -185,7 +185,6 @@ typedef struct response_s
         infos_response_t infos;
     };
     int code;
-
 } response_t;
 
 #endif /* !COMMUNICATION_H_ */

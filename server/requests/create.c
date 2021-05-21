@@ -16,16 +16,16 @@ void create(server_t *server, int client, request_t *request)
     switch (create->type)
     {
         case TEAMS:
-            addTeam(server, create, client);
+            add_team(server, create, client);
             break;
         case CHANNEL:
-            addChannel(server, create, client);
+            add_channel(server, create, client);
             break;
         case THREAD:
-            addThread(server, create, client);
+            add_thread(server, create, client);
             break;
         case MESSAGE:
-            addMessage(server, create, client);
+            add_message(server, create, client);
             break;
     }
 }

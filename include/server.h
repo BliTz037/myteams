@@ -13,12 +13,6 @@
 #include "server_client.h"
 #include "teams.h"
 
-#define MAX_CLIENTS 30
-#define MAX_TEAMS 50
-#define MAX_CHANNEL 50
-#define MAX_THREADS 50
-#define MAX_COMMENTS 50
-
 typedef struct thread_t
 {
     char uuid[36];

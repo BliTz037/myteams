@@ -7,36 +7,50 @@
 
 #include "server.h"
 #include "communication.h"
+#include "server_request.h"
 #include <string.h>
 #include "logging_server.h"
 #include <uuid/uuid.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static void add_team_response(response_t *response, teams_t *team)
+static void add_team_response(int fd, teams_t *team)
 {
+    response_t *response = malloc(sizeof(response_t));
     response->code = 200;
     response->infos.teams[0] = *team;
+    write(fd, response, sizeof(response_t));
+    free(response);
+}
+
+int check_team_exist(server_t *server, create_t *create, int client)
+{
+    for (int i = 0; i != MAX_TEAMS; i++)
+    {
+        if (strcmp(server->teams[i].name, create->teams.team_name) == 0)
+        {
+            request_code(server->clients[client].socket, 403);
+            return -1;
+        }
+    }
+    return 0;
 }
 
 void add_team(server_t *server, create_t *create, int client)
 {   
-    char *uuid = generate_uuid();
-    int fd = server->clients[client].socket;
-    response_t *response = malloc(sizeof(response_t));
-
-    for (int i = 0; i != MAX_TEAMS; i++)
-    {
-        if (strlen(server->teams[i].name) == 0)
-        {
+    char *uuid;
+    
+    if (check_team_exist(server, create, client) == -1)
+        return;
+    for (int i = 0; i != MAX_TEAMS; i++) {
+        if (strlen(server->teams[i].name) == 0) {
+            uuid = generate_uuid();
             strcpy(server->teams[i].name, create->teams.team_name);
             strcpy(server->teams[i].description, create->teams.team_description);
             strcpy(server->teams[i].uuid, uuid);
             server_event_team_created(uuid, create->teams.team_name, create->teams.team_description);
-            add_team_response(response, &server->teams[i]);
-            write(fd, response, sizeof(response_t));
+            add_team_response(server->clients[client].socket, &server->teams[i]);
             free(uuid);
-            free(response);
             return;
         }
     }

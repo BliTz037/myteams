@@ -14,4 +14,5 @@ void close_connection(server_t *server, int fd, int client)
 {
     close(fd);
     server->clients[client].socket = 0;
+    server->clients[client].loged = -1;
 }

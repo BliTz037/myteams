@@ -16,5 +16,6 @@
 #define MAX_CHANNEL 50
 #define MAX_THREADS 50
 #define MAX_COMMENTS 50
+#define UUID_SIZE 36
 
 #endif /* !TEAMS_H_ */

@@ -13,25 +13,31 @@
 #include "server_client.h"
 #include "teams.h"
 
+typedef struct user_info_s
+{
+    char uuid[UUID_SIZE];
+    char name[MAX_NAME_LENGTH];
+} user_info_t;
+
 typedef struct comment_s
 {
     char body[MAX_BODY_LENGTH];
-    char user_uuid[36];
+    char user_uuid[UUID_SIZE];
 
 } comment_t;
 
 typedef struct thread_t
 {
     comment_t comments[MAX_COMMENTS];
-    char uuid[36];
+    char uuid[UUID_SIZE];
     char message[MAX_COMMENTS];
     char title[MAX_NAME_LENGTH];
-    char user_uuid[36];
+    char user_uuid[UUID_SIZE];
 } thread_t;
 
 typedef struct channel_t
 {
-    char uuid[36];
+    char uuid[UUID_SIZE];
     thread_t threads[MAX_THREADS];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
@@ -39,10 +45,11 @@ typedef struct channel_t
 
 typedef struct teams_t
 {
-    char uuid[36];
+    char uuid[UUID_SIZE];
     channel_t channels[MAX_CHANNEL];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
+    user_info_t subscribed_users[MAX_CLIENTS];
 } teams_t;
 
 typedef struct server_t

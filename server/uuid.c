@@ -6,11 +6,12 @@
 */
 
 #include "uuid/uuid.h"
+#include "teams.h"
 #include <stdlib.h>
 
 char *generate_uuid()
 {
-    char *uuid = malloc(36);
+    char *uuid = malloc(UUID_SIZE);
     uuid_t uuid_s;
 
     uuid_generate(uuid_s);

@@ -16,7 +16,7 @@ struct client_t
 {
     struct sockaddr_in data_address;
     int socket;
-    char uuid[36];
+    char uuid[UUID_SIZE];
     char name[MAX_NAME_LENGTH];
     int loged;
 };

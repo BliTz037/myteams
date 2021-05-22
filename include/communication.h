@@ -33,52 +33,53 @@ typedef struct login_s
 
 typedef struct user_s
 {
-    char user_uuid[36];
+    char user_uuid[UUID_SIZE];
 } user_t;
 
 typedef struct send_s
 {
-    char user_uuid[36];
+    char user_uuid[UUID_SIZE];
     char body[MAX_BODY_LENGTH];
 } send_t;
 
 typedef struct message_s
 {
-    char user_uuid[36];
+    char user_uuid[UUID_SIZE];
 } message_t;
 
 typedef struct subscribe_s
 {
-    char team_uuid[36];
+    char team_uuid[UUID_SIZE];
 } subscribe_t;
 
 typedef struct teams_manipulation_s
 {
     char team_name[MAX_NAME_LENGTH];
     char team_description[MAX_DESCRIPTION_LENGTH];
+    char team_uuid[UUID_SIZE];
 } teams_manipulation_t;
 
 typedef struct channel_manipulation_s
 {
     char channel_name[MAX_NAME_LENGTH];
     char channel_description[MAX_DESCRIPTION_LENGTH];
-    char team_uuid[36];
+    char team_uuid[UUID_SIZE];
 } channel_manipulation_t;
 
 typedef struct thread_manipulation_s
 {
     char thread_title[MAX_NAME_LENGTH];
     char thread_message[MAX_BODY_LENGTH];
-    char team_uuid[36];
-    char channel_uuid[36];
+    char team_uuid[UUID_SIZE];
+    char channel_uuid[UUID_SIZE];
 } thread_manipulation_t;
 
 typedef struct message_manipulation_s
 {
     char body[MAX_BODY_LENGTH];
-    char team_uuid[36];
-    char channel_uuid[36];
-    char thread_uuid[36];
+    char team_uuid[UUID_SIZE];
+    char channel_uuid[UUID_SIZE];
+    char thread_uuid[UUID_SIZE];
 } message_manipulation_t;
 
 typedef enum service_type
@@ -129,12 +130,6 @@ typedef struct request_s
     command command;
 } request_t;
 
-typedef struct user_info_s
-{
-    char uuid[36];
-    char name[MAX_NAME_LENGTH];
-} user_info_t;
-
 typedef struct user_response_s
 {
     user_info_t users[MAX_CLIENTS];
@@ -145,11 +140,17 @@ typedef struct messages_response_s
     char comments[MAX_COMMENTS][MAX_BODY_LENGTH];
 } message_response_t;
 
+typedef struct subscribe_response_s
+{
+    char user_uuid[UUID_SIZE];
+    char team_uuid[UUID_SIZE];
+} subscribe_response_t;
+
 typedef struct subscribed_response_s
 {
-    union{
-        teams_t teams[MAX_TEAMS];
-        user_info_t users[MAX_CLIENTS];
+    union {
+        teams_manipulation_t teams[MAX_TEAMS];
+        user_info_t users[MAX_TEAMS];
     };
 } subscribed_response_t;
 
@@ -168,6 +169,7 @@ typedef struct response_s
     union {
         user_response_t user;
         message_response_t message;
+        subscribe_response_t subscribe;
         subscribed_response_t subscribed;
         infos_response_t infos;
     };

@@ -21,38 +21,50 @@ char *get_command_line(void)
     return (line);
 }
 
-char **str_to_word_array(char *src, char *separator)
+void free_world_arr(char **tab, const int len)
 {
-    char *str_token = strtok(src, " ");
-    char **tab = NULL;
-    int a = 0;
+    for (int i = 0; i < len; i++)
+        if (tab[i] != NULL)
+            free(tab[i]);
+    free(tab);
+}
 
-    for (; str_token != NULL; str_token = strtok(NULL, separator)) {
-        if (str_token[strlen(str_token) - 1] != '\n' &&
-        str_token[strlen(str_token) - 1] != ' ') {
-            tab = reallocarray(tab, (a + 2), sizeof(char *));
-            tab[a] = malloc(sizeof(str_token));
-            tab[a] = strdup(str_token);
-            a++;
-        }
+char **str_to_word_array(char *str, const char *delim, int *len)
+{
+    char **tab = malloc(sizeof(char *));
+    char *token = strtok(str, delim);
+    int i = 0;
+
+    if (!str || !token || !delim)
+        return NULL;
+    while (token != NULL) {
+        tab[i] = strdup(token);
+        i++;
+        tab = realloc(tab, (sizeof(char *) * (i + 1)));
+        token = strtok(NULL, delim);
     }
-    tab[a] = NULL;
-    return (tab);
+    tab[i] = NULL;
+    *len = i;
+    return tab;
 }
 
 int fill_request_struct(char *command, request_t *msg)
 {
-    int i = 0;
-    char **tab = str_to_word_array(command, "[]");
     void (*parser[])(char **, request_t *) =
     {command_login, command_logout, command_user, command_send,
     command_messages,command_subscribe, command_subscribed,
     command_unsubscribed,command_create, command_list, command_info};
+    int len = 0;
+    char **tab = str_to_word_array(command, " \n", &len);
 
-    for (i = 0; commmand_str[i] != NULL && strcmp(tab[0], commmand_str[i]) != 0; i++);
-    if (commmand_str[i] != NULL) {
-        parser[i](tab + 1, msg);
-        return (1);
+    for (size_t i = 0; commmand_str[i] != NULL && len >= 1; i++) {
+        if (strcmp(tab[0], commmand_str[i]) == 0) {
+            parser[i](tab + 1, msg);
+            free_world_arr(tab, len);
+            return (1);
+        }
     }
+    printf("Unknown command\n");
+    free_world_arr(tab, len);
     return (0);
 }

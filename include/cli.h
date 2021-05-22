@@ -18,9 +18,9 @@
 #include <arpa/inet.h>
 
 static char *commmand_str[] =
-    {"/LOGIN", "/LOGOUT", "/USER", "/SEND",
-    "/MESSAGES", "/SUBSCRIBE", "/SUBSCRIBED",
-    "/UNSUBSCRIBE", "/CREATE", "/LIST", "/INFO"};
+    {"/login", "/logout", "/user", "/send",
+    "/messages", "/subscribe", "/subscribed",
+    "/unsubscribe", "/create", "/list", "/info"};
 
 typedef struct cli
 {

@@ -8,10 +8,12 @@
 #ifndef CLI_H_
 #define CLI_H_
 
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "communication.h"
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -42,7 +44,7 @@ void command_info(char **argv, request_t *msg);
 
 
 char *get_command_line(void);
-char **str_to_word_array(char *src, char *separator);
+char **str_to_word_array(char *str, const char *delim, int *len);
 int fill_request_struct(char *command, request_t *msg);
 
 int client_loop(const char *ip, const int port);

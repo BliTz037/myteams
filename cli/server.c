@@ -36,11 +36,23 @@ int client_loop(const char *ip, const int port)
 {
     request_t *msg = malloc(sizeof(request_t));
     cli_t cli;
+    fd_set fds;
 
     if (connect_server(ip, port, &cli) < 0)
         return -1;
     while (1) {
-        if (fill_request_struct(get_command_line(), msg) == 1)
-            send_message(msg);
+        FD_ZERO(&fds);
+        FD_SET(STDIN_FILENO, &fds);
+        FD_SET(cli.sockfd, &fds);
+        if (select(cli.sockfd + 1, &fds, NULL, NULL, NULL) <= 0)
+            return (-1);
+        if (FD_ISSET(STDIN_FILENO, &fds)) {
+            if (fill_request_struct(get_command_line(), msg) == 1)
+                send_message(msg);
+        }
+        else if (FD_ISSET(cli.sockfd, &fds)) {
+            printf("Monsieur ! Une lettre pour vous !\n");
+            //Read message server
+        }
     }
 }

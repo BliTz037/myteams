@@ -18,6 +18,7 @@ struct client_t
     int socket;
     char uuid[36];
     char name[MAX_NAME_LENGTH];
+    int loged;
 };
 
 #endif

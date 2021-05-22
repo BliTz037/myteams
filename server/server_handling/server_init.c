@@ -20,6 +20,7 @@ static void init_clients(server_t *server)
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
         server->clients[i].socket = 0;
+        server->clients[i].loged = -1;
     }
 }
 

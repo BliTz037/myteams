@@ -21,10 +21,11 @@ SRC_SERVER	= 	server/server_handling/server.c	\
 				server/threads/threads_info.c	\
 				server/messages/add_message.c	\
 				server/messages/messages_info.c	\
-				server/save.c	\
+				server/requests/login.c	\
 				server/requests/request.c	\
 				server/requests/create.c	\
 				server/requests/info.c	\
+				server/save.c	\
 				server/uuid.c	\
 
 SRC_CLI	 =		cli/command/create.c	\

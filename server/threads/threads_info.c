@@ -42,7 +42,7 @@ thread_manipulation_t *thread_info, int fd)
             return;
         }
     }
-    request_error(fd, 404);
+    request_code(fd, 404);
 }
 
 void get_thread_info(server_t *server, info_t *info, int client)
@@ -58,5 +58,5 @@ void get_thread_info(server_t *server, info_t *info, int client)
             return;
         }
     }
-    request_error(server->clients[client].socket, 404);
+    request_code(server->clients[client].socket, 404);
 }

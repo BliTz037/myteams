@@ -42,5 +42,5 @@ void get_channel_info(server_t *server, info_t *info, int client)
             return;
         }
     }
-    request_error(server->clients[client].socket, 404);
+    request_code(server->clients[client].socket, 404);
 }

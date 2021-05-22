@@ -43,7 +43,7 @@ message_manipulation_t *message_info, int fd)
             return;
         }
     }
-    request_error(fd, 404);
+    request_code(fd, 404);
 }
 
 static void find_channel(teams_t *team,
@@ -57,7 +57,7 @@ message_manipulation_t *message_info, int fd)
             return;
         }
     }
-    request_error(fd, 404);
+    request_code(fd, 404);
 }
 
 void get_messages_info(server_t *server, info_t *create, int client)
@@ -73,5 +73,5 @@ void get_messages_info(server_t *server, info_t *create, int client)
             return;
         }
     }
-    request_error(server->clients[client].socket, 404);
+    request_code(server->clients[client].socket, 404);
 }

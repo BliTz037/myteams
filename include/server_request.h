@@ -14,7 +14,8 @@
 void handle_request(server_t *server, int client, request_t *request);
 void create(server_t *server, int client, request_t *request);
 void list_info(server_t *server, int client, request_t *request);
-void request_error(int fd, int code);
+void request_code(int fd, int code);
+void login(server_t *server, int client, request_t *request);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);
@@ -41,7 +42,8 @@ typedef struct request_function_s
 static const request_function_t request_list[] = {
     {.command = CREATE, .fct = &create},
     {.command = LIST, .fct = &list_info},
-    {.command = INFO, .fct = &list_info}
+    {.command = INFO, .fct = &list_info},
+    {.command = LOGIN, .fct = &login}
     };
 
 #endif /* !SERVER_REQUEST_H_ */

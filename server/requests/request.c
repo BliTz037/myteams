@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void request_error(int fd, int code)
+void request_code(int fd, int code)
 {
     response_t *response = malloc(sizeof(request_t));
 
@@ -25,6 +25,12 @@ void request_error(int fd, int code)
 
 void handle_request(server_t *server, int client, request_t *request)
 {
+    if (request->command != LOGIN && server->clients[client].loged == -1)
+    {
+        request_code(server->clients[client].socket, 403);
+        return;
+    }
+
     for (int i = 0; i != sizeof(request_list) / sizeof(*request_list); i++)
     {
         if (request->command == request_list[i].command)

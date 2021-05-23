@@ -6,7 +6,7 @@
 */
 
 #include "communication.h"
-#include <stdlib.h>
+#include <string.h>
 #define MESSAGE_USERNAME_ID_INDEX 0
 
 void command_messages(char **argv, request_t *msg)

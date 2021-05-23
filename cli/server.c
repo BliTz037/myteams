@@ -23,13 +23,23 @@ int connect_server(const char *ip, const int port, cli_t *cli)
     return 0;
 }
 
-int send_message(request_t *msg)
+int send_message(request_t *msg, cli_t *cli)
 {
-    if (msg != NULL) {
-        display(msg);
-        return (1);
-    }
-    return (0);
+    if (msg == NULL)
+        return (0);
+    display(msg);
+    write(cli->sockfd, msg, sizeof(request_t));
+    printf("Message envoyer\n");
+    return (1);
+}
+
+void receive_message(cli_t *cli)
+{
+    int valread;
+    response_t resp;
+
+    valread = read(cli->sockfd, &resp, sizeof(response_t));
+    printf("valread: %d\n", valread);
 }
 
 int client_loop(const char *ip, const int port)
@@ -48,11 +58,11 @@ int client_loop(const char *ip, const int port)
             return (-1);
         if (FD_ISSET(STDIN_FILENO, &fds)) {
             if (fill_request_struct(get_command_line(), msg) == 1)
-                send_message(msg);
+                send_message(msg, &cli);
         }
         else if (FD_ISSET(cli.sockfd, &fds)) {
-            printf("Monsieur ! Une lettre pour vous !\n");
-            //Read message server
+            printf("ON A UN MESSAGE !\n");
+            receive_message(&cli);
         }
     }
 }

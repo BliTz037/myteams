@@ -6,7 +6,7 @@
 */
 
 #include "communication.h"
-#include <stdlib.h>
+#include <string.h>
 #define SUBSCRIBE_TEAMID_INDEX 0
 
 void command_subscribe(char **argv, request_t *msg)

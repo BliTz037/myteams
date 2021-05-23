@@ -8,3 +8,4 @@ valgrind
 .vscode
 protocole.txt
 vgcore
+test.c

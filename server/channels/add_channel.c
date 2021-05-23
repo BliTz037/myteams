@@ -16,7 +16,9 @@ static void add_channel_response(response_t *response,
 channel_t *channel)
 {
     response->code = 200;
-    response->infos.channel[0] = *channel;
+    strcpy(response->infos.channel[0].channel_description, channel->description);
+    strcpy(response->infos.channel[0].channel_name, channel->name);
+    strcpy(response->infos.channel[0].team_uuid, channel->uuid);
 }
 
 static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel,

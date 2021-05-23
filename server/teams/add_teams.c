@@ -18,7 +18,9 @@ static void add_team_response(int fd, teams_t *team)
 {
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;
-    response->infos.teams[0] = *team;
+    strcpy(response->infos.teams[0].team_name, team->name);
+    strcpy(response->infos.teams[0].team_uuid, team->uuid);
+    strcpy(response->infos.teams[0].team_description, team->description);
     write(fd, response, sizeof(response_t));
     free(response);
 }

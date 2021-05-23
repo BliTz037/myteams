@@ -22,7 +22,8 @@ static void thread_info_in_channel(channel_t *channel, int fd)
     {
         if (strlen(channel->threads[i].title) > 0)
         {
-            response->infos.thread[j] = channel->threads[i];
+            strcpy(response->infos.thread[j].thread_message, channel->threads[i].message);
+            strcpy(response->infos.thread[j].thread_title, channel->threads[i].title);
             j++;
         }
     }

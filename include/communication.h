@@ -153,13 +153,21 @@ typedef struct subscribed_response_s
     };
 } subscribed_response_t;
 
+typedef struct comment_response_s
+{
+    char body[MAX_BODY_LENGTH];
+    char team_uuid[UUID_SIZE];
+    char thread_uuid[UUID_SIZE];
+    char user_uuid[UUID_SIZE];
+} comment_response_t;
+
 typedef struct infos_response_s
 {
     union{
-        teams_t teams[MAX_TEAMS];
-        channel_t channel[MAX_CHANNEL];
-        thread_t thread[MAX_THREADS];
-        comment_t comments[MAX_COMMENTS];
+        teams_manipulation_t teams[MAX_TEAMS];
+        channel_manipulation_t channel[MAX_CHANNEL];
+        thread_manipulation_t thread[MAX_THREADS];
+        comment_response_t comments[MAX_COMMENTS];
     };
 } infos_response_t;
 

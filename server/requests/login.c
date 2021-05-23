@@ -21,7 +21,6 @@ static void log_response(int fd, int code, char *username, char *uuid)
 
     strcpy(response->user.users[0].name, username);
     strcpy(response->user.users[0].uuid, uuid);
-    printf("send response of size %ld\n", sizeof(response_t));
     write(fd, response, sizeof(response_t));
     free(response);
 }

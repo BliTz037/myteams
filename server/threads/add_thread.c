@@ -16,7 +16,8 @@ static void add_thread_response(response_t *response,
 thread_t *thread)
 {
     response->code = 200;
-    response->infos.thread[0] = *thread;
+    strcpy(response->infos.thread[0].thread_message, thread->message);
+    strcpy(response->infos.thread[0].thread_title, thread->title);
 }
 
 static void add_thread_in_channel(channel_t *channel,

@@ -12,10 +12,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void add_message_response(response_t *response, comment_t *message)
+static void add_message_response(response_t *response,
+message_manipulation_t *message_info, char *user_uuid)
 {
     response->code = 200;
-    response->infos.comments[0] = *message;
+    strcpy(response->infos.comments[0].body, message_info->body);
+    strcpy(response->infos.comments[0].user_uuid, user_uuid);
+    strcpy(response->infos.comments[0].thread_uuid, message_info->thread_uuid);
+    strcpy(response->infos.comments[0].team_uuid, message_info->team_uuid);
 }
 
 static void add_message_in_thread(thread_t *thread,
@@ -31,7 +35,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             strcpy(thread->comments[i].user_uuid, user_uuid);
             server_event_reply_created(message_info->thread_uuid,
             user_uuid, message_info->body);
-            add_message_response(response, &thread->comments[i]);
+            add_message_response(response, message_info, user_uuid);
             write(fd, response, sizeof(response_t));
             free(response);
             return;

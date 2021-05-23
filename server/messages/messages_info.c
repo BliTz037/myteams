@@ -27,7 +27,7 @@ static void message_info_in_thread(thread_t *thread, int fd)
         }
     }
     response->code = 200;
-    write(fd, &response, sizeof(response_t));
+    write(fd, response, sizeof(response_t));
     free(response);
 }
 

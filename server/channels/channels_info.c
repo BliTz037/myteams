@@ -27,7 +27,7 @@ static void channels_teams_info(teams_t *team, int fd)
         }
     }
     response->code = 200;
-    write(fd, &response, sizeof(response_t));
+    write(fd, response, sizeof(response_t));
     free(response);
 }
 

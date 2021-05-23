@@ -20,9 +20,13 @@
 
 static void get_client_request(server_t *server, int sd, int client)
 {
-    request_t *request = malloc(sizeof(request));
+    request_t *request = malloc(sizeof(request_t));
 
-    read(sd, &request, sizeof(request));
+    if (read(sd, request, sizeof(request_t)) <= 0)
+    {
+        close_connection(server, sd, client);
+        return;
+    }
     handle_request(server, client, request);
     free(request);
 }

@@ -11,7 +11,7 @@
 
 char *generate_uuid()
 {
-    char *uuid = malloc(UUID_SIZE);
+    char *uuid = malloc(UUID_SIZE + 1);
     uuid_t uuid_s;
 
     uuid_generate(uuid_s);

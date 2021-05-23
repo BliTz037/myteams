@@ -21,6 +21,7 @@ static void init_clients(server_t *server)
     {
         server->clients[i].socket = 0;
         server->clients[i].loged = -1;
+        memset(server->clients[i].name, 0, MAX_NAME_LENGTH);
     }
 }
 

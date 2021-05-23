@@ -32,7 +32,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             server_event_reply_created(message_info->thread_uuid,
             user_uuid, message_info->body);
             add_message_response(response, &thread->comments[i]);
-            write(fd, &response, sizeof(response_t));
+            write(fd, response, sizeof(response_t));
             free(response);
             return;
         }

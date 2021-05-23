@@ -126,7 +126,6 @@ typedef struct request_s
         create_t create;
         info_t info;
     };
-    int code;
     command command;
 } request_t;
 

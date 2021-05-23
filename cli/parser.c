@@ -14,7 +14,6 @@ char *get_command_line(void)
     size_t len = 0;
     ssize_t lineSize = 0;
 
-    printf(">");
     lineSize = getline(&line, &len, stdin);
     if (lineSize == -1)
         return NULL;

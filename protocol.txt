@@ -1,0 +1,98 @@
+Protocole MyTeams:
+
+CLIENT -> SERVER
+CLIENT <- SERVER
+
+LOGIN
+-> LOGIN <user_name>
+<- 201 (si l'utilisateur n'existais pas)
+<- 200 utilisateur connectée
+<- 405 Erreur vous êtes déjà connectée
+<- 500 Internal Error
+
+LOGOUT
+-> LOGOUT
+<- 200 Good bye
+<- 405 Vous n'êtes pas connectée
+<- 500 Internal Error
+
+USERS
+-> USERS
+<- 200 Envoie liste d'utilisateur connectée
+<- 403 Vous n'êtes pas connectée
+<- 500 Internal Error
+
+USER
+-> USER <user_uuid>
+<- 200 Envoie information sur l'user renseigné
+<- 403 Vous n'êtes pas connectée
+<- 404 utilisateur inconnu
+<- 500 Internal Error
+
+SEND
+-> SEND <user_uuid> <Message>
+<- 200 Envoie du message réussi
+<- 403 Vous n'êtes pas connectée
+<- 404 utilisateur inconnu
+<- 400 Message trop gros etc
+<- 500 Internal Error
+
+MESSAGES
+-> MESSAGES <user_uuid>
+<- <200 Envoie liste des messages envoyé à l'user renseigné>
+<- 403 Vous n'êtes pas connectée
+<- 404 utilisateur inconnu
+<- 500 Internal Error
+
+SUBSCRIBE
+-> SUBSCRIBE <team_uuid>
+<- 200 Team rejoin
+<- 403 Vous n'êtes pas connectée
+<- 404 Team inconnu
+<- 500 Internal Error
+
+SUBSCRIBED
+-> SUBSCRIBED <team_uuid>
+<- 200 Envoie liste des users abonné à la team /
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 404 Team inconnu
+<- 500 Internal Error
+
+UNSUBSCRIBE
+-> UNSUBSCRIBE <team_uuid>
+<- 200 Désabonnement réussi
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 404 Team inconnu
+<- 500 Internal Error
+
+USE
+-> USE [“team_uuid”] ?[“channel_uuid”] ?[“thread_uuid”]
+<- 200 Changement réussi
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 404 Team / channel / thread inconnu
+<- 500 Internal Error
+
+CREATE
+-> CREATE [“team_name”] [“team_description”] / [“channel_name”] [“channel_description”] / [“thread_title”] [“thread_message”] / [“comment_body”]
+<- 200 Création réussi
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 400 Vous n'êtes dans aucune team pour effectuer cette action
+<- 500 Internal Error
+
+LIST
+-> LIST nothing / "team_uuid" / team_uuid” “channel_uuid” / team_uuid” “channel_uuid” “thread_uuid”
+<- 200 Envoie liste des teams / channels / threads / réponses dans le threads
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 500 Internal Error
+
+INFO
+-> INFO nothing / “team_uuid” / team_uuid” “channel_uuid” / team_uuid” “channel_uuid” “thread_uuid”
+<- 200 Envoie info sur les USERS connecté / Teams / channel / thread
+<- 403 Vous n'êtes pas connectée
+<- 403 Vous n'êtes pas follow à cette Team pour effectuer cette action !
+<- 500 Internal Error

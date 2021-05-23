@@ -66,6 +66,6 @@ int client_loop(const char *ip, const int port);
 int connect_server(const char *ip, const int port, cli_t *cli);
 void display(request_t *msg);
 int print_help(char *av);
-int send_message(request_t *msg, cli_t *cli);
+int send_message(cli_t *cli);
 
 #endif /* !CLI_H_ */

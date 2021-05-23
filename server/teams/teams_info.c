@@ -28,6 +28,6 @@ void get_teams_infos(server_t *server, int client)
         }
     }
     response->code = 200;
-    write(server->clients[client].socket, &response, sizeof(response_t));
+    write(server->clients[client].socket, response, sizeof(response_t));
     free(response);
 }

@@ -15,11 +15,13 @@
 
 static void log_response(int fd, int code, char *username, char *uuid)
 {
-    response_t *response = malloc(sizeof(request_t));
+    response_t *response = malloc(sizeof(response_t));
 
     response->code = code;
+
     strcpy(response->user.users[0].name, username);
     strcpy(response->user.users[0].uuid, uuid);
+    printf("send response of size %ld\n", sizeof(response_t));
     write(fd, response, sizeof(response_t));
     free(response);
 }

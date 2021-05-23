@@ -14,7 +14,7 @@
 
 void request_code(int fd, int code)
 {
-    response_t *response = malloc(sizeof(request_t));
+    response_t *response = malloc(sizeof(response_t));
 
     response->code = code;
 
@@ -30,7 +30,6 @@ void handle_request(server_t *server, int client, request_t *request)
         request_code(server->clients[client].socket, 403);
         return;
     }
-
     for (int i = 0; i != sizeof(request_list) / sizeof(*request_list); i++)
     {
         if (request->command == request_list[i].command)

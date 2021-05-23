@@ -27,7 +27,7 @@ static void thread_info_in_channel(channel_t *channel, int fd)
         }
     }
     response->code = 200;
-    write(fd, &response, sizeof(response_t));
+    write(fd, response, sizeof(response_t));
     free(response);
 }
 

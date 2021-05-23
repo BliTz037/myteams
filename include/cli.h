@@ -39,10 +39,18 @@ static char *commmand_str[] =
 // /list : based on what is being used list all the sub resources (see below)\n\
 // /info : based on what is being used list the current (see below)\n';
 
+typedef struct context
+{
+    char team_uuid[UUID_SIZE];
+    char channel_uuid[UUID_SIZE];
+    char thread_uuid[UUID_SIZE];
+} context_t;
+
 typedef struct cli
 {
     int sockfd;
     struct sockaddr_in serv_addr;
+    context_t context;
 } cli_t;
 
 void command_login(char **argv, request_t *msg);
@@ -60,7 +68,7 @@ void command_info(char **argv, request_t *msg);
 
 char *get_command_line(void);
 char **str_to_word_array(char *str, const char *delim, int *len);
-int fill_request_struct(char *command, request_t *msg);
+int fill_request_struct(char *command, request_t *msg, cli_t *cli);
 
 int client_loop(const char *ip, const int port);
 int connect_server(const char *ip, const int port, cli_t *cli);

@@ -47,14 +47,31 @@ char **str_to_word_array(char *str, const char *delim, int *len)
     return tab;
 }
 
-int fill_request_struct(char *command, request_t *msg)
+int try_use_command(char **tab, cli_t *cli)
+{
+    if (strcmp(tab[0], "/use") != 0)
+        return (0);
+    if (tab[1] != NULL && tab[2] == NULL)
+        strcpy(cli->context.team_uuid, tab[1]);
+    else if (tab[1] != NULL && tab[2] != NULL && tab[3] == NULL) {
+        strcpy(cli->context.team_uuid, tab[1]);
+        strcpy(cli->context.channel_uuid, tab[2]);
+    } else if (tab[1] != NULL && tab[2] != NULL && tab[3] != NULL) {
+        strcpy(cli->context.team_uuid, tab[1]);
+        strcpy(cli->context.channel_uuid, tab[2]);
+        strcpy(cli->context.thread_uuid, tab[3]);
+    }
+    return (1);
+}
+
+int fill_request_struct(char *command, request_t *msg, cli_t *cli)
 {
     void (*parser[])(char **, request_t *) =
     {command_login, command_logout, command_user, command_send,
     command_messages,command_subscribe, command_subscribed,
-    command_unsubscribed,command_create, command_list, command_info};
+    command_unsubscribed, command_create, command_list, command_info};
     int len = 0;
-    char **tab = str_to_word_array(command, " \n", &len);
+    char **tab = str_to_word_array(command, " \"\n", &len);
 
     for (size_t i = 0; commmand_str[i] != NULL && len >= 1; i++) {
         if (strcmp(tab[0], commmand_str[i]) == 0) {
@@ -63,7 +80,11 @@ int fill_request_struct(char *command, request_t *msg)
             return (1);
         }
     }
-    printf("Unknown command\n");
+    if (try_use_command(tab, cli) == 1) {
+        free_world_arr(tab, len);
+        return (1);
+    } else 
+        printf("Unknown command\n");
     free_world_arr(tab, len);
     return (0);
 }

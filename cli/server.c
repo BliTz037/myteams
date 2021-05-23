@@ -29,13 +29,17 @@ int send_message(cli_t *cli)
 
     if (msg == NULL)
         return (0);
-    if (fill_request_struct(get_command_line(), msg) != 1)
+    if (fill_request_struct(get_command_line(), msg, cli) != 1)
     {
         free(msg);
         return -1;
     }
+    printf("team: '%s'\n", cli->context.team_uuid);
+    printf("\tchannel: '%s'\n", cli->context.channel_uuid);
+    printf("\t\tthread: '%s'\n", cli->context.thread_uuid);
     display(msg);
-    write(cli->sockfd, msg, sizeof(request_t));
+    // write(cli->sockfd, msg, sizeof(request_t));
+    printf("sizeof(request_t): %d\n", sizeof(request_t));
     printf("Message envoyer\n");
     free(msg);
     return (1);

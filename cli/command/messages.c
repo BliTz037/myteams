@@ -6,11 +6,16 @@
 */
 
 #include "communication.h"
+#include "cli.h"
 #include <string.h>
 #define MESSAGE_USERNAME_ID_INDEX 0
 
-void command_messages(char **argv, request_t *msg)
+int command_messages(char **argv, request_t *msg, cli_t *cli)
 {
+    (void) cli;
+    if (argv[MESSAGE_USERNAME_ID_INDEX] == NULL)
+        return (0);
     strcpy(msg->message.user_uuid, argv[MESSAGE_USERNAME_ID_INDEX]);
     msg->command = MESSAGES;
+    return (1);
 }

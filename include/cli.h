@@ -12,17 +12,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "communication.h"
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
-static char *commmand_str[] =
-    {"/login", "/logout", "/user", "/send",
-    "/messages", "/subscribe", "/subscribed",
-    "/unsubscribe", "/create", "/list", "/info"};
+#include "communication.h"
 
 // static char *HELP_CMD = '/help show help\n\
 // /login ["user_name"] : set the user_name used by client\n\
@@ -53,17 +48,18 @@ typedef struct cli
     context_t context;
 } cli_t;
 
-void command_login(char **argv, request_t *msg);
-void command_logout(char **argv, request_t *msg);
-void command_user(char **argv, request_t *msg);
-void command_send(char **argv, request_t *msg);
-void command_messages(char **argv, request_t *msg);
-void command_subscribe(char **argv, request_t *msg);
-void command_subscribed(char **argv, request_t *msg);
-void command_unsubscribed(char **argv, request_t *msg);
-void command_create(char **argv, request_t *msg);
-void command_list(char **argv, request_t *msg);
-void command_info(char **argv, request_t *msg);
+int command_login(char **argv, request_t *msg, cli_t *cli);
+int command_logout(char **argv, request_t *msg, cli_t *cli);
+int command_user(char **argv, request_t *msg, cli_t *cli);
+int command_send(char **argv, request_t *msg, cli_t *cli);
+int command_messages(char **argv, request_t *msg, cli_t *cli);
+int command_subscribe(char **argv, request_t *msg, cli_t *cli);
+int command_subscribed(char **argv, request_t *msg, cli_t *cli);
+int command_unsubscribed(char **argv, request_t *msg, cli_t *cli);
+int command_create(char **argv, request_t *msg, cli_t *cli);
+int command_list(char **argv, request_t *msg, cli_t *cli);
+int command_info(char **argv, request_t *msg, cli_t *cli);
+int command_use(char **argv, request_t *msg, cli_t *cli);
 
 
 char *get_command_line(void);

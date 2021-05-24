@@ -6,11 +6,14 @@
 */
 
 #include "communication.h"
+#include "cli.h"
 #include <stddef.h>
 #include <stdio.h>
 
-void command_logout(char **argv, request_t *msg)
+int command_logout(char **argv, request_t *msg, cli_t *cli)
 {
+    (void) cli;
     argv += 0;
     msg->command = LOGOUT;
+    return (1);
 }

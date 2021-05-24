@@ -39,7 +39,7 @@ int send_message(cli_t *cli)
     printf("\t\tthread: '%s'\n", cli->context.thread_uuid);
     display(msg);
     // write(cli->sockfd, msg, sizeof(request_t));
-    printf("sizeof(request_t): %d\n", sizeof(request_t));
+    printf("sizeof(request_t): %ld\n", sizeof(request_t));
     printf("Message envoyer\n");
     free(msg);
     return (1);
@@ -56,9 +56,17 @@ void receive_message(cli_t *cli)
     free(resp);
 }
 
+cli_t init_cli(cli_t cli)
+{
+    strcpy(cli.context.team_uuid, "0");
+    strcpy(cli.context.channel_uuid, "0");
+    strcpy(cli.context.thread_uuid, "0");
+    return (cli);
+}
+
 int client_loop(const char *ip, const int port)
 {
-    cli_t cli;
+    cli_t cli = init_cli(cli);
     fd_set fds;
 
     if (connect_server(ip, port, &cli) < 0)

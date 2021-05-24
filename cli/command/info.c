@@ -6,13 +6,16 @@
 */
 
 #include "communication.h"
+#include "cli.h"
 #include <stddef.h>
 #include <stdio.h>
 
-void command_info(char **argv, request_t *msg)
+int command_info(char **argv, request_t *msg, cli_t *cli)
 {
     argv += 0;
     msg += 0;
+    (void) cli;
     msg = NULL;
     printf("No parser for 'info' for now\n");
+    return (1);
 }

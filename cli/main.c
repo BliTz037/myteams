@@ -7,6 +7,11 @@
 
 #include "cli.h"
 
+static char *commmand_str[] =
+    {"/login", "/logout", "/user", "/send",
+    "/messages", "/subscribe", "/subscribed",
+    "/unsubscribe", "/create", "/list", "/info", "/use"};
+
 int print_help(char *av)
 {
     printf("USAGE: %s ip port\n\n", av);
@@ -24,7 +29,19 @@ void display(request_t *msg)
     printf("\tsend.user_uuid: '%s'\n\t\tsend.body: '%s'\n",
     msg->send.user_uuid, msg->send.body);
     printf("\tmessage.user_uuid: '%s'\n", msg->message.user_uuid);
-    printf("\tsubcribe.team_uuid: '%s'\n", msg->subcribe.team_uuid);
+    printf("\tsubcribe.team_uuid: '%s'\n\n", msg->subcribe.team_uuid);
+
+    printf("CREATE\n");
+    printf("\tcreate team_name: '%s'\n", msg->create.teams.team_name);
+    printf("\tcreate team_description: '%s'\n", msg->create.teams.team_description);
+
+    printf("\tcreate channel_name: '%s'\n", msg->create.channel.channel_name);
+    printf("\tcreate channel_description: '%s'\n", msg->create.channel.channel_description);
+
+    printf("\tcreate thread_name: '%s'\n", msg->create.thread.thread_title);
+    printf("\tcreate thread_description: '%s'\n", msg->create.thread.thread_message);
+
+    printf("\tcreate messages_body: '%s'\n", msg->create.messasge.body);
 }
 
 int main(int ac, char **av)

@@ -6,12 +6,16 @@
 */
 
 #include "communication.h"
+#include "cli.h"
 #include <string.h>
 #define SUBSCRIBED_TEAMID_INDEX 0
 
-void command_subscribed(char **argv, request_t *msg)
+int command_subscribed(char **argv, request_t *msg, cli_t *cli)
 {
-    if (argv[SUBSCRIBED_TEAMID_INDEX] != NULL)
-        strcpy(msg->subcribe.team_uuid, argv[SUBSCRIBED_TEAMID_INDEX]);
+    (void) cli;
+    if (argv[SUBSCRIBED_TEAMID_INDEX] == NULL)
+        return (0);
+    strcpy(msg->subcribe.team_uuid, argv[SUBSCRIBED_TEAMID_INDEX]);
     msg->command = SUBSCRIBED;
+    return (1);
 }

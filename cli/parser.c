@@ -11,7 +11,7 @@
 static char *commmand_str[] =
     {"/login", "/logout", "/user", "/send",
     "/messages", "/subscribe", "/subscribed",
-    "/unsubscribe", "/create", "/list", "/info", "/use"};
+    "/unsubscribe", "/create", "/list", "/info", "/use", "/help"};
 
 char *get_command_line(void)
 {
@@ -60,9 +60,7 @@ int fill_request_struct(char *command, request_t *msg, cli_t *cli)
     int (*parser[])(char **, request_t *, cli_t *) = {command_login,
     command_logout, command_user, command_send, command_messages,
     command_subscribe, command_subscribed, command_unsubscribed,
-    command_create, command_list, command_info, command_use};
-    int len = 0;
-    char **tab = str_to_word_array(command, " \n", &len);
+    command_create, command_list, command_info, command_use, command_help};
 
     for (size_t i = 0; commmand_str[i] != NULL && len >= 1; i++) {
         if (strcmp(tab[0], commmand_str[i]) == 0) {

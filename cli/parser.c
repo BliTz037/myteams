@@ -57,6 +57,9 @@ char **str_to_word_array(char *str, const char *delim, int *len)
 
 int fill_request_struct(char *command, request_t *msg, cli_t *cli)
 {
+    int len = 0;
+    int status = 0;
+    char **tab = str_to_word_array(command, " \n", &len);
     int (*parser[])(char **, request_t *, cli_t *) = {command_login,
     command_logout, command_user, command_send, command_messages,
     command_subscribe, command_subscribed, command_unsubscribed,
@@ -64,9 +67,9 @@ int fill_request_struct(char *command, request_t *msg, cli_t *cli)
 
     for (size_t i = 0; commmand_str[i] != NULL && len >= 1; i++) {
         if (strcmp(tab[0], commmand_str[i]) == 0) {
-            parser[i](tab + 1, msg, cli);
+            status = parser[i](tab + 1, msg, cli);
             free_world_arr(tab, len);
-            return (1);
+            return (status);
         }
     }
     printf("Unknown command\n");

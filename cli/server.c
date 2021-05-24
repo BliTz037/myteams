@@ -49,7 +49,6 @@ int receive_message(cli_t *cli)
     int valread;
     response_t *resp = malloc(sizeof(response_t));
 
-    printf("read response of size %ld\n", sizeof(infos_response_t));
     valread = read(cli->sockfd, resp, sizeof(response_t));
     printf("ON A UN MESSAGE !\n");
     if (valread == 0)

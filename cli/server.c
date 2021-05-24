@@ -16,10 +16,10 @@ int connect_server(const char *ip, const int port, cli_t *cli)
     cli->serv_addr.sin_port = htons(port);
     cli->serv_addr.sin_addr.s_addr = inet_addr(ip);
     if (connect(cli->sockfd, (struct sockaddr *)&cli->serv_addr, sizeof(cli->serv_addr)) < 0) {
-        printf("Connection FAIL\n");
+        printf("Failed to connect to server %s:%d\n", ip, port);
         return -1;
     }
-    printf("Connection OK\n");
+    printf("Connected to server %s:%d\n", ip, port);
     return 0;
 }
 

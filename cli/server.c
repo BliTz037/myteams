@@ -38,8 +38,7 @@ int send_message(cli_t *cli)
     printf("\tchannel: '%s'\n", cli->context.channel_uuid);
     printf("\t\tthread: '%s'\n", cli->context.thread_uuid);
     display(msg);
-    // write(cli->sockfd, msg, sizeof(request_t));
-    printf("sizeof(request_t): %ld\n", sizeof(request_t));
+    write(cli->sockfd, msg, sizeof(request_t));
     printf("Message envoyer\n");
     free(msg);
     return (1);

@@ -49,11 +49,15 @@ int command_info(char **argv, request_t *msg, cli_t *cli);
 int command_use(char **argv, request_t *msg, cli_t *cli);
 int command_help(char **argv, request_t *msg, cli_t *cli);
 
+int receive_message(cli_t *cli);
+int send_message(cli_t *cli);
+int connect_server(const char *ip, const int port, cli_t *cli);
 
 char *get_command_line(void);
 char **str_to_word_array(char *str, const char *delim, int *len);
 int fill_request_struct(char *command, request_t *msg, cli_t *cli);
 
+cli_t init_cli(cli_t cli);
 int client_loop(const char *ip, const int port);
 int connect_server(const char *ip, const int port, cli_t *cli);
 void display(request_t *msg);

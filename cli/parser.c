@@ -46,9 +46,9 @@ char **str_to_word_array(char *str, const char *delim, int *len)
             tab[i] = strdup(token);
             i++;
             tab = realloc(tab, (sizeof(char *) * (i + 1)));
+            printf("'%s'\n", token);
         }
         token = strtok(NULL, "\"\n");
-        printf("'%s'\n", token);
     }
     tab[i] = NULL;
     *len = i;

@@ -58,7 +58,7 @@ int command_create(char **argv, request_t *msg, cli_t *cli)
     else if (strcmp(cli->context.team_uuid, "0") != 0 &&
     strcmp(cli->context.channel_uuid, "0") != 0 &&
     strcmp(cli->context.thread_uuid, "0") != 0 && argv[0] != NULL)
-        create_new_thread(argv, msg, cli);
+        create_new_reply(argv, msg, cli);
     msg->command = CREATE;
     return (1);
 }

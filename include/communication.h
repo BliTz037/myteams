@@ -181,6 +181,7 @@ typedef struct response_s
         infos_response_t infos;
     };
     int code;
+    command command;
 } response_t;
 
 #endif /* !COMMUNICATION_H_ */

@@ -45,15 +45,18 @@ int send_message(cli_t *cli)
     return (1);
 }
 
-void receive_message(cli_t *cli)
+int receive_message(cli_t *cli)
 {
     int valread;
     response_t *resp = malloc(sizeof(response_t));
 
     printf("read response of size %ld\n", sizeof(infos_response_t));
     valread = read(cli->sockfd, resp, sizeof(response_t));
-    printf("valread: %d\n", valread);
+    printf("ON A UN MESSAGE !\n");
+    if (valread == 0)
+        printf("Connection Lost\n");
     free(resp);
+    return (valread);
 }
 
 cli_t init_cli(cli_t cli)
@@ -68,6 +71,7 @@ int client_loop(const char *ip, const int port)
 {
     cli_t cli = init_cli(cli);
     fd_set fds;
+    int rcv = 1;
 
     if (connect_server(ip, port, &cli) < 0)
         return -1;
@@ -81,10 +85,10 @@ int client_loop(const char *ip, const int port)
             return (-1);
         if (FD_ISSET(STDIN_FILENO, &fds)) {
             send_message(&cli);
-        }
-        else if (FD_ISSET(cli.sockfd, &fds)) {
-            printf("ON A UN MESSAGE !\n");
-            receive_message(&cli);
-        }
+        else if (FD_ISSET(cli.sockfd, &fds))
+            rcv = receive_message(&cli);
+        if (rcv == 0)
+            break;
     }
+    return (0);
 }

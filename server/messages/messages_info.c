@@ -72,6 +72,9 @@ void get_messages_info(server_t *server, info_t *create, int client)
     {
         if (strcmp(message_info->team_uuid, server->teams[i].uuid))
         {
+            if (check_subscribed_request(server->clients[client].socket,
+            server->clients[client].uuid, &server->teams[i]) == -1)
+                return;
             find_channel(&server->teams[i], message_info,
             server->clients[client].socket, server->clients[client].uuid);
             return;

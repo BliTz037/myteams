@@ -8,6 +8,7 @@
 #include "server.h"
 #include "communication.h"
 #include "logging_server.h"
+#include "server_request.h"
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -50,6 +51,9 @@ void add_channel(server_t *server, create_t *create, int client)
     {
         if (strcmp(create->channel.team_uuid, server->teams[i].uuid) == 0)
         {
+            if (check_subscribed_request(server->clients[client].socket,
+            server->clients[client].uuid, &server->teams[i]) == -1)
+                return;
             add_channel_in_team(&server->teams[i], &create->channel,
             server->clients[client].socket);
             return;

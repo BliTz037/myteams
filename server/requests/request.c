@@ -12,6 +12,18 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+int check_subscribed_request(int fd, char *user_uuid, teams_t *team)
+{
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (strcmp(team->subscribed_users[i].uuid, user_uuid) == 0)
+            return 0;
+    }
+    request_code(fd, 403);
+    return -1;
+}
+
+
 void request_code(int fd, int code)
 {
     response_t *response = malloc(sizeof(response_t));
@@ -21,7 +33,6 @@ void request_code(int fd, int code)
     write(fd, response, sizeof(response_t));
     free(response);
 }
-
 
 void handle_request(server_t *server, int client, request_t *request)
 {

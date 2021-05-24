@@ -39,6 +39,9 @@ void get_channel_info(server_t *server, info_t *info, int client)
     {
         if (strcmp(info->channel.team_uuid, server->teams[i].uuid) == 0)
         {
+            if (check_subscribed_request(server->clients[client].socket,
+            server->clients[client].uuid, &server->teams[i]) == -1)
+                return;
             channels_teams_info(&server->teams[i],
             server->clients[client].socket);
             return;

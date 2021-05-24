@@ -54,6 +54,9 @@ void get_thread_info(server_t *server, info_t *info, int client)
     {
         if (strcmp(thread_info->team_uuid, server->teams[i].uuid))
         {
+            if (check_subscribed_request(server->clients[client].socket,
+            server->clients[client].uuid, &server->teams[i]) == -1)
+                return;
             find_channel(&server->teams[i], thread_info,
             server->clients[client].socket);
             return;

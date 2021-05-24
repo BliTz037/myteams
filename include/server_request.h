@@ -19,6 +19,7 @@ void login(server_t *server, int client, request_t *request);
 void subscribe(server_t *server, int client, request_t *request);
 void unsubscribe(server_t *server, int client, request_t *request);
 void subscribed(server_t *server, int client, request_t *request);
+int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);

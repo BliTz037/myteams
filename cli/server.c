@@ -15,7 +15,8 @@ int connect_server(const char *ip, const int port, cli_t *cli)
     cli->serv_addr.sin_family = AF_INET;
     cli->serv_addr.sin_port = htons(port);
     cli->serv_addr.sin_addr.s_addr = inet_addr(ip);
-    if (connect(cli->sockfd, (struct sockaddr *)&cli->serv_addr, sizeof(cli->serv_addr)) < 0) {
+    if (connect(cli->sockfd, (struct sockaddr *)&cli->serv_addr,
+    sizeof(cli->serv_addr)) < 0) {
         printf("Failed to connect to server %s:%d\n", ip, port);
         return -1;
     }
@@ -29,8 +30,7 @@ int send_message(cli_t *cli)
 
     if (msg == NULL)
         return (0);
-    if (fill_request_struct(get_command_line(), msg, cli) != 1)
-    {
+    if (fill_request_struct(get_command_line(), msg, cli) != 1) {
         free(msg);
         return -1;
     }
@@ -74,7 +74,7 @@ int client_loop(const char *ip, const int port)
     int rcv = 1;
 
     if (connect_server(ip, port, &cli) < 0)
-        return -1;
+        return 84;
     while (1) {
         printf("> ");
         FD_ZERO(&fds);
@@ -83,7 +83,7 @@ int client_loop(const char *ip, const int port)
         fflush(NULL);
         if (select(cli.sockfd + 1, &fds, NULL, NULL, NULL) <= 0)
             return (-1);
-        if (FD_ISSET(STDIN_FILENO, &fds)) {
+        if (FD_ISSET(STDIN_FILENO, &fds))
             send_message(&cli);
         else if (FD_ISSET(cli.sockfd, &fds))
             rcv = receive_message(&cli);

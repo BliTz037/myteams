@@ -55,6 +55,7 @@ int connect_server(const char *ip, const int port, cli_t *cli);
 
 char *get_command_line(void);
 char **str_to_word_array(char *str, const char *delim, int *len);
+void free_world_arr(char **tab, const int len);
 int fill_request_struct(char *command, request_t *msg, cli_t *cli);
 
 cli_t init_cli(cli_t cli);

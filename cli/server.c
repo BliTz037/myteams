@@ -50,9 +50,9 @@ int receive_message(cli_t *cli)
     response_t *resp = malloc(sizeof(response_t));
 
     valread = read(cli->sockfd, resp, sizeof(response_t));
-    printf("ON A UN MESSAGE !\n");
     if (valread == 0)
         printf("Connection Lost\n");
+    translate_response(cli, resp);
     free(resp);
     return (valread);
 }

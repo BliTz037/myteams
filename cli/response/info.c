@@ -12,5 +12,6 @@ void response_info(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
     (void)(rcv);
+    printf("MATCH INFO\n");
     return;
 }

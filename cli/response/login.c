@@ -12,5 +12,8 @@ void response_login(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
     (void)(rcv);
+    printf("MATCH LOGIN\n");
+    printf("Code: %d\n", rcv->code);
+    printf("User: %s / UUID: %s\n", rcv->user.users->name, rcv->user.users->uuid);
     return;
 }

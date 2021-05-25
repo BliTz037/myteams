@@ -14,17 +14,20 @@ SRC_SERVER	= 	server/server_handling/server.c	\
 				server/server_handling/server_init.c	\
 				server/server_handling/server_user_connection.c	\
 				server/teams/add_teams.c	\
+				server/teams/teams_list.c	\
 				server/teams/teams_info.c	\
 				server/channels/add_channel.c	\
 				server/channels/channels_info.c	\
+				server/channels/channels_list.c	\
 				server/threads/add_thread.c	\
+				server/threads/threads_list.c	\
 				server/threads/threads_info.c	\
 				server/messages/add_message.c	\
-				server/messages/messages_info.c	\
+				server/messages/messages_list.c	\
 				server/requests/login.c	\
 				server/requests/request.c	\
 				server/requests/create.c	\
-				server/requests/info.c	\
+				server/requests/info_list.c	\
 				server/requests/subscribe.c	\
 				server/requests/subscribed.c	\
 				server/requests/subscribed_users.c	\

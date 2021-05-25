@@ -60,4 +60,6 @@ void add_channel(server_t *server, create_t *create, int client)
             return;
         }
     }
+    request_404_error(server->clients[client].socket,
+    create->channel.team_uuid, TEAMS);
 }

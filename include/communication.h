@@ -88,6 +88,7 @@ typedef enum service_type
     CHANNEL,
     THREAD,
     MESSAGE,
+    USER_INFO,
 } service_type;
 
 typedef struct create_s
@@ -137,6 +138,7 @@ typedef struct user_response_s
 typedef struct messages_response_s
 {
     char comments[MAX_PM][MAX_BODY_LENGTH];
+    char user_uuid[UUID_SIZE];
 } message_response_t;
 
 typedef struct subscribe_response_s
@@ -171,6 +173,12 @@ typedef struct infos_response_s
     };
 } infos_response_t;
 
+typedef struct error_404_response_s
+{
+    char uuid[UUID_SIZE];
+    service_type type;
+} error_404_response_t;
+
 typedef struct response_s
 {
     union {
@@ -179,6 +187,7 @@ typedef struct response_s
         subscribe_response_t subscribe;
         subscribed_response_t subscribed;
         infos_response_t infos;
+        error_404_response_t error_404;
     };
     int code;
     command command;

@@ -9,38 +9,60 @@
 #include "communication.h"
 #include "server_request.h"
 #include "logging_server.h"
+#include "logging_server.h"
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static void set_private_message(private_message_t *private, send_t *send)
+static void set_private_message(private_message_t *private,
+char *body)
 {
-
-}
-
-static void send_message_to_user(server_t *server, send_t *send,
-int client, int other_client)
-{
-    int user_find = 0;
-
-    for (int i = 0; i != MAX_CLIENTS; i++)
+    for (int i = 0; i != MAX_PM; i++)
     {
-        if (strcmp(server->clients[client].private_messages[i].user_uuid,
-        send->user_uuid) == 0)
+        if (strlen(private->messages[i]) == 0)
         {
-            set_private_message(&server->clients[client].private_messages[i],
-            send);
-            user_find = 1;
-            break;
+            strcpy(private->messages[i], body);
+            return;
         }
     }
-    if (user_find == 0)
-    {
+}
 
+static void set_message(client_t *client,
+char *other_uuid, char *body)
+{
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (strcmp(client->private_messages[i].user_uuid, other_uuid) == 0)
+        {
+            set_private_message(&client->private_messages[i], body);
+            return;
+        }
+    }
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (strlen(client->private_messages[i].user_uuid) == 0)
+        {
+            memcpy(&client->private_messages[i].user_uuid,
+            other_uuid, UUID_SIZE);
+            set_private_message(&client->private_messages[i], body);
+            return;
+        }
     }
 }
 
-void teams_send(server_t *server, int client, request_t *request)
+static void private_message_response(int fd, char *uuid, char *body)
+{
+    response_t *response = malloc(sizeof(response_t));
+
+    response->code = 200;
+    response->command = SEND;
+    memcpy(response->message.user_uuid, uuid, UUID_SIZE);
+    memcpy(response->message.comments[0], body, MAX_BODY_LENGTH);
+    write(fd, response, sizeof(response_t));
+    free(response);
+}
+
+void my_send(server_t *server, int client, request_t *request)
 {
     send_t *send = &request->send;
 
@@ -48,9 +70,15 @@ void teams_send(server_t *server, int client, request_t *request)
     {
         if (strcmp(send->user_uuid, server->clients[i].uuid))
         {
-            send_message_to_user(server, send, client, i);
+            set_message(&server->clients[client], send->user_uuid, send->body);
+            set_message(&server->clients[i], server->clients[client].uuid,
+            send->body);
+            private_message_response(server->clients[i].socket,
+            server->clients[client].uuid, send->body);
+            server_event_private_message_sended(server->clients[client].uuid,
+            send->user_uuid, send->body);
             return;
         }
     }
-    request_code(server->clients[client].socket, 404);
+    request_404_error(server->clients[client].socket, send->user_uuid, USER);
 }

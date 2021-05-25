@@ -24,7 +24,7 @@ int *response_idx)
     (*response_idx)++;
 }
 
-static void list_teams_subscribed(server_t *server, int client)
+static void info_teams_subscribed(server_t *server, int client)
 {
     response_t *response = malloc(sizeof(response));
     int k = 0;
@@ -49,7 +49,7 @@ void subscribed(server_t *server, int client, request_t *request)
     subscribe_t *subscribed = &request->subcribe;
 
     if (strlen(subscribed->team_uuid) == 0)
-        list_teams_subscribed(server, client);
+        info_teams_subscribed(server, client);
     else
         list_user_in_team(server, client, subscribed->team_uuid);
 }

@@ -27,5 +27,7 @@ void create(server_t *server, int client, request_t *request)
         case MESSAGE:
             add_message(server, create, client);
             break;
+        default:
+            return;
     }
 }

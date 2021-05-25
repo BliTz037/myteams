@@ -13,28 +13,31 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void channels_teams_info(teams_t *team, int fd, info_t *info)
+static void channels_teams_info(teams_t *team, int fd)
 {   
-    response_t *response;
+    response_t *response = malloc(sizeof(response_t));
+    int j = 0;
 
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
-        if (strcmp(team->channels[i].uuid, info->thread.channel_uuid) != 0)
+        if (strlen(team->channels[i].name) > 0)
         {
-            response = malloc(sizeof(response_t));
-            strcpy(response->infos.channel[0].channel_description, team->channels[i].description);
-            strcpy(response->infos.channel[0].channel_name, team->channels[i].name);
-            memcpy(response->infos.channel[0].team_uuid, team->channels[i].uuid, UUID_SIZE);
-            response->code = 200;
-            response->command = LIST;
-            write(fd, response, sizeof(response_t));
-            free(response);
+            strcpy(response->infos.channel[j].channel_description,
+            team->channels[i].description);
+            strcpy(response->infos.channel[j].channel_name,
+            team->channels[i].name);
+            memcpy(response->infos.channel[j].team_uuid,
+            team->channels[i].uuid, UUID_SIZE);
+            j++;
         }
     }
-    request_404_error(fd, info->thread.channel_uuid, CHANNEL);
+    response->code = 200;
+    response->command = LIST;
+    write(fd, response, sizeof(response_t));
+    free(response);
 }
 
-void get_channel_info(server_t *server,info_t *info, int client)
+void get_channel_list(server_t *server, info_t *info, int client)
 {
     for(int i = 0; i != MAX_TEAMS; i++)
     {
@@ -44,7 +47,7 @@ void get_channel_info(server_t *server,info_t *info, int client)
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
             channels_teams_info(&server->teams[i],
-            server->clients[client].socket, info);
+            server->clients[client].socket);
             return;
         }
     }

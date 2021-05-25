@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2021
+** EPITECH PRO0ECT, 2021
 ** B-NWP-400-PAR-4-1-myteams-tom.rives
 ** File description:
 ** teams_info
@@ -14,24 +14,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void get_teams_infos(server_t *server, int client, command command)
+void get_teams_info(server_t *server, int client, info_t *info)
 {
-    response_t *response = malloc(sizeof(response_t));
-    int j = 0;
+    response_t *response;
 
-    for (int i = 0; i != MAX_TEAMS; i++)
-    {
-        if (strlen(server->teams[i].name) > 0)
-        {
-            strcpy(response->infos.teams[j].team_name, server->teams[i].name);
-            memcpy(response->infos.teams[j].team_uuid,
+    for (int i = 0; i != MAX_TEAMS; i++) {
+        if (strcmp(server->teams[i].uuid, info->channel.team_uuid) != 0) {
+            response = malloc(sizeof(response_t));
+            strcpy(response->infos.teams[0].team_name, server->teams[i].name);
+            memcpy(response->infos.teams[0].team_uuid,
             server->teams[i].uuid, UUID_SIZE);
-            strcpy(response->infos.teams[j].team_description, server->teams[i].description);
-            j++;
+            strcpy(response->infos.teams[0].team_description,
+            server->teams[i].description);
+            response->code = 200;
+            response->command = INFO;
+            write(server->clients[client].socket, response,
+            sizeof(response_t));
+            free(response);
+            return;
         }
     }
-    response->code = 200;
-    response->command = command;
-    write(server->clients[client].socket, response, sizeof(response_t));
-    free(response);
+    request_404_error(server->clients[client].socket,
+    info->channel.team_uuid, TEAMS);
 }

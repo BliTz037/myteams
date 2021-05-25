@@ -46,7 +46,7 @@ message_manipulation_t *message_info, int fd, response_t *response)
             return;
         }
     }
-    request_code(fd, 404);
+    request_404_error(fd, message_info->thread_uuid, THREAD);
 }
 
 static void find_channel(teams_t *team,
@@ -60,23 +60,22 @@ message_manipulation_t *message_info, int fd, response_t *response)
             return;
         }
     }
-    request_code(fd, 404);
+    request_404_error(fd, message_info->channel_uuid, CHANNEL);
 }
 
-void get_messages_info(server_t *server, info_t *create, int client, command command)
+void get_messages_list(server_t *server,info_t *create,
+int client)
 {
     message_manipulation_t *message_info = &create->messasge;
     response_t *response;
 
-    for (int i = 0; i != MAX_TEAMS; i++)
-    {
-        if (strcmp(message_info->team_uuid, server->teams[i].uuid))
-        {
+    for (int i = 0; i != MAX_TEAMS; i++) {
+        if (strcmp(message_info->team_uuid, server->teams[i].uuid)) {
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
             response = malloc(sizeof(response_t));
-            response->command = command;
+            response->command = LIST;
             memcpy(response->infos.comments[0].user_uuid,
             server->clients[client].uuid, UUID_SIZE);
             find_channel(&server->teams[i], message_info,
@@ -85,5 +84,6 @@ void get_messages_info(server_t *server, info_t *create, int client, command com
             return;
         }
     }
-    request_code(server->clients[client].socket, 404);
+    request_404_error(server->clients[client].socket,
+    message_info->team_uuid, TEAMS);
 }

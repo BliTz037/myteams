@@ -20,6 +20,7 @@ int print_help(char *av)
 int main(int ac, char **av)
 {
     int port;
+    server_t *server;
 
     if (ac != 2)
         return (84);
@@ -27,7 +28,12 @@ int main(int ac, char **av)
         return print_help(av[0]);
     if ((port = atoi(av[1])) <= 0)
         return 84;
-    if (launch_server(port) == 84)
+    server = malloc(sizeof(server_t));
+    if (launch_server(server, port) == 84)
+    {
+        free(server);
         return 84;
+    }
+    free(server);
     return (0);
 }

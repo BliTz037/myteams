@@ -56,6 +56,7 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
             return;
         }
     }
+    request_404_error(fd, thread_info->channel_uuid, CHANNEL);
 }
 
 void add_thread(server_t *server, create_t *create, int client)
@@ -74,4 +75,6 @@ void add_thread(server_t *server, create_t *create, int client)
             return;
         }
     }
+    request_404_error(server->clients[client].socket,
+    thread_info->team_uuid, TEAMS);
 }

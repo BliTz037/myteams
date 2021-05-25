@@ -33,6 +33,17 @@ void request_code(int fd, int code)
     free(response);
 }
 
+void request_404_error(int fd, char *uuid, service_type type)
+{
+    response_t *response = malloc(sizeof(response_t));
+
+    response->code = 404;
+    memcpy(response->error_404.uuid, uuid, UUID_SIZE);
+    response->error_404.type = type;
+    write(fd, response, sizeof(response_t));
+    free(response);
+}
+
 void handle_request(server_t *server, int client, request_t *request)
 {
     if (request->command != LOGIN && server->clients[client].loged == -1)

@@ -6,6 +6,7 @@
 */
 
 #include "server.h"
+#include "logging_server.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

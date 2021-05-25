@@ -63,7 +63,7 @@ typedef struct server_t
     teams_t teams[MAX_TEAMS];
 } server_t;
 
-int launch_server(int port);
+int launch_server(server_t *server, int port);
 int init_server(server_t *server, int port);
 void close_connection(server_t *server, int fd, int client);
 char *generate_uuid();

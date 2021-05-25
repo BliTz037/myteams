@@ -13,47 +13,46 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static void thread_info_in_channel(channel_t *channel, int fd,
-message_manipulation_t *thread_info)
+static void thread_info_in_channel(channel_t *channel, int fd)
 {
-    response_t *response;
+    response_t *response = malloc(sizeof(response_t));
+    int j = 0;
 
     for (int i = 0; MAX_THREADS; i++)
     {
-        if (strcmp(channel->threads[i].uuid, thread_info->thread_uuid) != 0)
+        if (strlen(channel->threads[i].title) > 0)
         {
-            response = malloc(sizeof(response_t));
-            strcpy(response->infos.thread[0].thread_message,
+            strcpy(response->infos.thread[j].thread_message,
             channel->threads[i].message);
-            strcpy(response->infos.thread[0].thread_title,
+            strcpy(response->infos.thread[j].thread_title,
             channel->threads[i].title);
-            response->code = 200;
-            response->command = LIST;
-            write(fd, response, sizeof(response_t));
-            free(response);
+            j++;
         }
     }
-    request_404_error(fd, thread_info->thread_uuid, THREAD);
+    response->code = 200;
+    response->command = LIST;
+    write(fd, response, sizeof(response_t));
+    free(response);
 }
 
 static void find_channel(teams_t *team,
-message_manipulation_t *thread_info, int fd)
+thread_manipulation_t *thread_info, int fd)
 {
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(thread_info->channel_uuid, team->channels[i].uuid))
         {
-            thread_info_in_channel(&team->channels[i], fd, thread_info);
+            thread_info_in_channel(&team->channels[i], fd);
             return;
         }
     }
     request_404_error(fd, thread_info->channel_uuid, CHANNEL);
 }
 
-void get_thread_info(server_t *server, info_t *info,
+void get_thread_list(server_t *server,info_t *info,
 int client)
 {
-    message_manipulation_t *thread_info = &info->messasge;
+    thread_manipulation_t *thread_info = &info->thread;
 
     for (int i = 0; i != MAX_TEAMS; i++)
     {

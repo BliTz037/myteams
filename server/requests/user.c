@@ -13,6 +13,29 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void get_users_logged_infos(server_t *server, int fd)
+{
+    response_t *response = malloc(sizeof(response_t));
+    int j = 0;
+
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (strlen(server->clients[i].uuid) > 0
+        && server->clients[i].loged == 1)
+        {
+            memcpy(response->user.users[j].uuid, server->clients[i].uuid,
+            UUID_SIZE);
+            strcpy(response->user.users[j].name, server->clients[i].name);
+            response->user.users[j].status = 1;
+            j++;
+        }
+    }
+    response->code = 200;
+    response->command = USER;
+    write(fd, response, sizeof(response_t));
+    free(response);
+}
+
 static void users_info(server_t *server, int fd)
 {
     response_t *response = malloc(sizeof(response_t));
@@ -26,7 +49,7 @@ static void users_info(server_t *server, int fd)
             UUID_SIZE);
             strcpy(response->user.users[j].name, server->clients[i].name);
             response->user.users[j].status =
-            server->clients[i].loged == 1 ? 0 : 1;
+            server->clients[i].loged == 1 ? 1 : 0;
             j++;
         }
     }
@@ -57,7 +80,7 @@ static void user_info(server_t *server, int fd ,char *uuid)
             return;
         }
     }
-    request_code(fd, 404);
+    request_404_error(fd, uuid, USER);
 }
 
 void user(server_t *server, int client, request_t *request)

@@ -83,9 +83,8 @@ static int handle_new_connection(server_t *server)
     return 0;
 }
 
-int launch_server(int port)
+int launch_server(server_t *server, int port)
 {
-    server_t *server = malloc(sizeof(server_t));
     int check_connection;
 
     if (init_server(server, port) == -1)

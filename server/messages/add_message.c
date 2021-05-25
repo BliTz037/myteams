@@ -58,6 +58,8 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             return;
         }
     }
+    request_404_error(fd, message_info->thread_uuid, THREAD);
+
 }
 
 static void find_channel(teams_t *team,
@@ -71,6 +73,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             return;
         }
     }
+    request_404_error(fd, message_info->channel_uuid, CHANNEL);
 }
 
 void add_message(server_t *server, create_t *create, int client)
@@ -89,4 +92,6 @@ void add_message(server_t *server, create_t *create, int client)
             return;
         }
     }
+    request_404_error(server->clients[client].socket,
+    message_info->team_uuid, TEAMS);
 }

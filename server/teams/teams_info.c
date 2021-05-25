@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void get_teams_infos(server_t *server, int client)
+void get_teams_infos(server_t *server, int client, command command)
 {
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
@@ -30,6 +30,7 @@ void get_teams_infos(server_t *server, int client)
         }
     }
     response->code = 200;
+    response->command = command;
     write(server->clients[client].socket, response, sizeof(response_t));
     free(response);
 }

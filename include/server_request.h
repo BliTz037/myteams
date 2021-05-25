@@ -13,7 +13,8 @@
 
 void handle_request(server_t *server, int client, request_t *request);
 void create(server_t *server, int client, request_t *request);
-void list_info(server_t *server, int client, request_t *request);
+void list(server_t *server, int client, request_t *request);
+void info(server_t *server, int client, request_t *request);
 void request_code(int fd, int code);
 void login(server_t *server, int client, request_t *request);
 void subscribe(server_t *server, int client, request_t *request);
@@ -23,19 +24,19 @@ int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);
-void get_teams_infos(server_t *server, int client);
+void get_teams_infos(server_t *server, int client, command command);
 
 //Channels
 void add_channel(server_t *server, create_t *create, int client);
-void get_channel_info(server_t *server, info_t *info, int client);
+void get_channel_info(server_t *server, info_t *info, int client, command command);
 
 //Threads
 void add_thread(server_t *server, create_t *create, int client);
-void get_thread_info(server_t *server, info_t *info, int client);
+void get_thread_info(server_t *server, info_t *info, int client, command command);
 
 //Messages
 void add_message(server_t *server, create_t *create, int client);
-void get_messages_info(server_t *server, info_t *create, int client);
+void get_messages_info(server_t *server, info_t *create, int client, command command);
 
 typedef struct request_function_s
 {
@@ -45,8 +46,8 @@ typedef struct request_function_s
 
 static const request_function_t request_list[] = {
     {.command = CREATE, .fct = &create},
-    {.command = LIST, .fct = &list_info},
-    {.command = INFO, .fct = &list_info},
+    {.command = LIST, .fct = &list},
+    {.command = INFO, .fct = &info},
     {.command = LOGIN, .fct = &login},
     {.command = SUBSCRIBE, .fct = &subscribe},
     {.command = UNSUBSCRIBE, .fct = &unsubscribe},

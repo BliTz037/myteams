@@ -14,17 +14,14 @@
 #include <unistd.h>
 
 static void message_info_in_thread(thread_t *thread,
-message_manipulation_t *message_info, int fd, char *user_uuid)
+message_manipulation_t *message_info, int fd, response_t *response)
 {
-    response_t *response = malloc(sizeof(response_t));
     int j = 0;
-
     for (int i = 0; i != MAX_COMMENTS; i++)
     {
         if (strlen(thread->comments[i].body) > 0)
         {
             strcpy(response->infos.comments[0].body, message_info->body);
-            strcpy(response->infos.comments[0].user_uuid, user_uuid);
             strcpy(response->infos.comments[0].thread_uuid, message_info->thread_uuid);
             strcpy(response->infos.comments[0].team_uuid, message_info->team_uuid);
             j++;
@@ -36,14 +33,14 @@ message_manipulation_t *message_info, int fd, char *user_uuid)
 }
 
 static void find_thread(channel_t *channel,
-message_manipulation_t *message_info, int fd, char *user_uuid)
+message_manipulation_t *message_info, int fd, response_t *response)
 {
 
     for (int i = 0; MAX_THREADS; i++)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {
-            message_info_in_thread(&channel->threads[i],message_info, fd, user_uuid);
+            message_info_in_thread(&channel->threads[i],message_info, fd, response);
             return;
         }
     }
@@ -51,22 +48,23 @@ message_manipulation_t *message_info, int fd, char *user_uuid)
 }
 
 static void find_channel(teams_t *team,
-message_manipulation_t *message_info, int fd, char *user_uuid)
+message_manipulation_t *message_info, int fd, response_t *response)
 {
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(message_info->channel_uuid, team->channels[i].uuid))
         {
-            find_thread(&team->channels[i], message_info, fd, user_uuid);
+            find_thread(&team->channels[i], message_info, fd, response);
             return;
         }
     }
     request_code(fd, 404);
 }
 
-void get_messages_info(server_t *server, info_t *create, int client)
+void get_messages_info(server_t *server, info_t *create, int client, command command)
 {
     message_manipulation_t *message_info = &create->messasge;
+    response_t *response;
 
     for (int i = 0; i != MAX_TEAMS; i++)
     {
@@ -75,8 +73,12 @@ void get_messages_info(server_t *server, info_t *create, int client)
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
+            response = malloc(sizeof(response_t));
+            response->command = command;
+            strcpy(response->infos.comments[0].user_uuid, server->clients[client].uuid);
             find_channel(&server->teams[i], message_info,
-            server->clients[client].socket, server->clients[client].uuid);
+            server->clients[client].socket, response);
+            free(response);
             return;
         }
     }

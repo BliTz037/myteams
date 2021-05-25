@@ -13,12 +13,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void subscribe_response(int fd, char *team_uuid, char *user_uuid)
+static void subscribe_response(int fd, char *team_uuid, char *user_uuid,
+command command)
 {
     response_t *response = malloc(sizeof(response_t));
 
     strcpy(response->subscribe.team_uuid, team_uuid);
     strcpy(response->subscribe.user_uuid, user_uuid);
+    response->code = 200;
+    response->command = command;
     write(fd, response, sizeof(response_t));
     free(response);
 }
@@ -40,7 +43,7 @@ int fd, client_t *client)
         {
             strcpy(team->subscribed_users[i].name, client->name);
             strcpy(team->subscribed_users[i].uuid, client->uuid);
-            subscribe_response(fd, team->uuid, client->uuid);
+            subscribe_response(fd, team->uuid, client->uuid, SUBSCRIBE);
             server_event_user_subscribed(team->uuid, client->uuid);
             return;
         }
@@ -71,7 +74,7 @@ int fd, client_t *client)
         {
             memset(team->subscribed_users[i].uuid, 0, UUID_SIZE);
             memset(team->subscribed_users[i].name, 0, MAX_NAME_LENGTH);
-            subscribe_response(fd, team->uuid, client->uuid);
+            subscribe_response(fd, team->uuid, client->uuid, UNSUBSCRIBE);
             server_event_user_unsubscribed(team->uuid, client->uuid);
             return;
         }

@@ -23,7 +23,6 @@ int check_subscribed_request(int fd, char *user_uuid, teams_t *team)
     return -1;
 }
 
-
 void request_code(int fd, int code)
 {
     response_t *response = malloc(sizeof(response_t));

@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static void thread_info_in_channel(channel_t *channel, int fd)
+static void thread_info_in_channel(channel_t *channel, int fd, command command)
 {
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
@@ -28,25 +28,26 @@ static void thread_info_in_channel(channel_t *channel, int fd)
         }
     }
     response->code = 200;
+    response->command = command;
     write(fd, response, sizeof(response_t));
     free(response);
 }
 
 static void find_channel(teams_t *team,
-thread_manipulation_t *thread_info, int fd)
+thread_manipulation_t *thread_info, int fd, command command)
 {
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(thread_info->channel_uuid, team->channels[i].uuid))
         {
-            thread_info_in_channel(&team->channels[i], fd);
+            thread_info_in_channel(&team->channels[i], fd, command);
             return;
         }
     }
     request_code(fd, 404);
 }
 
-void get_thread_info(server_t *server, info_t *info, int client)
+void get_thread_info(server_t *server, info_t *info, int client, command command)
 {
     thread_manipulation_t *thread_info = &info->thread;
 
@@ -58,7 +59,7 @@ void get_thread_info(server_t *server, info_t *info, int client)
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
             find_channel(&server->teams[i], thread_info,
-            server->clients[client].socket);
+            server->clients[client].socket, command);
             return;
         }
     }

@@ -36,6 +36,8 @@ static void list_teams_subscribed(server_t *server, int client)
                 add_team_response(response, &server->teams[i], &k);
         }
     }
+    response->code = 200;
+    response->command = SUBSCRIBED;
     write(server->clients[client].socket, response, sizeof(response_t));
     free(response);
 }
@@ -54,6 +56,8 @@ static void user_in_team_response(teams_t *team, int fd)
             j++;
         }
     }
+    response->code = 200;
+    response->command = SUBSCRIBED;
     write(fd, response, sizeof(response_t));
     free(response);
 }

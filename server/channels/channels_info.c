@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void channels_teams_info(teams_t *team, int fd)
+static void channels_teams_info(teams_t *team, int fd, command command)
 {   
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
@@ -29,11 +29,12 @@ static void channels_teams_info(teams_t *team, int fd)
         }
     }
     response->code = 200;
+    response->command = command;
     write(fd, response, sizeof(response_t));
     free(response);
 }
 
-void get_channel_info(server_t *server, info_t *info, int client)
+void get_channel_info(server_t *server, info_t *info, int client, command command)
 {
     for(int i = 0; i != MAX_TEAMS; i++)
     {
@@ -43,7 +44,7 @@ void get_channel_info(server_t *server, info_t *info, int client)
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
             channels_teams_info(&server->teams[i],
-            server->clients[client].socket);
+            server->clients[client].socket, command);
             return;
         }
     }

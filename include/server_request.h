@@ -17,10 +17,13 @@ void list(server_t *server, int client, request_t *request);
 void info(server_t *server, int client, request_t *request);
 void request_code(int fd, int code);
 void login(server_t *server, int client, request_t *request);
+void logout(server_t *server, int client, request_t *request);
 void subscribe(server_t *server, int client, request_t *request);
 void unsubscribe(server_t *server, int client, request_t *request);
 void subscribed(server_t *server, int client, request_t *request);
+void list_user_in_team(server_t *server, int client, char *team_uuid);
 int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
+void user(server_t *server, int client, request_t *request);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);
@@ -49,9 +52,11 @@ static const request_function_t request_list[] = {
     {.command = LIST, .fct = &list},
     {.command = INFO, .fct = &info},
     {.command = LOGIN, .fct = &login},
+    {.command = LOGOUT, .fct = &logout},
     {.command = SUBSCRIBE, .fct = &subscribe},
     {.command = UNSUBSCRIBE, .fct = &unsubscribe},
     {.command = SUBSCRIBED, .fct = &subscribed},
+    {.command = USER, .fct = &user},
     };
 
 #endif /* !SERVER_REQUEST_H_ */

@@ -27,6 +27,8 @@ SRC_SERVER	= 	server/server_handling/server.c	\
 				server/requests/info.c	\
 				server/requests/subscribe.c	\
 				server/requests/subscribed.c	\
+				server/requests/subscribed_users.c	\
+				server/requests/user.c	\
 				server/save.c	\
 				server/uuid.c	\
 

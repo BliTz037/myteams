@@ -42,39 +42,6 @@ static void list_teams_subscribed(server_t *server, int client)
     free(response);
 }
 
-static void user_in_team_response(teams_t *team, int fd)
-{
-    response_t *response = malloc(sizeof(response_t));
-    int j = 0;
-
-    for (int i = 0; i != MAX_CLIENTS; i++)
-    {
-        if (strlen(team->subscribed_users[i].uuid) > 0)
-        {
-            strcpy(response->subscribed.users[j].name, team->subscribed_users[i].name);
-            strcpy(response->subscribed.users[j].uuid, team->subscribed_users[i].uuid);
-            j++;
-        }
-    }
-    response->code = 200;
-    response->command = SUBSCRIBED;
-    write(fd, response, sizeof(response_t));
-    free(response);
-}
-
-static void list_user_in_team(server_t *server, int client, char *team_uuid)
-{
-    for (int i = 0; i != MAX_TEAMS; i++)
-    {
-        if (strcmp(server->teams[i].uuid, team_uuid) == 0)
-        {
-            user_in_team_response(&server->teams[i], server->clients[client].socket);
-            return;
-        }
-    }
-    request_code(server->clients[client].socket, 403);
-}
-
 void subscribed(server_t *server, int client, request_t *request)
 {
     subscribe_t *subscribed = &request->subcribe;

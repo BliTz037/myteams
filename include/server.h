@@ -17,6 +17,7 @@ typedef struct user_info_s
 {
     char uuid[UUID_SIZE];
     char name[MAX_NAME_LENGTH];
+    int status;
 } user_info_t;
 
 typedef struct comment_s

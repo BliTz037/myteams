@@ -14,5 +14,7 @@ void close_connection(server_t *server, int fd, int client)
 {
     close(fd);
     server->clients[client].socket = 0;
+    if (server->clients[client].loged == 1)
+        server_event_user_logged_out(server->clients[client].uuid);
     server->clients[client].loged = -1;
 }

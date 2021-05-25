@@ -136,7 +136,7 @@ typedef struct user_response_s
 
 typedef struct messages_response_s
 {
-    char comments[MAX_COMMENTS][MAX_BODY_LENGTH];
+    char comments[MAX_PM][MAX_BODY_LENGTH];
 } message_response_t;
 
 typedef struct subscribe_response_s

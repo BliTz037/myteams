@@ -11,6 +11,12 @@
 #include <netinet/in.h>
 #include "teams.h"
 
+typedef struct private_message_s
+{
+    char messages[MAX_PM][MAX_BODY_LENGTH];
+    char user_uuid[UUID_SIZE];
+} private_message_t;
+
 typedef struct client_t client_t;
 struct client_t
 {
@@ -19,6 +25,7 @@ struct client_t
     int socket;
     char name[MAX_NAME_LENGTH];
     int loged;
+    private_message_t private_messages[MAX_CLIENTS];
 };
 
 #endif

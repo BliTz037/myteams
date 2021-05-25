@@ -32,8 +32,8 @@ static void user_in_team_response(server_t *server, teams_t *team, int fd)
         if (strlen(team->subscribed_users[i].uuid) > 0) {
             strcpy(response->subscribed.users[j].name,
             team->subscribed_users[i].name);
-            strcpy(response->subscribed.users[j].uuid,
-            team->subscribed_users[i].uuid);
+            memcpy(response->subscribed.users[j].uuid,
+            team->subscribed_users[i].uuid, UUID_SIZE);
             response->subscribed.users[j].status =
             get_user_status_by_uuid(server,
             response->subscribed.users[j].uuid);

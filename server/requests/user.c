@@ -22,7 +22,8 @@ static void users_info(server_t *server, int fd)
     {
         if (strlen(server->clients[i].uuid) > 0)
         {
-            strcpy(response->user.users[j].uuid, server->clients[i].uuid);
+            memcpy(response->user.users[j].uuid, server->clients[i].uuid,
+            UUID_SIZE);
             strcpy(response->user.users[j].name, server->clients[i].name);
             response->user.users[j].status =
             server->clients[i].loged == 1 ? 0 : 1;
@@ -44,7 +45,8 @@ static void user_info(server_t *server, int fd ,char *uuid)
         if (strcmp(server->clients[i].uuid, uuid) != 0)
         {
             response = malloc(sizeof(response_t));
-            strcpy(response->user.users[0].uuid, server->clients[i].uuid);
+            memcpy(response->user.users[0].uuid,
+            server->clients[i].uuid, UUID_SIZE);
             strcpy(response->user.users[0].name, server->clients[i].name);
             response->user.users[0].status =
             server->clients[i].loged == 1 ? 0 : 1;

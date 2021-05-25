@@ -24,7 +24,8 @@ void get_teams_infos(server_t *server, int client, command command)
         if (strlen(server->teams[i].name) > 0)
         {
             strcpy(response->infos.teams[j].team_name, server->teams[i].name);
-            strcpy(response->infos.teams[j].team_uuid, server->teams[i].uuid);
+            memcpy(response->infos.teams[j].team_uuid,
+            server->teams[i].uuid, UUID_SIZE);
             strcpy(response->infos.teams[j].team_description, server->teams[i].description);
             j++;
         }

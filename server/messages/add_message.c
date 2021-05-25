@@ -18,9 +18,11 @@ message_manipulation_t *message_info, char *user_uuid)
 {
     response->code = 200;
     strcpy(response->infos.comments[0].body, message_info->body);
-    strcpy(response->infos.comments[0].user_uuid, user_uuid);
-    strcpy(response->infos.comments[0].thread_uuid, message_info->thread_uuid);
-    strcpy(response->infos.comments[0].team_uuid, message_info->team_uuid);
+    memcpy(response->infos.comments[0].user_uuid, user_uuid, UUID_SIZE);
+    memcpy(response->infos.comments[0].thread_uuid,
+    message_info->thread_uuid, UUID_SIZE);
+    memcpy(response->infos.comments[0].team_uuid,
+    message_info->team_uuid, UUID_SIZE);
 }
 
 static void add_message_in_thread(thread_t *thread,
@@ -33,7 +35,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
         if (strlen(thread->comments[i].body) == 0)
         {
             strcpy(thread->comments[i].body, message_info->body);
-            strcpy(thread->comments[i].user_uuid, user_uuid);
+            memcpy(thread->comments[i].user_uuid, user_uuid, UUID_SIZE);
             server_event_reply_created(message_info->thread_uuid,
             user_uuid, message_info->body);
             add_message_response(response, message_info, user_uuid);

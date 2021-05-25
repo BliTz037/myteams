@@ -33,8 +33,8 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
         {
             strcpy(channel->threads[i].title, thread_info->thread_title);
             strcpy(channel->threads[i].message, thread_info->thread_message);
-            strcpy(channel->threads[i].uuid, uuid);
-            strcpy(channel->threads[i].user_uuid, user_uuid);
+            memcpy(channel->threads[i].uuid, uuid, UUID_SIZE);
+            memcpy(channel->threads[i].user_uuid, user_uuid, UUID_SIZE);
             server_event_thread_created(thread_info->channel_uuid,
             uuid, user_uuid, thread_info->thread_title, thread_info->thread_message);
             add_thread_response(response, &channel->threads[i]);

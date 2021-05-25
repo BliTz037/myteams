@@ -16,9 +16,11 @@
 static void add_team_response(response_t *response, teams_t *team,
 int *response_idx)
 {
-    strcpy(response->subscribed.teams[*response_idx].team_description, team->description);
+    strcpy(response->subscribed.teams[*response_idx].team_description,
+    team->description);
     strcpy(response->subscribed.teams[*response_idx].team_name, team->name);
-    strcpy(response->subscribed.teams[*response_idx].team_uuid, team->uuid);
+    memcpy(response->subscribed.teams[*response_idx].team_uuid,
+    team->uuid, UUID_SIZE);
     (*response_idx)++;
 }
 

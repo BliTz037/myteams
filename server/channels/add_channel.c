@@ -20,7 +20,7 @@ channel_t *channel)
     response->command = CREATE;
     strcpy(response->infos.channel[0].channel_description, channel->description);
     strcpy(response->infos.channel[0].channel_name, channel->name);
-    strcpy(response->infos.channel[0].team_uuid, channel->uuid);
+    memcpy(response->infos.channel[0].team_uuid, channel->uuid, UUID_SIZE);
 }
 
 static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel,
@@ -35,7 +35,7 @@ int fd)
         {
             strcpy(team->channels[i].name, channel->channel_name);
             strcpy(team->channels[i].description, channel->channel_description);
-            strcpy(team->channels[i].uuid, uuid);
+            memcpy(team->channels[i].uuid, uuid, UUID_SIZE);
             server_event_channel_created(team->uuid, uuid, team->channels[i].name);
             add_channel_response(response, &team->channels[i]);
             write(fd, response, sizeof(response_t));

@@ -22,8 +22,10 @@ message_manipulation_t *message_info, int fd, response_t *response)
         if (strlen(thread->comments[i].body) > 0)
         {
             strcpy(response->infos.comments[0].body, message_info->body);
-            strcpy(response->infos.comments[0].thread_uuid, message_info->thread_uuid);
-            strcpy(response->infos.comments[0].team_uuid, message_info->team_uuid);
+            memcpy(response->infos.comments[0].thread_uuid,
+            message_info->thread_uuid, UUID_SIZE);
+            memcpy(response->infos.comments[0].team_uuid,
+            message_info->team_uuid, UUID_SIZE);
             j++;
         }
     }
@@ -75,7 +77,8 @@ void get_messages_info(server_t *server, info_t *create, int client, command com
                 return;
             response = malloc(sizeof(response_t));
             response->command = command;
-            strcpy(response->infos.comments[0].user_uuid, server->clients[client].uuid);
+            memcpy(response->infos.comments[0].user_uuid,
+            server->clients[client].uuid, UUID_SIZE);
             find_channel(&server->teams[i], message_info,
             server->clients[client].socket, response);
             free(response);

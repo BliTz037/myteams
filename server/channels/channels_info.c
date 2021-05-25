@@ -24,7 +24,7 @@ static void channels_teams_info(teams_t *team, int fd, command command)
         {
             strcpy(response->infos.channel[j].channel_description, team->channels[i].description);
             strcpy(response->infos.channel[j].channel_name, team->channels[i].name);
-            strcpy(response->infos.channel[j].team_uuid, team->channels[i].uuid);
+            memcpy(response->infos.channel[j].team_uuid, team->channels[i].uuid, UUID_SIZE);
             j++;
         }
     }

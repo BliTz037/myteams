@@ -20,7 +20,7 @@ static void logout_response(int fd, int code, char *username, char *uuid)
     response->code = code;
     response->command = LOGOUT;
     strcpy(response->user.users[0].name, username);
-    strcpy(response->user.users[0].uuid, uuid);
+    memcpy(response->user.users[0].uuid, uuid, UUID_SIZE);
     write(fd, response, sizeof(response_t));
     free(response);
 }
@@ -32,7 +32,7 @@ static void login_response(int fd, int code, char *username, char *uuid)
     response->code = code;
     response->command = LOGIN;
     strcpy(response->user.users[0].name, username);
-    strcpy(response->user.users[0].uuid, uuid);
+    memcpy(response->user.users[0].uuid, uuid, UUID_SIZE);
     write(fd, response, sizeof(response_t));
     free(response);
 }

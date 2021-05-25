@@ -18,8 +18,8 @@ command command)
 {
     response_t *response = malloc(sizeof(response_t));
 
-    strcpy(response->subscribe.team_uuid, team_uuid);
-    strcpy(response->subscribe.user_uuid, user_uuid);
+    memcpy(response->subscribe.team_uuid, team_uuid, UUID_SIZE);
+    memcpy(response->subscribe.user_uuid, user_uuid, UUID_SIZE);
     response->code = 200;
     response->command = command;
     write(fd, response, sizeof(response_t));
@@ -42,7 +42,7 @@ int fd, client_t *client)
         if (strlen(team->subscribed_users[i].name) == 0)
         {
             strcpy(team->subscribed_users[i].name, client->name);
-            strcpy(team->subscribed_users[i].uuid, client->uuid);
+            memcpy(team->subscribed_users[i].uuid, client->uuid, UUID_SIZE);
             subscribe_response(fd, team->uuid, client->uuid, SUBSCRIBE);
             server_event_user_subscribed(team->uuid, client->uuid);
             return;

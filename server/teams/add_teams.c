@@ -19,7 +19,7 @@ static void add_team_response(int fd, teams_t *team)
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;
     strcpy(response->infos.teams[0].team_name, team->name);
-    strcpy(response->infos.teams[0].team_uuid, team->uuid);
+    memcpy(response->infos.teams[0].team_uuid, team->uuid, UUID_SIZE);
     strcpy(response->infos.teams[0].team_description, team->description);
     write(fd, response, sizeof(response_t));
     free(response);
@@ -49,7 +49,7 @@ void add_team(server_t *server, create_t *create, int client)
             uuid = generate_uuid();
             strcpy(server->teams[i].name, create->teams.team_name);
             strcpy(server->teams[i].description, create->teams.team_description);
-            strcpy(server->teams[i].uuid, uuid);
+            memcpy(server->teams[i].uuid, uuid, UUID_SIZE);
             server_event_team_created(uuid, create->teams.team_name, create->teams.team_description);
             add_team_response(server->clients[client].socket, &server->teams[i]);
             free(uuid);

@@ -42,7 +42,7 @@ static void login_new_user(server_t *server, int client, request_t *request)
     char *uuid = generate_uuid();
 
     strcpy(server->clients[client].name, request->login.username);
-    strcpy(server->clients[client].uuid, uuid);
+    memcpy(server->clients[client].uuid, uuid, UUID_SIZE);
     server->clients[client].loged = 1;
     login_response(server->clients[client].socket, 201,
     server->clients[client].name, server->clients[client].uuid);

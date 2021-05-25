@@ -14,9 +14,9 @@
 typedef struct client_t client_t;
 struct client_t
 {
+    char uuid[UUID_SIZE];
     struct sockaddr_in data_address;
     int socket;
-    char uuid[UUID_SIZE];
     char name[MAX_NAME_LENGTH];
     int loged;
 };

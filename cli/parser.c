@@ -25,34 +25,14 @@ char *get_command_line(void)
     return (line);
 }
 
-void free_world_arr(char **tab, const int len)
+void translate_response(cli_t *cli, response_t *res)
 {
-    for (int i = 0; i < len; i++)
-        if (tab[i] != NULL)
-            free(tab[i]);
-    free(tab);
-}
+    void (*response[])(cli_t *, response_t *) = {response_login,
+    response_logout, response_user, response_send, response_messages,
+    response_subscribe, response_subscribed, response_unsubscribed,
+    response_create, response_list, response_info};
 
-char **str_to_word_array(char *str, const char *delim, int *len)
-{
-    char **tab = malloc(sizeof(char *));
-    char *token = strtok(str, delim);
-    int i = 0;
-
-    if (!str || !token || !delim)
-        return NULL;
-    while (token != NULL) {
-        if (strcmp(token, " ") != 0) {
-            tab[i] = strdup(token);
-            i++;
-            tab = realloc(tab, (sizeof(char *) * (i + 1)));
-            printf("'%s'\n", token);
-        }
-        token = strtok(NULL, "\"\n");
-    }
-    tab[i] = NULL;
-    *len = i;
-    return tab;
+    response[res->command](cli, res);
 }
 
 int fill_request_struct(char *command, request_t *msg, cli_t *cli)

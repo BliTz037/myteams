@@ -49,6 +49,18 @@ int command_info(char **argv, request_t *msg, cli_t *cli);
 int command_use(char **argv, request_t *msg, cli_t *cli);
 int command_help(char **argv, request_t *msg, cli_t *cli);
 
+void response_login(cli_t *cli, response_t *rcv);
+void response_logout(cli_t *cli, response_t *rcv);
+void response_user(cli_t *cli, response_t *rcv);
+void response_send(cli_t *cli, response_t *rcv);
+void response_messages(cli_t *cli, response_t *rcv);
+void response_subscribe(cli_t *cli, response_t *rcv);
+void response_subscribed(cli_t *cli, response_t *rcv);
+void response_unsubscribed(cli_t *cli, response_t *rcv);
+void response_create(cli_t *cli, response_t *rcv);
+void response_list(cli_t *cli, response_t *rcv);
+void response_info(cli_t *cli, response_t *rcv);
+
 int receive_message(cli_t *cli);
 int send_message(cli_t *cli);
 int connect_server(const char *ip, const int port, cli_t *cli);

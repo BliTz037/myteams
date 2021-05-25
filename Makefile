@@ -43,6 +43,17 @@ SRC_CLI	 =		cli/command/create.c	\
 				cli/command/user.c	\
 				cli/command/use.c	\
 				cli/command/help.c \
+				cli/response/create.c \
+				cli/response/info.c \
+				cli/response/list.c \
+				cli/response/login.c \
+				cli/response/logout.c \
+				cli/response/messages.c \
+				cli/response/send.c \
+				cli/response/subscribe.c \
+				cli/response/subscribed.c \
+				cli/response/unsubscribed.c \
+				cli/response/user.c \
 				cli/server.c \
 				cli/str_to_word_array.c \
 				cli/parser.c

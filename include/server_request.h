@@ -24,6 +24,7 @@ void subscribed(server_t *server, int client, request_t *request);
 void list_user_in_team(server_t *server, int client, char *team_uuid);
 int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
 void user(server_t *server, int client, request_t *request);
+void teams_send(server_t *server, int client, request_t *request);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);

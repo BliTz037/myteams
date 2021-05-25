@@ -6,12 +6,14 @@
 */
 
 #include "communication.h"
+#include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
 void response_logout(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
-    (void)(rcv);
-    printf("MATCH LOGOUT\n");
+    if (rcv->code == 200)
+        printf("Good bye %s !\n", rcv->user.users->name);
+    client_event_logged_out(rcv->user.users->uuid, rcv->user.users->name);
     return;
 }

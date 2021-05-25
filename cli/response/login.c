@@ -6,14 +6,16 @@
 */
 
 #include "communication.h"
+#include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
 void response_login(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
-    (void)(rcv);
-    printf("MATCH LOGIN\n");
-    printf("Code: %d\n", rcv->code);
-    printf("User: %s / UUID: %s\n", rcv->user.users->name, rcv->user.users->uuid);
+    if (rcv->code == 200 || rcv->code == 201) {
+        if (rcv->code == 201)
+            printf("Welcome %s ! You are register.\n", rcv->user.users->name);
+        client_event_logged_in(rcv->user.users->uuid, rcv->user.users->name);
+    }
     return;
 }

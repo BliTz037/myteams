@@ -32,7 +32,10 @@ void translate_response(cli_t *cli, response_t *res)
     response_subscribe, response_subscribed, response_unsubscribed,
     response_create, response_list, response_info};
 
-    response[res->command](cli, res);
+    if (res->code >= 200 && res->code <= 299)
+        response[res->command](cli, res);
+    else
+        manage_error_response(res->code);
 }
 
 int fill_request_struct(char *command, request_t *msg, cli_t *cli)

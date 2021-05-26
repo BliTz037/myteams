@@ -10,8 +10,13 @@
 
 void response_messages(cli_t *cli, response_t *rcv)
 {
-    (void)(cli);
-    (void)(rcv);
-    printf("MATCH MESSAGES\n");
+    for (int i = 0; i != MAX_PM; i++)
+    {
+        if (strlen(rcv->message.messages[i].message) > 0)
+        {
+            client_private_message_print_messages(rcv->message.user_uuid,
+            rcv->message.messages[i].timestamp, rcv->message.messages[i].message);
+        }
+    }
     return;
 }

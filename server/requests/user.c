@@ -65,7 +65,7 @@ static void user_info(server_t *server, int fd , char *uuid)
 
     for (int i = 0; i != MAX_CLIENTS; i++)
     {
-        if (strcmp(server->clients[i].uuid, uuid) != 0)
+        if (strcmp(server->clients[i].uuid, uuid) == 0)
         {
             response = malloc(sizeof(response_t));
             memcpy(response->user.users[0].uuid,

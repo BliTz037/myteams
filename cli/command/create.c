@@ -12,6 +12,7 @@
 
 void create_new_team(char **argv, request_t *msg, cli_t *cli)
 {
+    (void) cli;
     strcpy(msg->create.teams.team_name, argv[0]);
     strcpy(msg->create.teams.team_description, argv[1]);
     msg->create.type = TEAMS;
@@ -45,20 +46,24 @@ void create_new_reply(char **argv, request_t *msg, cli_t *cli)
 
 int command_create(char **argv, request_t *msg, cli_t *cli)
 {
-    if (strcmp(cli->context.team_uuid, "0") == 0 &&
-    argv[0] != NULL && argv[1] != NULL)
-        create_new_team(argv, msg, cli);
-    else if (strcmp(cli->context.channel_uuid, "0") == 0 &&
-    strcmp(cli->context.thread_uuid, "0") == 0 &&
-    argv[0] != NULL && argv[1] != NULL)
-        create_new_channel(argv, msg, cli);
-    else if (strcmp(cli->context.thread_uuid, "0") == 0 &&
-    argv[0] != NULL && argv[1] != NULL)
-        create_new_thread(argv, msg, cli);
-    else if (strcmp(cli->context.team_uuid, "0") != 0 &&
-    strcmp(cli->context.channel_uuid, "0") != 0 &&
-    strcmp(cli->context.thread_uuid, "0") != 0 && argv[0] != NULL)
-        create_new_reply(argv, msg, cli);
+    if ((get_context(cli) == THREAD && argv[0] == NULL) ||
+    (get_context(cli) != THREAD && (argv[0] == NULL || argv[1] == NULL)))
+        return (1);
     msg->command = CREATE;
+    switch (get_context(cli))
+    {
+        case (NOTHING):
+            create_new_team(argv, msg, cli);
+            break;
+        case (TEAMS):
+            create_new_channel(argv, msg, cli);
+            break;
+        case (CHANNEL):
+            create_new_thread(argv, msg, cli);
+            break;
+        case (THREAD):
+            create_new_reply(argv, msg, cli);
+            break;
+    }
     return (1);
 }

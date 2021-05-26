@@ -24,6 +24,7 @@ typedef struct comment_s
 {
     char body[MAX_BODY_LENGTH];
     char user_uuid[UUID_SIZE];
+    time_t timestamp;
 
 } comment_t;
 
@@ -34,6 +35,7 @@ typedef struct thread_t
     char message[MAX_COMMENTS];
     char title[MAX_NAME_LENGTH];
     char user_uuid[UUID_SIZE];
+    time_t timestamp;
 } thread_t;
 
 typedef struct channel_t

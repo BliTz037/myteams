@@ -11,9 +11,15 @@
 #include <netinet/in.h>
 #include "teams.h"
 
+typedef struct private_message_body_s
+{
+    char message[MAX_BODY_LENGTH];
+    time_t timestamp;
+} private_message_body_t;
+
 typedef struct private_message_s
 {
-    char messages[MAX_PM][MAX_BODY_LENGTH];
+    private_message_body_t messages[MAX_PM];
     char user_uuid[UUID_SIZE];
 } private_message_t;
 

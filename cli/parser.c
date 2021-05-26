@@ -13,6 +13,20 @@ static char *commmand_str[] =
     "/messages", "/subscribe", "/subscribed",
     "/unsubscribe", "/create", "/list", "/info", "/use", "/help"};
 
+int get_context(cli_t *cli)
+{
+    if (strcmp(cli->context.team_uuid, "0") == 0) {
+        return (NOTHING);
+    }
+    if (strcmp(cli->context.channel_uuid, "0") == 0) {
+        return (TEAMS);
+    }
+    if (strcmp(cli->context.thread_uuid, "0") == 0) {
+        return (CHANNEL);
+    }
+    return (MESSAGE);
+}
+
 char *get_command_line(void)
 {
     char *line = NULL;

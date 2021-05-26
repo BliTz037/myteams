@@ -21,6 +21,8 @@
 
 #define PATH_COMMAND_HELP "file/help_command.txt"
 
+#define NOTHING -1
+
 typedef struct context
 {
     char team_uuid[UUID_SIZE];
@@ -71,6 +73,7 @@ char *get_command_line(void);
 char **str_to_word_array(char *str, const char *delim, int *len);
 void free_world_arr(char **tab, const int len);
 int fill_request_struct(char *command, request_t *msg, cli_t *cli);
+int get_context(cli_t *cli);
 
 cli_t init_cli(cli_t cli);
 int client_loop(const char *ip, const int port);

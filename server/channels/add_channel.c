@@ -13,19 +13,41 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static void notify_all_users(server_t *server, teams_t *team, channel_t *channel)
+{
+    response_t *response = malloc(sizeof(response_t));
+    response->code = 200;
+    response->command = CREATE;
+    response->create.is_global_ping = 1;
+    strcpy(response->create.channel[0].channel_description,
+    channel->description);
+    strcpy(response->create.channel[0].channel_name, channel->name);
+    memcpy(response->create.channel[0].team_uuid, channel->uuid, UUID_SIZE);
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (is_subscribed_to_team(team, server->clients[i].uuid) == 1
+        && server->clients[i].loged == 1)
+        {
+            write(server->clients[i].socket, response, sizeof(response_t));
+        }
+    }
+    free(response);
+}
+
 static void add_channel_response(response_t *response,
 channel_t *channel)
 {
     response->code = 200;
     response->command = CREATE;
-    strcpy(response->infos.channel[0].channel_description,
+    response->create.is_global_ping = 0;
+    strcpy(response->create.channel[0].channel_description,
     channel->description);
-    strcpy(response->infos.channel[0].channel_name, channel->name);
-    memcpy(response->infos.channel[0].team_uuid, channel->uuid, UUID_SIZE);
+    strcpy(response->create.channel[0].channel_name, channel->name);
+    memcpy(response->create.channel[0].team_uuid, channel->uuid, UUID_SIZE);
 }
 
-static void add_channel_in_team(teams_t *team, channel_manipulation_t *channel,
-int fd)
+static void add_channel_in_team(server_t *server,
+teams_t *team, channel_manipulation_t *channel, int fd)
 {
     char *uuid = generate_uuid();
     response_t *response = malloc(sizeof(response_t));
@@ -41,6 +63,7 @@ int fd)
             team->channels[i].name);
             add_channel_response(response, &team->channels[i]);
             write(fd, response, sizeof(response_t));
+            notify_all_users(server, team, &team->channels[i]);
             free(uuid);
             free(response);
             return;
@@ -57,7 +80,7 @@ void add_channel(server_t *server, create_t *create, int client)
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
-            add_channel_in_team(&server->teams[i], &create->channel,
+            add_channel_in_team(server, &server->teams[i], &create->channel,
             server->clients[client].socket);
             return;
         }

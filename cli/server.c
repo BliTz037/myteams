@@ -7,23 +7,6 @@
 
 #include "cli.h"
 
-int connect_server(const char *ip, const int port, cli_t *cli)
-{
-    cli->sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (cli->sockfd < 0)
-        return -1;
-    cli->serv_addr.sin_family = AF_INET;
-    cli->serv_addr.sin_port = htons(port);
-    cli->serv_addr.sin_addr.s_addr = inet_addr(ip);
-    if (connect(cli->sockfd, (struct sockaddr *)&cli->serv_addr,
-    sizeof(cli->serv_addr)) < 0) {
-        printf("Failed to connect to server %s:%d\n", ip, port);
-        return -1;
-    }
-    printf("Connected to server %s:%d\n", ip, port);
-    return 0;
-}
-
 int send_message(cli_t *cli)
 {
     request_t *msg = malloc(sizeof(request_t));
@@ -75,12 +58,8 @@ int client_loop(const char *ip, const int port)
         return 84;
     while (1) {
         printf("> ");
-        FD_ZERO(&fds);
-        FD_SET(STDIN_FILENO, &fds);
-        FD_SET(cli.sockfd, &fds);
-        fflush(NULL);
-        if (select(cli.sockfd + 1, &fds, NULL, NULL, NULL) <= 0)
-            return (-1);
+        if (init_select(&cli, &fds) == -1)
+            return (84);
         if (FD_ISSET(STDIN_FILENO, &fds))
             send_message(&cli);
         else if (FD_ISSET(cli.sockfd, &fds))

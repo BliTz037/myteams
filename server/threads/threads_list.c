@@ -49,7 +49,7 @@ thread_manipulation_t *thread_info, int fd)
     request_404_error(fd, thread_info->channel_uuid, CHANNEL);
 }
 
-void get_thread_list(server_t *server,info_t *info,
+void get_thread_list(server_t *server, info_t *info,
 int client)
 {
     thread_manipulation_t *thread_info = &info->thread;
@@ -66,5 +66,6 @@ int client)
             return;
         }
     }
-    request_404_error(server->clients[client].socket, thread_info->team_uuid, TEAMS);
+    request_404_error(server->clients[client].socket, thread_info->team_uuid,
+    TEAMS);
 }

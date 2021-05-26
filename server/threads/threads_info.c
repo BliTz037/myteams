@@ -67,5 +67,6 @@ int client)
             return;
         }
     }
-    request_404_error(server->clients[client].socket, thread_info->team_uuid, TEAMS);
+    request_404_error(server->clients[client].socket, thread_info->team_uuid,
+    TEAMS);
 }

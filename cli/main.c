@@ -30,17 +30,16 @@ void display(request_t *msg)
     msg->send.user_uuid, msg->send.body);
     printf("\tmessage.user_uuid: '%s'\n", msg->message.user_uuid);
     printf("\tsubcribe.team_uuid: '%s'\n\n", msg->subcribe.team_uuid);
-
     printf("CREATE\n");
     printf("\tcreate team_name: '%s'\n", msg->create.teams.team_name);
-    printf("\tcreate team_description: '%s'\n", msg->create.teams.team_description);
-
+    printf("\tcreate team_description: '%s'\n",
+    msg->create.teams.team_description);
     printf("\tcreate channel_name: '%s'\n", msg->create.channel.channel_name);
-    printf("\tcreate channel_description: '%s'\n", msg->create.channel.channel_description);
-
+    printf("\tcreate channel_description: '%s'\n",
+    msg->create.channel.channel_description);
     printf("\tcreate thread_name: '%s'\n", msg->create.thread.thread_title);
-    printf("\tcreate thread_description: '%s'\n", msg->create.thread.thread_message);
-
+    printf("\tcreate thread_description: '%s'\n",
+    msg->create.thread.thread_message);
     printf("\tcreate messages_body: '%s'\n", msg->create.messasge.body);
 }
 

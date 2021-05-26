@@ -26,7 +26,8 @@ void get_teams_list(server_t *server, int client)
             strcpy(response->infos.teams[j].team_name, server->teams[i].name);
             memcpy(response->infos.teams[j].team_uuid,
             server->teams[i].uuid, UUID_SIZE);
-            strcpy(response->infos.teams[j].team_description, server->teams[i].description);
+            strcpy(response->infos.teams[j].team_description,
+            server->teams[i].description);
             j++;
         }
     }

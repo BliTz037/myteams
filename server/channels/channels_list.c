@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 static void channels_teams_info(teams_t *team, int fd)
-{   
+{
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
 
@@ -39,7 +39,7 @@ static void channels_teams_info(teams_t *team, int fd)
 
 void get_channel_list(server_t *server, info_t *info, int client)
 {
-    for(int i = 0; i != MAX_TEAMS; i++)
+    for (int i = 0; i != MAX_TEAMS; i++)
     {
         if (strcmp(info->channel.team_uuid, server->teams[i].uuid) == 0)
         {

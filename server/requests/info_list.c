@@ -9,10 +9,9 @@
 #include "communication.h"
 #include "server_request.h"
 
-
 void list(server_t *server, int client, request_t *request)
 {
-   info_t *info = &request->info;
+    info_t *info = &request->info;
 
     switch (info->type)
     {
@@ -35,7 +34,7 @@ void list(server_t *server, int client, request_t *request)
 
 void info(server_t *server, int client, request_t *request)
 {
-   info_t *info = &request->info;
+    info_t *info = &request->info;
 
     switch (info->type)
     {

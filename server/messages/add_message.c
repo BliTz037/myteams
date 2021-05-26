@@ -54,7 +54,8 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {
-            add_message_in_thread(&channel->threads[i], message_info, user_uuid, fd);
+            add_message_in_thread(&channel->threads[i], message_info,
+            user_uuid, fd);
             return;
         }
     }

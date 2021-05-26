@@ -18,7 +18,8 @@ channel_t *channel)
 {
     response->code = 200;
     response->command = CREATE;
-    strcpy(response->infos.channel[0].channel_description, channel->description);
+    strcpy(response->infos.channel[0].channel_description,
+    channel->description);
     strcpy(response->infos.channel[0].channel_name, channel->name);
     memcpy(response->infos.channel[0].team_uuid, channel->uuid, UUID_SIZE);
 }
@@ -36,7 +37,8 @@ int fd)
             strcpy(team->channels[i].name, channel->channel_name);
             strcpy(team->channels[i].description, channel->channel_description);
             memcpy(team->channels[i].uuid, uuid, UUID_SIZE);
-            server_event_channel_created(team->uuid, uuid, team->channels[i].name);
+            server_event_channel_created(team->uuid, uuid,
+            team->channels[i].name);
             add_channel_response(response, &team->channels[i]);
             write(fd, response, sizeof(response_t));
             free(uuid);
@@ -48,7 +50,7 @@ int fd)
 
 void add_channel(server_t *server, create_t *create, int client)
 {
-    for(int i = 0; i != MAX_TEAMS; i++)
+    for (int i = 0; i != MAX_TEAMS; i++)
     {
         if (strcmp(create->channel.team_uuid, server->teams[i].uuid) == 0)
         {

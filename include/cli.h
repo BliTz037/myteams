@@ -75,6 +75,7 @@ int fill_request_struct(char *command, request_t *msg, cli_t *cli);
 cli_t init_cli(cli_t cli);
 int client_loop(const char *ip, const int port);
 int connect_server(const char *ip, const int port, cli_t *cli);
+int init_select(cli_t *cli, fd_set *fds);
 void display(request_t *msg);
 int print_help(char *av);
 int send_message(cli_t *cli);

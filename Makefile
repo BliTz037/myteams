@@ -61,6 +61,7 @@ SRC_CLI	 =		cli/command/create.c	\
 				cli/response/unsubscribed.c \
 				cli/response/user.c \
 				cli/response/error.c \
+				cli/socket.c \
 				cli/server.c \
 				cli/str_to_word_array.c \
 				cli/parser.c

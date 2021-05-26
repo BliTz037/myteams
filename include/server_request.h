@@ -31,23 +31,23 @@ void get_users_logged_infos(server_t *server, int fd);
 // Teams
 void add_team(server_t *server, create_t *create, int client);
 void get_teams_list(server_t *server, int client);
-void get_teams_info(server_t *server, int client,info_t *info);
+void get_teams_info(server_t *server, int client, info_t *info);
 
 //Channels
 void add_channel(server_t *server, create_t *create, int client);
-void get_channel_info(server_t *server,info_t *info, int client);
-void get_channel_list(server_t *server,info_t *info, int client);
+void get_channel_info(server_t *server, info_t *info, int client);
+void get_channel_list(server_t *server, info_t *info, int client);
 
 //Threads
 void add_thread(server_t *server, create_t *create, int client);
-void get_thread_list(server_t *server,info_t *info,
+void get_thread_list(server_t *server, info_t *info,
 int client);
 void get_thread_info(server_t *server, info_t *info,
 int client);
 
 //Messages
 void add_message(server_t *server, create_t *create, int client);
-void get_messages_list(server_t *server,info_t *create,
+void get_messages_list(server_t *server, info_t *create,
 int client);
 
 typedef struct request_function_s

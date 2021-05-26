@@ -36,7 +36,8 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
             memcpy(channel->threads[i].uuid, uuid, UUID_SIZE);
             memcpy(channel->threads[i].user_uuid, user_uuid, UUID_SIZE);
             server_event_thread_created(thread_info->channel_uuid,
-            uuid, user_uuid, thread_info->thread_title, thread_info->thread_message);
+            uuid, user_uuid, thread_info->thread_title,
+            thread_info->thread_message);
             add_thread_response(response, &channel->threads[i]);
             write(fd, response, sizeof(response_t));
             free (uuid);
@@ -52,7 +53,8 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
     {
         if (strcmp(thread_info->channel_uuid, team->channels[i].uuid))
         {
-            add_thread_in_channel(&team->channels[i], thread_info, user_uuid, fd);
+            add_thread_in_channel(&team->channels[i], thread_info, user_uuid,
+            fd);
             return;
         }
     }

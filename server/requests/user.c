@@ -59,7 +59,7 @@ static void users_info(server_t *server, int fd)
     free(response);
 }
 
-static void user_info(server_t *server, int fd ,char *uuid)
+static void user_info(server_t *server, int fd , char *uuid)
 {
     response_t *response;
 

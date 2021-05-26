@@ -42,7 +42,8 @@ message_manipulation_t *message_info, int fd, response_t *response)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {
-            message_info_in_thread(&channel->threads[i],message_info, fd, response);
+            message_info_in_thread(&channel->threads[i], message_info, fd,
+            response);
             return;
         }
     }
@@ -63,7 +64,7 @@ message_manipulation_t *message_info, int fd, response_t *response)
     request_404_error(fd, message_info->channel_uuid, CHANNEL);
 }
 
-void get_messages_list(server_t *server,info_t *create,
+void get_messages_list(server_t *server, info_t *create,
 int client)
 {
     message_manipulation_t *message_info = &create->messasge;

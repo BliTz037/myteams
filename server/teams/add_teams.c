@@ -2,8 +2,8 @@
 ** EPITECH PROJECT, 2021
 ** B-NWP-400-PAR-4-1-myteams-tom.rives
 ** File description:
-** teams
-*/ 
+** add_teams
+*/
 
 #include "server.h"
 #include "communication.h"
@@ -39,19 +39,22 @@ int check_team_exist(server_t *server, create_t *create, int client)
 }
 
 void add_team(server_t *server, create_t *create, int client)
-{   
+{
     char *uuid;
-    
+
     if (check_team_exist(server, create, client) == -1)
         return;
     for (int i = 0; i != MAX_TEAMS; i++) {
         if (strlen(server->teams[i].name) == 0) {
             uuid = generate_uuid();
             strcpy(server->teams[i].name, create->teams.team_name);
-            strcpy(server->teams[i].description, create->teams.team_description);
+            strcpy(server->teams[i].description,
+            create->teams.team_description);
             memcpy(server->teams[i].uuid, uuid, UUID_SIZE);
-            server_event_team_created(uuid, create->teams.team_name, create->teams.team_description);
-            add_team_response(server->clients[client].socket, &server->teams[i]);
+            server_event_team_created(uuid, create->teams.team_name,
+            create->teams.team_description);
+            add_team_response(server->clients[client].socket,
+            &server->teams[i]);
             free(uuid);
             return;
         }

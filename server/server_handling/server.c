@@ -74,7 +74,8 @@ static int handle_new_connection(server_t *server)
         return -1;
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
-        if (server->clients[i].socket == 0 && strlen(server->clients[i].name) == 0)
+        if (server->clients[i].socket == 0 &&
+        strlen(server->clients[i].name) == 0)
         {
             server->clients[i].socket = new_socket;
             break;

@@ -15,4 +15,4 @@ int command_user(char **argv, request_t *msg, cli_t *cli)
     argv += 0;
     msg->command = USER;
     return (1);
-} 
+}

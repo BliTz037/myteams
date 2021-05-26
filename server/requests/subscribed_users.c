@@ -52,7 +52,8 @@ void list_user_in_team(server_t *server, int client, char *team_uuid)
     {
         if (strcmp(server->teams[i].uuid, team_uuid) == 0)
         {
-            user_in_team_response(server, &server->teams[i], server->clients[client].socket);
+            user_in_team_response(server, &server->teams[i],
+            server->clients[client].socket);
             return;
         }
     }

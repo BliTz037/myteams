@@ -29,7 +29,8 @@ static int init_control_socket(server_t *server)
 {
     int opt = 1;
 
-    if ((server->control_socket = socket(PF_INET, SOCK_STREAM, 0)) == 0)
+    server->control_socket = socket(PF_INET, SOCK_STREAM, 0);
+    if (server->control_socket == 0)
         return -1;
     if (setsockopt(server->control_socket,
     SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))

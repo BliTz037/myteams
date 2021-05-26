@@ -72,6 +72,6 @@ char *generate_uuid();
 
 //Data handling
 int save_data(const char *path, server_t *server);
-int load_data(const char *path, server_t *server);
+void load_data(const char *path, server_t *server);
 
 #endif /* !SERVER_H_ */

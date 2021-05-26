@@ -14,17 +14,40 @@
 #include <stdlib.h>
 #include <time.h>
 
+static void notify_all_users(server_t *server, teams_t *team, thread_t *thread)
+{
+    response_t *response = malloc(sizeof(response_t));
+
+    response->code = 200;
+    response->command = CREATE;
+    response->create.is_global_ping = 1;
+    strcpy(response->create.thread[0].thread_message, thread->message);
+    strcpy(response->create.thread[0].thread_title, thread->title);
+    response->create.thread[0].timestamp = thread->timestamp;
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (is_subscribed_to_team(team, server->clients[i].uuid) == 1
+        && server->clients[i].loged == 1)
+        {
+            write(server->clients[i].socket, response, sizeof(response_t));
+        }
+    }
+    free(response);
+}
+
 static void add_thread_response(response_t *response,
 thread_t *thread)
 {
     response->code = 200;
-    strcpy(response->infos.thread[0].thread_message, thread->message);
-    strcpy(response->infos.thread[0].thread_title, thread->title);
-    response->infos.thread[0].timestamp = thread->timestamp;
+    response->command = CREATE;
+    response->create.is_global_ping = 0;
+    strcpy(response->create.thread[0].thread_message, thread->message);
+    strcpy(response->create.thread[0].thread_title, thread->title);
+    response->create.thread[0].timestamp = thread->timestamp;
 }
 
-static void add_thread_in_channel(channel_t *channel,
-thread_manipulation_t *thread_info, char *user_uuid, int fd)
+static thread_t * add_thread_in_channel(server_t *server,
+int client, channel_t *channel, thread_manipulation_t *thread_info)
 {
     char *uuid = generate_uuid();
     response_t *response = malloc(sizeof(response_t));
@@ -34,32 +57,38 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
             strcpy(channel->threads[i].title, thread_info->thread_title);
             strcpy(channel->threads[i].message, thread_info->thread_message);
             memcpy(channel->threads[i].uuid, uuid, UUID_SIZE);
-            memcpy(channel->threads[i].user_uuid, user_uuid, UUID_SIZE);
+            memcpy(channel->threads[i].user_uuid, 
+            server->clients[client].uuid, UUID_SIZE);
             channel->threads[i].timestamp = time(NULL);
             server_event_thread_created(thread_info->channel_uuid,
-            uuid, user_uuid, thread_info->thread_title,
+            uuid, server->clients[client].uuid, thread_info->thread_title,
             thread_info->thread_message);
             add_thread_response(response, &channel->threads[i]);
-            write(fd, response, sizeof(response_t));
+            write(server->clients[client].socket, response, sizeof(response_t));
             free (uuid);
             free(response);
+            return &channel->threads[i];
         }
     }
 }
 
-static void find_channel(teams_t *team,
-thread_manipulation_t *thread_info, char *user_uuid, int fd)
+static void find_channel(server_t *server, int client, teams_t *team,
+thread_manipulation_t *thread_info)
 {
+    thread_t *thread ;
+
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(thread_info->channel_uuid, team->channels[i].uuid))
         {
-            add_thread_in_channel(&team->channels[i], thread_info, user_uuid,
-            fd);
+            thread = add_thread_in_channel(server, client,
+            &team->channels[i], thread_info);
+            notify_all_users(server, team, thread);
             return;
         }
     }
-    request_404_error(fd, thread_info->channel_uuid, CHANNEL);
+    request_404_error(server->clients[client].socket,
+    thread_info->channel_uuid, CHANNEL);
 }
 
 void add_thread(server_t *server, create_t *create, int client)
@@ -73,8 +102,7 @@ void add_thread(server_t *server, create_t *create, int client)
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
-            find_channel(&server->teams[i], thread_info,
-            server->clients[client].uuid, server->clients[client].socket);
+            find_channel(server, client, &server->teams[i], thread_info);
             return;
         }
     }

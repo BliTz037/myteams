@@ -18,11 +18,13 @@ static void add_message_response(response_t *response,
 message_manipulation_t *message_info, char *user_uuid)
 {
     response->code = 200;
-    strcpy(response->infos.comments[0].body, message_info->body);
-    memcpy(response->infos.comments[0].user_uuid, user_uuid, UUID_SIZE);
-    memcpy(response->infos.comments[0].thread_uuid,
+    response->command = CREATE;
+    response->create.is_global_ping = 0;
+    strcpy(response->create.comments[0].body, message_info->body);
+    memcpy(response->create.comments[0].user_uuid, user_uuid, UUID_SIZE);
+    memcpy(response->create.comments[0].thread_uuid,
     message_info->thread_uuid, UUID_SIZE);
-    memcpy(response->infos.comments[0].team_uuid,
+    memcpy(response->create.comments[0].team_uuid,
     message_info->team_uuid, UUID_SIZE);
 }
 
@@ -40,7 +42,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             server_event_reply_created(message_info->thread_uuid,
             user_uuid, message_info->body);
             thread->comments[i].timestamp = time(NULL);
-            response->infos.comments[0].timestamp =
+            response->create.comments[0].timestamp =
             thread->comments[i].timestamp;
             add_message_response(response, message_info, user_uuid);
             write(fd, response, sizeof(response_t));

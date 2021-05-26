@@ -171,6 +171,18 @@ typedef struct infos_response_s
     };
 } infos_response_t;
 
+typedef struct create_response_s
+{
+    union {
+        teams_manipulation_t teams[MAX_TEAMS];
+        channel_manipulation_t channel[MAX_CHANNEL];
+        thread_manipulation_t thread[MAX_THREADS];
+        comment_response_t comments[MAX_COMMENTS];
+    };
+    int is_global_ping;
+} create_response_t;
+
+
 typedef struct error_404_response_s
 {
     char uuid[UUID_SIZE];
@@ -185,6 +197,7 @@ typedef struct response_s
         subscribe_response_t subscribe;
         subscribed_response_t subscribed;
         infos_response_t infos;
+        create_response_t create;
         error_404_response_t error_404;
     };
     int code;

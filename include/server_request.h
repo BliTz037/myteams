@@ -28,6 +28,7 @@ void user(server_t *server, int client, request_t *request);
 void my_send(server_t *server, int client, request_t *request);
 void get_users_logged_infos(server_t *server, int fd);
 void messages(server_t *server, int client, request_t *request);
+int is_subscribed_to_team(teams_t *team, char *uuid);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);

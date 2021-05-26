@@ -6,12 +6,12 @@
 */
 
 #include "communication.h"
+#include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
 void response_subscribe(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
-    (void)(rcv);
-    printf("MATCH SUBSCRIBE\n");
-    return;
+    client_print_subscribed(rcv->subscribe.user_uuid,
+    rcv->subscribe.team_uuid);
 }

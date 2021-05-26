@@ -31,7 +31,7 @@ void get_users_logged_infos(server_t *server, int fd)
         }
     }
     response->code = 200;
-    response->command = USER;
+    response->command = USERS;
     write(fd, response, sizeof(response_t));
     free(response);
 }
@@ -54,7 +54,7 @@ static void users_info(server_t *server, int fd)
         }
     }
     response->code = 200;
-    response->command = USER;
+    response->command = USERS;
     write(fd, response, sizeof(response_t));
     free(response);
 }

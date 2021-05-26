@@ -16,6 +16,7 @@ typedef enum command
     LOGIN,
     LOGOUT,
     USER,
+    USERS,
     SEND,
     MESSAGES,
     SUBSCRIBE,

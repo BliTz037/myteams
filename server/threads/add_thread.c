@@ -57,7 +57,7 @@ int client, channel_t *channel, thread_manipulation_t *thread_info)
             strcpy(channel->threads[i].title, thread_info->thread_title);
             strcpy(channel->threads[i].message, thread_info->thread_message);
             memcpy(channel->threads[i].uuid, uuid, UUID_SIZE);
-            memcpy(channel->threads[i].user_uuid, 
+            memcpy(channel->threads[i].user_uuid,
             server->clients[client].uuid, UUID_SIZE);
             channel->threads[i].timestamp = time(NULL);
             server_event_thread_created(thread_info->channel_uuid,

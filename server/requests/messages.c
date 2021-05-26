@@ -26,8 +26,10 @@ static void list_private_messages(int fd, private_message_t *messages)
     {
         if (strlen(messages->messages[i].message) > 0)
         {
-            strcpy(response->message.messages[j].message, messages->messages[i].message);
-            response->message.messages[j].timestamp = messages->messages[i].timestamp;
+            strcpy(response->message.messages[j].message,
+            messages->messages[i].message);
+            response->message.messages[j].timestamp =
+            messages->messages[i].timestamp;
             j++;
         }
     }
@@ -50,5 +52,6 @@ void messages(server_t *server, int client, request_t *request)
             return;
         }
     }
-    request_404_error(server->clients[client].socket, send->user_uuid, MESSAGES);
+    request_404_error(server->clients[client].socket,
+    send->user_uuid, MESSAGES);
 }

@@ -26,7 +26,7 @@ message_manipulation_t *message_info, int fd, response_t *response)
             message_info->thread_uuid, UUID_SIZE);
             memcpy(response->infos.comments[0].team_uuid,
             message_info->team_uuid, UUID_SIZE);
-            response->infos.comments[0].timestamp = 
+            response->infos.comments[0].timestamp =
             thread->comments[i].timestamp;
             j++;
         }

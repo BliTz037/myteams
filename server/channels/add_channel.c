@@ -13,7 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void notify_all_users(server_t *server, teams_t *team, channel_t *channel)
+static void notify_all_users(server_t *server, teams_t *team,
+channel_t *channel)
 {
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;

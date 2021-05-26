@@ -84,7 +84,7 @@ void add_team(server_t *server, create_t *create, int client)
             create->teams.team_description);
             memcpy(server->teams[i].uuid, uuid, UUID_SIZE);
             server_event_team_created(uuid, create->teams.team_name,
-            create->teams.team_description);
+            server->clients[client].name);
             add_team_response(server->clients[client].socket,
             &server->teams[i]);
             add_creator_to_subscribed(&server->teams[i], &server->clients[i]);

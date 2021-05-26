@@ -12,6 +12,7 @@
 #include "logging_server.h"
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
 
 static void set_private_message(private_message_t *private,
@@ -19,9 +20,10 @@ char *body)
 {
     for (int i = 0; i != MAX_PM; i++)
     {
-        if (strlen(private->messages[i]) == 0)
+        if (strlen(private->messages[i].message) == 0)
         {
-            strcpy(private->messages[i], body);
+            strcpy(private->messages[i].message, body);
+            private->messages[i].timestamp = time(NULL);
             return;
         }
     }
@@ -57,7 +59,7 @@ static void private_message_response(int fd, char *uuid, char *body)
     response->code = 200;
     response->command = SEND;
     memcpy(response->message.user_uuid, uuid, UUID_SIZE);
-    memcpy(response->message.comments[0], body, MAX_BODY_LENGTH);
+    memcpy(response->message.messages[0].message, body, MAX_BODY_LENGTH);
     write(fd, response, sizeof(response_t));
     free(response);
 }

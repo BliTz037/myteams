@@ -11,6 +11,7 @@
 #include "server_request.h"
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
 
 static void add_message_response(response_t *response,
@@ -38,6 +39,9 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             memcpy(thread->comments[i].user_uuid, user_uuid, UUID_SIZE);
             server_event_reply_created(message_info->thread_uuid,
             user_uuid, message_info->body);
+            thread->comments[i].timestamp = time(NULL);
+            response->infos.comments[0].timestamp =
+            thread->comments[i].timestamp;
             add_message_response(response, message_info, user_uuid);
             write(fd, response, sizeof(response_t));
             free(response);

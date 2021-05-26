@@ -26,6 +26,8 @@ static void thread_info_in_channel(channel_t *channel, int fd)
             channel->threads[i].message);
             strcpy(response->infos.thread[j].thread_title,
             channel->threads[i].title);
+            response->infos.thread[j].timestamp =
+            channel->threads[i].timestamp;
             j++;
         }
     }

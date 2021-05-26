@@ -27,6 +27,7 @@ int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
 void user(server_t *server, int client, request_t *request);
 void my_send(server_t *server, int client, request_t *request);
 void get_users_logged_infos(server_t *server, int fd);
+void messages(server_t *server, int client, request_t *request);
 
 // Teams
 void add_team(server_t *server, create_t *create, int client);
@@ -66,6 +67,7 @@ static const request_function_t request_list[] = {
     {.command = UNSUBSCRIBE, .fct = &unsubscribe},
     {.command = SUBSCRIBED, .fct = &subscribed},
     {.command = USER, .fct = &user},
+    {.command = MESSAGES, .fct = &messages},
     };
 
 #endif /* !SERVER_REQUEST_H_ */

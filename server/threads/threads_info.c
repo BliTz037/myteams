@@ -27,6 +27,8 @@ message_manipulation_t *thread_info)
             channel->threads[i].message);
             strcpy(response->infos.thread[0].thread_title,
             channel->threads[i].title);
+            response->infos.thread[0].timestamp = 
+            channel->threads[i].timestamp;
             response->code = 200;
             response->command = LIST;
             write(fd, response, sizeof(response_t));

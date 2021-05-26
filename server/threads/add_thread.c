@@ -12,6 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <time.h>
 
 static void add_thread_response(response_t *response,
 thread_t *thread)
@@ -19,6 +20,7 @@ thread_t *thread)
     response->code = 200;
     strcpy(response->infos.thread[0].thread_message, thread->message);
     strcpy(response->infos.thread[0].thread_title, thread->title);
+    response->infos.thread[0].timestamp = thread->timestamp;
 }
 
 static void add_thread_in_channel(channel_t *channel,
@@ -27,14 +29,13 @@ thread_manipulation_t *thread_info, char *user_uuid, int fd)
     char *uuid = generate_uuid();
     response_t *response = malloc(sizeof(response_t));
 
-    for (int i = 0; MAX_THREADS; i++)
-    {
-        if (strlen(channel->threads[i].title) == 0)
-        {
+    for (int i = 0; MAX_THREADS; i++) {
+        if (strlen(channel->threads[i].title) == 0) {
             strcpy(channel->threads[i].title, thread_info->thread_title);
             strcpy(channel->threads[i].message, thread_info->thread_message);
             memcpy(channel->threads[i].uuid, uuid, UUID_SIZE);
             memcpy(channel->threads[i].user_uuid, user_uuid, UUID_SIZE);
+            channel->threads[i].timestamp = time(NULL);
             server_event_thread_created(thread_info->channel_uuid,
             uuid, user_uuid, thread_info->thread_title,
             thread_info->thread_message);

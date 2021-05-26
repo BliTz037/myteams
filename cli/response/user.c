@@ -6,12 +6,21 @@
 */
 
 #include "communication.h"
+#include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
 void response_user(cli_t *cli, response_t *rcv)
 {
     (void)(cli);
-    (void)(rcv);
-    printf("MATCH USER\n");
-    return;
+    client_print_user(rcv->user.users[0].uuid, rcv->user.users[0].name,
+    rcv->user.users[1].status);
+}
+
+void response_users(cli_t *cli, response_t *rcv)
+{
+    (void)(cli);
+    for (int i = 0; i != MAX_CLIENTS; i++)
+        if (rcv->user.users[i].name[0] != '\0')
+            client_print_users(rcv->user.users[i].uuid,
+            rcv->user.users[i].name, rcv->user.users[i].status);
 }

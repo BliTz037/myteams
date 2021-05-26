@@ -9,7 +9,7 @@
 #include "communication.h"
 
 static char *commmand_str[] =
-    {"/login", "/logout", "/user", "/send",
+    {"/login", "/logout", "/user", "/users", "/send",
     "/messages", "/subscribe", "/subscribed",
     "/unsubscribe", "/create", "/list", "/info", "/use", "/help"};
 
@@ -42,9 +42,9 @@ char *get_command_line(void)
 void translate_response(cli_t *cli, response_t *res)
 {
     void (*response[])(cli_t *, response_t *) = {response_login,
-    response_logout, response_user, response_send, response_messages,
-    response_subscribe, response_subscribed, response_unsubscribed,
-    response_create, response_list, response_info};
+    response_logout, response_user, response_users, response_send,
+    response_messages, response_subscribe, response_subscribed,
+    response_unsubscribed, response_create, response_list, response_info};
 
     if (res->code >= 200 && res->code <= 299)
         response[res->command](cli, res);
@@ -58,7 +58,7 @@ int fill_request_struct(char *command, request_t *msg, cli_t *cli)
     int status = 0;
     char **tab = str_to_word_array(command, " \n", &len);
     int (*parser[])(char **, request_t *, cli_t *) = {command_login,
-    command_logout, command_user, command_send, command_messages,
+    command_logout, command_user, command_users, command_send, command_messages,
     command_subscribe, command_subscribed, command_unsubscribed,
     command_create, command_list, command_info, command_use, command_help};
 

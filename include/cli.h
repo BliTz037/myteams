@@ -40,6 +40,7 @@ typedef struct cli
 int command_login(char **argv, request_t *msg, cli_t *cli);
 int command_logout(char **argv, request_t *msg, cli_t *cli);
 int command_user(char **argv, request_t *msg, cli_t *cli);
+int command_users(char **argv, request_t *msg, cli_t *cli);
 int command_send(char **argv, request_t *msg, cli_t *cli);
 int command_messages(char **argv, request_t *msg, cli_t *cli);
 int command_subscribe(char **argv, request_t *msg, cli_t *cli);
@@ -54,6 +55,7 @@ int command_help(char **argv, request_t *msg, cli_t *cli);
 void response_login(cli_t *cli, response_t *rcv);
 void response_logout(cli_t *cli, response_t *rcv);
 void response_user(cli_t *cli, response_t *rcv);
+void response_users(cli_t *cli, response_t *rcv);
 void response_send(cli_t *cli, response_t *rcv);
 void response_messages(cli_t *cli, response_t *rcv);
 void response_subscribe(cli_t *cli, response_t *rcv);

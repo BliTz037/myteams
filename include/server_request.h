@@ -11,6 +11,7 @@
 #include "communication.h"
 #include "server.h"
 
+void get_client_request(server_t *server, int sd, int client);
 void handle_request(server_t *server, int client, request_t *request);
 void create(server_t *server, int client, request_t *request);
 void list(server_t *server, int client, request_t *request);

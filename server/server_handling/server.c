@@ -17,19 +17,9 @@
 #include <arpa/inet.h>
 #include "logging_server.h"
 #include "server_request.h"
+#include <signal.h>
 
-static void get_client_request(server_t *server, int sd, int client)
-{
-    request_t *request = malloc(sizeof(request_t));
-
-    if (read(sd, request, sizeof(request_t)) <= 0)
-    {
-        close_connection(server, sd, client);
-        return;
-    }
-    handle_request(server, client, request);
-    free(request);
-}
+static int is_running = 1;
 
 static int select_socket(server_t *server)
 {
@@ -84,23 +74,27 @@ static int handle_new_connection(server_t *server)
     return 0;
 }
 
+void my_handler(int sig)
+{
+    (void) sig;
+    is_running = 0;
+}
+
 int launch_server(server_t *server, int port)
 {
     int check_connection;
 
+    signal(SIGINT, my_handler);
     if (init_server(server, port) == -1)
         return -1;
-    while (1) {
+    while (is_running) {
         if (select_socket(server) == -1)
-            return -1;
+            return 0;
         if (FD_ISSET(server->control_socket, &server->readfds))
             check_connection = handle_new_connection(server);
         if (check_connection == -1)
             return -1;
-        check_connection = handle_existing_connection(server);
-        if (check_connection == 1)
-            return 0;
-        else if (check_connection == -1)
+        if (handle_existing_connection(server) == -1)
             return -1;
     }
     return 0;

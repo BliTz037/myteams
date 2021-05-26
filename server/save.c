@@ -9,6 +9,7 @@
 
 int save_data(const char *path, server_t *server)
 {
+    printf("here\n");
     FILE *file = fopen(path, "w");
 
     if (file == NULL) {
@@ -16,20 +17,18 @@ int save_data(const char *path, server_t *server)
         printf("[save_data] Open fail\n");
         return -1;
     }
-    fwrite(&server, sizeof(server_t), 1, file);
+    fwrite(server, sizeof(server_t), 1, file);
     fclose(file);
     return 0;
 }
 
-int load_data(const char *path, server_t *server)
+void load_data(const char *path, server_t *server)
 {
     FILE *file = fopen(path, "r");
 
-    if (file == NULL) {
-        printf("[get_data] Open fail\n");
-        return -1;
-    }
-    fread(&server, sizeof(server_t), 1, file);
+    if (file == NULL)
+        return;
+    fread(server, sizeof(server_t), 1, file);
     fclose(file);
-    return 0;
+    return;
 }

@@ -60,3 +60,16 @@ void handle_request(server_t *server, int client, request_t *request)
         }
     }
 }
+
+void get_client_request(server_t *server, int sd, int client)
+{
+    request_t *request = malloc(sizeof(request_t));
+
+    if (read(sd, request, sizeof(request_t)) <= 0)
+    {
+        close_connection(server, sd, client);
+        return;
+    }
+    handle_request(server, client, request);
+    free(request);
+}

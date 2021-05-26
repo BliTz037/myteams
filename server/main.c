@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 
 int print_help(char *av)
 {
@@ -29,11 +30,10 @@ int main(int ac, char **av)
     if ((port = atoi(av[1])) <= 0)
         return 84;
     server = malloc(sizeof(server_t));
-    if (launch_server(server, port) == 84)
-    {
-        free(server);
+    load_data("save.dat", server);
+    if (launch_server(server, port) == -1)
         return 84;
-    }
+    save_data("save.dat", server);
     free(server);
     return (0);
 }

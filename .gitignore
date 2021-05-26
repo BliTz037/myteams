@@ -9,3 +9,4 @@ valgrind
 protocole.txt
 vgcore
 test.c
+*.dat

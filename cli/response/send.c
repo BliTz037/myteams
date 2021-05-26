@@ -6,12 +6,14 @@
 */
 
 #include "communication.h"
+#include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
 void response_send(cli_t *cli, response_t *rcv)
 {
-    (void)(cli);
     (void)(rcv);
+
     printf("MATCH SEND\n");
-    return;
+    client_event_private_message_received(rcv->message.user_uuid,
+    rcv->message.messages[0].message);
 }

@@ -40,8 +40,8 @@ typedef struct user_s
 
 typedef struct send_s
 {
-    char user_uuid[UUID_SIZE];
     char body[MAX_BODY_LENGTH];
+    char user_uuid[UUID_SIZE];
 } send_t;
 
 typedef struct message_s

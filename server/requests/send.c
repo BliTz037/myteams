@@ -70,7 +70,7 @@ void my_send(server_t *server, int client, request_t *request)
 
     for (int i = 0; i != MAX_CLIENTS; i++)
     {
-        if (strcmp(send->user_uuid, server->clients[i].uuid))
+        if (strcmp(send->user_uuid, server->clients[i].uuid) == 0)
         {
             set_message(&server->clients[client], send->user_uuid, send->body);
             set_message(&server->clients[i], server->clients[client].uuid,

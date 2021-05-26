@@ -70,6 +70,7 @@ static const request_function_t request_list[] = {
     {.command = SUBSCRIBED, .fct = &subscribed},
     {.command = USER, .fct = &user},
     {.command = MESSAGES, .fct = &messages},
+    {.command = SEND, .fct = &my_send},
     };
 
 #endif /* !SERVER_REQUEST_H_ */

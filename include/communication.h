@@ -90,8 +90,8 @@ typedef enum service_type
     TEAMS,
     CHANNEL,
     THREAD,
-    MESSAGE,
     USER_INFO,
+    MESSAGE,
 } service_type;
 
 typedef struct create_s

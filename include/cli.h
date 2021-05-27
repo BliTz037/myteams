@@ -69,7 +69,7 @@ int receive_message(cli_t *cli);
 int send_message(cli_t *cli);
 int connect_server(const char *ip, const int port, cli_t *cli);
 void translate_response(cli_t *cli, response_t *res);
-void manage_error_response(int code);
+void manage_error_response(response_t *res);
 
 char *get_command_line(void);
 char **str_to_word_array(char *str, const char *delim, int *len);

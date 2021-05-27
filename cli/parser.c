@@ -49,7 +49,7 @@ void translate_response(cli_t *cli, response_t *res)
     if (res->code >= 200 && res->code <= 299)
         response[res->command](cli, res);
     else
-        manage_error_response(res->code);
+        manage_error_response(res);
 }
 
 int fill_request_struct(char *command, request_t *msg, cli_t *cli)

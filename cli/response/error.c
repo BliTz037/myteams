@@ -7,15 +7,27 @@
 
 #include <stdio.h>
 #include "../libs/myteams/logging_client.h"
+#include "communication.h"
 
-void manage_error_response(int code)
+void manage_error_404(response_t *rcv)
 {
-    if (code == 500)
+    int (*cmd[])(char const *) = {client_error_unknown_team,
+    client_error_unknown_channel, client_error_unknown_thread,
+    client_error_unknown_user};
+
+    cmd[rcv->error_404.type](rcv->error_404.uuid);
+}
+
+void manage_error_response(response_t *rcv)
+{
+    if (rcv->code == 500)
         printf("500 Internal Error\n");
-    if (code == 403)
+    if (rcv->code == 403)
         client_error_unauthorized();
-    if (code == 405)
+    if (rcv->code == 405)
         printf("Error 405 : You are already logged !\n");
-    if (code == 410)
+    if (rcv->code == 404)
+        manage_error_404(rcv);
+    if (rcv->code == 410)
         client_error_already_exist();
 }

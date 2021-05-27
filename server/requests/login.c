@@ -48,6 +48,7 @@ static void login_new_user(server_t *server, int client, request_t *request)
     server->clients[client].name, server->clients[client].uuid);
     server_event_user_created(server->clients[client].uuid,
     server->clients[client].name);
+    server_event_user_logged_in(server->clients[client].uuid);
     free (uuid);
 }
 

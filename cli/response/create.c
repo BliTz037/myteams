@@ -9,30 +9,53 @@
 #include "cli.h"
 #include "logging_client.h"
 
+static void response_single_user(response_t *rcv)
+{
+    if (rcv->create.type == TEAMS)
+        client_print_team_created(rcv->create.teams[0].team_uuid,
+        rcv->create.teams[0].team_name, 
+        rcv->create.teams[0].team_description);
+    if (rcv->create.type == CHANNEL)
+        client_print_channel_created(rcv->create.channel[0].team_uuid,
+        rcv->create.channel[0].channel_name, 
+        rcv->create.channel[0].channel_description);
+    if (rcv->create.type == THREAD)
+        client_print_thread_created(rcv->create.thread[0].thread_uuid,
+        rcv->create.thread[0].user_uuid, rcv->create.thread[0].timestamp,
+        rcv->create.thread[0].thread_title,
+        rcv->create.thread[0].thread_message);
+    if (rcv->create.type == MESSAGE)
+        client_print_reply_created(rcv->create.comments[0].thread_uuid,
+        rcv->create.comments[0].user_uuid, rcv->create.comments[0].timestamp,
+        rcv->create.comments[0].body);
+}
+
+static void response_all_users(response_t *rcv)
+{
+    if (rcv->create.type == TEAMS)
+        client_event_team_created(rcv->create.teams[0].team_uuid,
+        rcv->create.teams[0].team_name, 
+        rcv->create.teams[0].team_description);
+    if (rcv->create.type == CHANNEL)
+        client_event_channel_created(rcv->create.channel[0].team_uuid,
+        rcv->create.channel[0].channel_name, 
+        rcv->create.channel[0].channel_description);
+    if (rcv->create.type == THREAD)
+        client_event_thread_created(rcv->create.thread[0].thread_uuid,
+        rcv->create.thread[0].user_uuid, rcv->create.thread[0].timestamp,
+        rcv->create.thread[0].thread_title,
+        rcv->create.thread[0].thread_message);
+    if (rcv->create.type == MESSAGE)
+        client_event_thread_reply_received(rcv->create.comments[0].team_uuid,
+        rcv->create.comments[0].thread_uuid, rcv->create.comments[0].user_uuid,
+        rcv->create.comments[0].body);
+}
+
 void response_create(cli_t *cli, response_t *rcv)
 {
     (void) cli;
-    switch (TEAMS) {
-        case (TEAMS):
-            client_event_team_created(rcv->create.teams[0].team_uuid,
-            rcv->create.teams[0].team_name, 
-            rcv->create.teams[0].team_description);
-            break;
-        case (CHANNEL):
-            client_print_channel_created(rcv->create.channel[0].team_uuid,
-            rcv->create.channel[0].channel_name, 
-            rcv->create.channel[0].channel_description);
-            break;
-        case (THREAD):
-            client_print_thread_created("thread_uuid", "user_uuid", 
-            rcv->create.thread[0].timestamp, rcv->create.thread[0].thread_title,
-            rcv->create.thread[0].thread_message);
-            break;
-        case (MESSAGE):
-            client_print_reply_created(rcv->create.comments[0].thread_uuid,
-            rcv->create.comments[0].user_uuid, 
-            rcv->create.comments[0].timestamp, rcv->create.comments[0].body);
-            break;
-    }
-    return;
+    if (rcv->create.type)
+        response_all_users(rcv);
+    else
+        response_single_user(rcv);
 }

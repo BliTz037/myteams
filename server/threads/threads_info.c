@@ -27,6 +27,7 @@ static void fill_thread_response(response_t *response, thread_t *thread)
     thread->uuid, UUID_SIZE);
     response->code = 200;
     response->command = INFO;
+    response->infos.type = THREAD;
 }
 
 static void thread_info_in_channel(channel_t *channel, int fd,

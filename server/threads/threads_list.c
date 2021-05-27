@@ -42,6 +42,7 @@ static void thread_info_in_channel(channel_t *channel, int fd)
     }
     response->code = 200;
     response->command = LIST;
+    response->infos.type = THREAD;
     write(fd, response, sizeof(response_t));
     free(response);
 }

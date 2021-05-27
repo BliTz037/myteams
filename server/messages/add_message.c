@@ -29,7 +29,7 @@ message_manipulation_t *message_info, char *user_uuid)
     message_info->team_uuid, UUID_SIZE);
 }
 
-static void add_message_in_thread(thread_t *thread,
+static comment_t *add_message_in_thread(thread_t *thread,
 message_manipulation_t *message_info, char *user_uuid, int fd)
 {
     response_t *response = malloc(sizeof(response_t));
@@ -48,40 +48,45 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
             add_message_response(response, message_info, user_uuid);
             write(fd, response, sizeof(response_t));
             free(response);
-            return;
+            return &thread->comments[i];
         }
     }
+    return NULL;
 }
 
-static void find_thread(channel_t *channel,
+static comment_t *find_thread(channel_t *channel,
 message_manipulation_t *message_info, char *user_uuid, int fd)
 {
-
     for (int i = 0; MAX_THREADS; i++)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {
-            add_message_in_thread(&channel->threads[i], message_info,
-            user_uuid, fd);
-            return;
+            return (add_message_in_thread(&channel->threads[i], message_info,
+            user_uuid, fd));
         }
     }
     request_404_error(fd, message_info->thread_uuid, THREAD);
+    return NULL;
 
 }
 
 static void find_channel(teams_t *team,
-message_manipulation_t *message_info, char *user_uuid, int fd)
+message_manipulation_t *message_info, server_t *server, int client)
 {
+    comment_t *comment;
+
     for (int i = 0; i != MAX_CHANNEL; i++)
     {
         if (strcmp(message_info->channel_uuid, team->channels[i].uuid))
         {
-            find_thread(&team->channels[i], message_info, user_uuid, fd);
+            comment = find_thread(&team->channels[i], message_info,
+            server->clients[client].uuid, server->clients[client].socket);
+            message_notify_all_users(server, team, comment, message_info);
             return;
         }
     }
-    request_404_error(fd, message_info->channel_uuid, CHANNEL);
+    request_404_error(server->clients[client].socket,
+    message_info->channel_uuid, CHANNEL);
 }
 
 void add_message(server_t *server, create_t *create, int client)
@@ -96,7 +101,7 @@ void add_message(server_t *server, create_t *create, int client)
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;
             find_channel(&server->teams[i], message_info,
-            server->clients[client].uuid, server->clients[client].socket);
+            server, client);
             return;
         }
     }

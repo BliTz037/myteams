@@ -33,6 +33,7 @@ void get_teams_list(server_t *server, int client)
     }
     response->code = 200;
     response->command = LIST;
+    response->infos.type = TEAMS;
     write(server->clients[client].socket, response, sizeof(response_t));
     free(response);
 }

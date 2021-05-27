@@ -23,6 +23,7 @@ SRC_SERVER	= 	server/server_handling/server.c	\
 				server/threads/threads_list.c	\
 				server/threads/threads_info.c	\
 				server/messages/add_message.c	\
+				server/messages/add_message_ping.c	\
 				server/messages/messages_list.c	\
 				server/requests/login.c	\
 				server/requests/request.c	\

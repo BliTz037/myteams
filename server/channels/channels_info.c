@@ -17,10 +17,8 @@ static void channels_teams_info(teams_t *team, int fd, info_t *info)
 {
     response_t *response;
 
-    for (int i = 0; i != MAX_CHANNEL; i++)
-    {
-        if (strcmp(team->channels[i].uuid, info->thread.channel_uuid) != 0)
-        {
+    for (int i = 0; i != MAX_CHANNEL; i++) {
+        if (strcmp(team->channels[i].uuid, info->thread.channel_uuid) != 0) {
             response = malloc(sizeof(response_t));
             strcpy(response->infos.channel[0].channel_description,
             team->channels[i].description);
@@ -30,6 +28,7 @@ static void channels_teams_info(teams_t *team, int fd, info_t *info)
             team->channels[i].uuid, UUID_SIZE);
             response->code = 200;
             response->command = LIST;
+            response->infos.type = CHANNEL;
             write(fd, response, sizeof(response_t));
             free(response);
         }

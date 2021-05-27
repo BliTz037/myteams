@@ -52,6 +52,8 @@ int client);
 void add_message(server_t *server, create_t *create, int client);
 void get_messages_list(server_t *server, info_t *create,
 int client);
+void message_notify_all_users(server_t *server, teams_t *team,
+comment_t *message, message_manipulation_t *message_info);
 
 typedef struct request_function_s
 {

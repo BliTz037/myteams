@@ -20,10 +20,13 @@ static void notify_all_users(server_t *server, teams_t *team, thread_t *thread)
 
     response->code = 200;
     response->command = CREATE;
+    response->create.type = THREAD;
     response->create.is_global_ping = 1;
     strcpy(response->create.thread[0].thread_message, thread->message);
     strcpy(response->create.thread[0].thread_title, thread->title);
     response->create.thread[0].timestamp = thread->timestamp;
+    memcpy(response->create.thread[0].user_uuid, thread->user_uuid, UUID_SIZE);
+    memcpy(response->create.thread[0].thread_uuid, thread->uuid, UUID_SIZE);
     for (int i = 0; i != MAX_CLIENTS; i++)
     {
         if (is_subscribed_to_team(team, server->clients[i].uuid) == 1
@@ -40,6 +43,7 @@ thread_t *thread)
 {
     response->code = 200;
     response->command = CREATE;
+    response->create.type = THREAD;
     response->create.is_global_ping = 0;
     strcpy(response->create.thread[0].thread_message, thread->message);
     strcpy(response->create.thread[0].thread_title, thread->title);

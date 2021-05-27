@@ -32,6 +32,7 @@ message_manipulation_t *message_info, int fd, response_t *response)
         }
     }
     response->code = 200;
+    response->infos.type = MESSAGE;
     write(fd, response, sizeof(response_t));
     free(response);
 }

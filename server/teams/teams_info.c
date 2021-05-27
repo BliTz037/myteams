@@ -28,6 +28,7 @@ void get_teams_info(server_t *server, int client, info_t *info)
             server->teams[i].description);
             response->code = 200;
             response->command = INFO;
+            response->infos.type = TEAMS;
             write(server->clients[client].socket, response,
             sizeof(response_t));
             free(response);

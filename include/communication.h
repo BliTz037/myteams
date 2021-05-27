@@ -178,6 +178,7 @@ typedef struct infos_response_s
         thread_response_t thread[MAX_THREADS];
         comment_response_t comments[MAX_COMMENTS];
     };
+    service_type type;
 } infos_response_t;
 
 typedef struct create_response_s

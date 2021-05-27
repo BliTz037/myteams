@@ -19,6 +19,7 @@ static void notify_all_users(server_t *server, teams_t *team)
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;
     response->command = CREATE;
+    response->create.type = TEAMS;
     response->create.is_global_ping = 1;
     strcpy(response->create.teams[0].team_name, team->name);
     memcpy(response->create.teams[0].team_uuid, team->uuid, UUID_SIZE);
@@ -49,6 +50,7 @@ static void add_team_response(int fd, teams_t *team)
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;
     response->command = CREATE;
+    response->create.type = TEAMS;
     response->create.is_global_ping = 0;
     strcpy(response->create.teams[0].team_name, team->name);
     memcpy(response->create.teams[0].team_uuid, team->uuid, UUID_SIZE);

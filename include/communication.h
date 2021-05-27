@@ -189,6 +189,7 @@ typedef struct create_response_s
         comment_response_t comments[MAX_COMMENTS];
     };
     int is_global_ping;
+    service_type type;
 } create_response_t;
 
 

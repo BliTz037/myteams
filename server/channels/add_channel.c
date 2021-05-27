@@ -19,6 +19,7 @@ channel_t *channel)
     response_t *response = malloc(sizeof(response_t));
     response->code = 200;
     response->command = CREATE;
+    response->create.type = CHANNEL;
     response->create.is_global_ping = 1;
     strcpy(response->create.channel[0].channel_description,
     channel->description);
@@ -40,6 +41,7 @@ channel_t *channel)
 {
     response->code = 200;
     response->command = CREATE;
+    response->create.type = CHANNEL;
     response->create.is_global_ping = 0;
     strcpy(response->create.channel[0].channel_description,
     channel->description);

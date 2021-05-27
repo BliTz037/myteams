@@ -19,6 +19,7 @@ message_manipulation_t *message_info, char *user_uuid)
 {
     response->code = 200;
     response->command = CREATE;
+    response->create.type = MESSAGE;
     response->create.is_global_ping = 0;
     strcpy(response->create.comments[0].body, message_info->body);
     memcpy(response->create.comments[0].user_uuid, user_uuid, UUID_SIZE);

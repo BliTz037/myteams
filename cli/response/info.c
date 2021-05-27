@@ -12,7 +12,7 @@
 void response_info(cli_t *cli, response_t *rcv)
 {
     (void) cli;
-    switch (TEAMS){
+    switch (rcv->infos.type){
         case (USER_INFO):
             client_print_user(rcv->user.users[0].uuid,
             rcv->user.users[0].name, rcv->user.users[0].status);
@@ -33,5 +33,4 @@ void response_info(cli_t *cli, response_t *rcv)
             rcv->infos.thread[0].thread_message);
             break;
     }
-    return;
 }

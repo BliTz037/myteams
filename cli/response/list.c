@@ -41,8 +41,9 @@ void display_thread(response_t *rcv)
     {
         if (strlen(rcv->infos.thread[i].thread_title) > 0)
         {
-            client_print_thread("thread uuid", "user_uuid", 
-            rcv->infos.thread[i].timestamp, rcv->infos.thread[i].thread_title,
+            client_print_thread(rcv->infos.thread[i].thread_uuid,
+            rcv->infos.thread[i].user_uuid, rcv->infos.thread[i].timestamp,
+            rcv->infos.thread[i].thread_title,
             rcv->infos.thread[i].thread_message);
         }
     }
@@ -63,7 +64,8 @@ void display_replies(response_t *rcv)
 
 void response_list(cli_t *cli, response_t *rcv)
 {
-    switch (TEAMS){
+    (void)(cli);
+    switch (rcv->infos.type){
         case (TEAMS):
             display_team(rcv);
             break;
@@ -77,5 +79,4 @@ void response_list(cli_t *cli, response_t *rcv)
             display_replies(rcv);
             break;
     }
-    return;
 }

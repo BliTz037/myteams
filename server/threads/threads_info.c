@@ -13,26 +13,34 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+static void fill_thread_response(response_t *response, thread_t *thread)
+{
+    strcpy(response->infos.thread[0].thread_message,
+    thread->message);
+    strcpy(response->infos.thread[0].thread_title,
+    thread->title);
+    response->infos.thread[0].timestamp = 
+    thread->timestamp;
+    memcpy(response->infos.thread[0].user_uuid,
+    thread->user_uuid, UUID_SIZE);
+    memcpy(response->infos.thread[0].thread_uuid,
+    thread->uuid, UUID_SIZE);
+    response->code = 200;
+    response->command = INFO;
+}
+
 static void thread_info_in_channel(channel_t *channel, int fd,
 message_manipulation_t *thread_info)
 {
     response_t *response;
 
-    for (int i = 0; MAX_THREADS; i++)
-    {
-        if (strcmp(channel->threads[i].uuid, thread_info->thread_uuid) != 0)
-        {
+    for (int i = 0; MAX_THREADS; i++) {
+        if (strcmp(channel->threads[i].uuid, thread_info->thread_uuid) != 0) {
             response = malloc(sizeof(response_t));
-            strcpy(response->infos.thread[0].thread_message,
-            channel->threads[i].message);
-            strcpy(response->infos.thread[0].thread_title,
-            channel->threads[i].title);
-            response->infos.thread[0].timestamp =
-            channel->threads[i].timestamp;
-            response->code = 200;
-            response->command = LIST;
+            fill_thread_response(response, &channel->threads[i]);
             write(fd, response, sizeof(response_t));
             free(response);
+            return;
         }
     }
     request_404_error(fd, thread_info->thread_uuid, THREAD);

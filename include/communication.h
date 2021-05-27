@@ -152,6 +152,15 @@ typedef struct subscribed_response_s
     };
 } subscribed_response_t;
 
+typedef struct thread_response_s
+{
+    char thread_uuid[UUID_SIZE];
+    char thread_title[MAX_NAME_LENGTH];
+    char thread_message[MAX_BODY_LENGTH];
+    char user_uuid[UUID_SIZE];
+    time_t timestamp;
+} thread_response_t;
+
 typedef struct comment_response_s
 {
     char body[MAX_BODY_LENGTH];
@@ -166,7 +175,7 @@ typedef struct infos_response_s
     union{
         teams_manipulation_t teams[MAX_TEAMS];
         channel_manipulation_t channel[MAX_CHANNEL];
-        thread_manipulation_t thread[MAX_THREADS];
+        thread_response_t thread[MAX_THREADS];
         comment_response_t comments[MAX_COMMENTS];
     };
 } infos_response_t;
@@ -176,7 +185,7 @@ typedef struct create_response_s
     union {
         teams_manipulation_t teams[MAX_TEAMS];
         channel_manipulation_t channel[MAX_CHANNEL];
-        thread_manipulation_t thread[MAX_THREADS];
+        thread_response_t thread[MAX_THREADS];
         comment_response_t comments[MAX_COMMENTS];
     };
     int is_global_ping;

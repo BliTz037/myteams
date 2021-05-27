@@ -43,6 +43,8 @@ thread_t *thread)
     response->create.is_global_ping = 0;
     strcpy(response->create.thread[0].thread_message, thread->message);
     strcpy(response->create.thread[0].thread_title, thread->title);
+    memcpy(response->create.thread[0].user_uuid, thread->user_uuid, UUID_SIZE);
+    memcpy(response->create.thread[0].thread_uuid, thread->uuid, UUID_SIZE);
     response->create.thread[0].timestamp = thread->timestamp;
 }
 

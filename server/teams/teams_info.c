@@ -19,7 +19,8 @@ void get_teams_info(server_t *server, int client, info_t *info)
     response_t *response;
 
     for (int i = 0; i != MAX_TEAMS; i++) {
-        if (strcmp(server->teams[i].uuid, info->channel.team_uuid) != 0) {
+        printf("%s / %s\n", server->teams[i].uuid, info->channel.team_uuid);
+        if (strcmp(server->teams[i].uuid, info->channel.team_uuid) == 0) {
             response = malloc(sizeof(response_t));
             strcpy(response->infos.teams[0].team_name, server->teams[i].name);
             memcpy(response->infos.teams[0].team_uuid,

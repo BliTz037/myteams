@@ -12,7 +12,8 @@ int command_use(char **argv, request_t *msg, cli_t *cli)
 {
     (void) msg;
     if (argv[0] != NULL && argv[1] == NULL) {
-        strcpy(cli->context.team_uuid, argv[0]);
+        memcpy(cli->context.team_uuid, argv[0], UUID_SIZE);
+        printf("%s / %s\n", cli->context.team_uuid, argv[0]);
         strcpy(cli->context.channel_uuid, "0");
         strcpy(cli->context.thread_uuid, "0");
     } else if (argv[0] != NULL && argv[1] != NULL && argv[2] == NULL) {

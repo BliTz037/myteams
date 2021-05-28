@@ -48,7 +48,7 @@ void info(server_t *server, int client, request_t *request)
             get_thread_info(server, info, client);
             break;
         case USER_INFO:
-            get_users_logged_infos(server, client);
+            get_current_logged_infos(server, client);
             break;
         default:
             return;

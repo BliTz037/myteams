@@ -13,26 +13,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void get_users_logged_infos(server_t *server, int fd)
+void get_current_logged_infos(server_t *server, int client)
 {
     response_t *response = malloc(sizeof(response_t));
-    int j = 0;
 
-    for (int i = 0; i != MAX_CLIENTS; i++)
-    {
-        if (strlen(server->clients[i].uuid) > 0
-        && server->clients[i].loged == 1)
-        {
-            memcpy(response->user.users[j].uuid, server->clients[i].uuid,
-            UUID_SIZE);
-            strcpy(response->user.users[j].name, server->clients[i].name);
-            response->user.users[j].status = 1;
-            j++;
-        }
-    }
+    memcpy(response->user.users[0].uuid, server->clients[client].uuid,
+    UUID_SIZE);
+    strcpy(response->user.users[0].name, server->clients[client].name);
+    response->user.users[0].status = 1;
     response->code = 200;
     response->command = USERS;
-    write(fd, response, sizeof(response_t));
+    write(server->clients[client].socket, response, sizeof(response_t));
     free(response);
 }
 

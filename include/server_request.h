@@ -27,7 +27,7 @@ void list_user_in_team(server_t *server, int client, char *team_uuid);
 int check_subscribed_request(int fd, char *user_uuid, teams_t *team);
 void user(server_t *server, int client, request_t *request);
 void my_send(server_t *server, int client, request_t *request);
-void get_users_logged_infos(server_t *server, int fd);
+void get_current_logged_infos(server_t *server, int fd);
 void messages(server_t *server, int client, request_t *request);
 int is_subscribed_to_team(teams_t *team, char *uuid);
 

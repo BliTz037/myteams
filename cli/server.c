@@ -42,9 +42,9 @@ int receive_message(cli_t *cli)
 
 cli_t init_cli(cli_t cli)
 {
-    strcpy(cli.context.team_uuid, "0");
-    strcpy(cli.context.channel_uuid, "0");
-    strcpy(cli.context.thread_uuid, "0");
+    strcpy(cli.context.team_uuid, "\0");
+    strcpy(cli.context.channel_uuid, "\0");
+    strcpy(cli.context.thread_uuid, "\0");
     return (cli);
 }
 

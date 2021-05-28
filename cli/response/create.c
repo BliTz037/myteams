@@ -54,7 +54,7 @@ static void response_all_users(response_t *rcv)
 void response_create(cli_t *cli, response_t *rcv)
 {
     (void) cli;
-    if (rcv->create.type)
+    if (rcv->create.is_global_ping == 1)
         response_all_users(rcv);
     else
         response_single_user(rcv);

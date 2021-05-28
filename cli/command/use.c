@@ -18,7 +18,6 @@ void use_nothing(cli_t *cli)
 void use_team(char **argv, cli_t *cli)
 {
     strcpy(cli->context.team_uuid, argv[0]);
-    printf("%s / %s\n", cli->context.team_uuid, argv[0]);
     strcpy(cli->context.channel_uuid, "\0");
     strcpy(cli->context.thread_uuid, "\0");
 }

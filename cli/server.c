@@ -17,12 +17,12 @@ int send_message(cli_t *cli)
         free(msg);
         return -1;
     }
-    printf("team: '%s'\n", cli->context.team_uuid);
-    printf("\tchannel: '%s'\n", cli->context.channel_uuid);
-    printf("\t\tthread: '%s'\n", cli->context.thread_uuid);
+    // printf("team: '%s'\n", cli->context.team_uuid);
+    // printf("\tchannel: '%s'\n", cli->context.channel_uuid);
+    // printf("\t\tthread: '%s'\n", cli->context.thread_uuid);
     display(msg);
     write(cli->sockfd, msg, sizeof(request_t));
-    printf("Message envoyer\n");
+    // printf("Message envoyer\n");
     free(msg);
     return (1);
 }

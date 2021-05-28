@@ -9,7 +9,7 @@
 
 int save_data(const char *path, server_t *server)
 {
-    printf("here\n");
+    // printf("here\n");
     FILE *file = fopen(path, "w");
 
     if (file == NULL) {

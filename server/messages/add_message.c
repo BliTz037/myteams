@@ -57,7 +57,7 @@ message_manipulation_t *message_info, char *user_uuid, int fd)
 static comment_t *find_thread(channel_t *channel,
 message_manipulation_t *message_info, char *user_uuid, int fd)
 {
-    for (int i = 0; MAX_THREADS; i++)
+    for (int i = 0; i != MAX_THREADS; i++)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {

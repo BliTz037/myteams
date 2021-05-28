@@ -41,7 +41,7 @@ static void find_thread(channel_t *channel,
 message_manipulation_t *message_info, int fd, response_t *response)
 {
 
-    for (int i = 0; MAX_THREADS; i++)
+    for (int i = 0; i != MAX_THREADS; i++)
     {
         if (strcmp(channel->threads[i].uuid, message_info->thread_uuid) == 0)
         {

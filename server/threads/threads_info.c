@@ -35,7 +35,7 @@ message_manipulation_t *thread_info)
 {
     response_t *response;
 
-    for (int i = 0; MAX_THREADS; i++) {
+    for (int i = 0; i != MAX_THREADS; i++) {
         if (strcmp(channel->threads[i].uuid, thread_info->thread_uuid) != 0) {
             response = malloc(sizeof(response_t));
             fill_thread_response(response, &channel->threads[i]);

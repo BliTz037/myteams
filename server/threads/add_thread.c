@@ -58,7 +58,7 @@ int client, channel_t *channel, thread_manipulation_t *thread_info)
     char *uuid = generate_uuid();
     response_t *response = malloc(sizeof(response_t));
 
-    for (int i = 0; MAX_THREADS; i++) {
+    for (int i = 0; i != MAX_THREADS; i++) {
         if (strlen(channel->threads[i].title) == 0) {
             strcpy(channel->threads[i].title, thread_info->thread_title);
             strcpy(channel->threads[i].message, thread_info->thread_message);

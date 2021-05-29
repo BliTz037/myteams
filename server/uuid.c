@@ -8,13 +8,15 @@
 #include "uuid/uuid.h"
 #include "teams.h"
 #include <stdlib.h>
+#include <string.h>
 
 char *generate_uuid()
 {
-    char *uuid = malloc(UUID_SIZE + 1);
+    char *uuid = malloc(UUID_SIZE);
     uuid_t uuid_s;
 
     uuid_generate(uuid_s);
     uuid_unparse(uuid_s, uuid);
+    uuid[UUID_SIZE] = '\0';
     return uuid;
 }

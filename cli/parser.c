@@ -24,7 +24,7 @@ int get_context(cli_t *cli)
     if (strcmp(cli->context.thread_uuid, "\0") == 0) {
         return (CHANNEL);
     }
-    return (MESSAGE);
+    return (THREAD);
 }
 
 char *get_command_line(void)
@@ -46,6 +46,7 @@ void translate_response(cli_t *cli, response_t *res)
     response_messages, response_subscribe, response_subscribed,
     response_unsubscribed, response_create, response_list, response_info};
 
+    printf("Server envoi un msg\n");
     if (res->code >= 200 && res->code <= 299)
         response[res->command](cli, res);
     else

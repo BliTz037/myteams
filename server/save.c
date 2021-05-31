@@ -6,10 +6,11 @@
 */
 
 #include "server.h"
+#include <string.h>
+#include "logging_server.h"
 
 int save_data(const char *path, server_t *server)
 {
-    // printf("here\n");
     FILE *file = fopen(path, "w");
 
     if (file == NULL) {
@@ -30,5 +31,10 @@ void load_data(const char *path, server_t *server)
         return;
     fread(server, sizeof(server_t), 1, file);
     fclose(file);
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (strlen(server->clients[i].name) > 0)
+            server_event_user_loaded(server->clients[i].uuid, server->clients[i].name);
+    }
     return;
 }

@@ -9,8 +9,6 @@
 #include "cli.h"
 #include <string.h>
 #include <stdlib.h>
-#define SEND_USERNAME_INDEX 0
-#define SEND_BODY_INDEX 1
 
 int command_send(char **argv, request_t *msg, cli_t *cli)
 {

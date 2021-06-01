@@ -8,7 +8,6 @@
 #include "communication.h"
 #include "cli.h"
 #include <string.h>
-#define SUBSCRIBE_TEAMID_INDEX 0
 
 int command_subscribe(char **argv, request_t *msg, cli_t *cli)
 {

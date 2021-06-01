@@ -8,7 +8,6 @@
 #include "communication.h"
 #include "cli.h"
 #include <string.h>
-#define MESSAGE_USERNAME_ID_INDEX 0
 
 int command_messages(char **argv, request_t *msg, cli_t *cli)
 {

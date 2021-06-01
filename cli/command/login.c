@@ -8,7 +8,6 @@
 #include "communication.h"
 #include "cli.h"
 #include <string.h>
-#define LOGIN_USERNAME_INDEX 0
 
 int command_login(char **argv, request_t *msg, cli_t *cli)
 {

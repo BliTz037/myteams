@@ -22,6 +22,13 @@
 #define PATH_COMMAND_HELP "file/help_command.txt"
 
 #define NOTHING -1
+#define LOGIN_USERNAME_INDEX 0
+#define MESSAGE_USERNAME_ID_INDEX 0
+#define SEND_USERNAME_INDEX 0
+#define SEND_BODY_INDEX 1
+#define SUBSCRIBE_TEAMID_INDEX 0
+#define SUBSCRIBED_TEAMID_INDEX 0
+#define UNSUBSCRIBED_TEAMID_INDEX 0
 
 typedef struct context
 {

@@ -14,8 +14,8 @@ void display_team(response_t *rcv)
     for (int i = 0; i != MAX_TEAMS; i++)
     {
         printf("Len: %ld\n", strlen(rcv->infos.teams[i].team_name));
-        if (strlen(rcv->infos.teams[i].team_name) > 0)
-        {
+        printf("char : %c\n", rcv->infos.teams[i].team_name[0]);
+        if (rcv->infos.teams[i].team_name[0] != '\0') {
             printf("rcv->infos.teams[i].team_uuid : %s\n", rcv->infos.teams[i].team_uuid);
             client_print_team(rcv->infos.teams[i].team_uuid,
             rcv->infos.teams[i].team_name,
@@ -64,9 +64,8 @@ void display_replies(response_t *rcv)
     }
 }
 
-void response_list(cli_t *cli, response_t *rcv)
+void response_list(response_t *rcv)
 {
-    (void)(cli);
     switch (rcv->infos.type){
         case (TEAMS):
             display_team(rcv);

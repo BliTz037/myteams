@@ -39,16 +39,16 @@ char *get_command_line(void)
     return (line);
 }
 
-void translate_response(cli_t *cli, response_t *res)
+void translate_response(response_t *res)
 {
-    void (*response[])(cli_t *, response_t *) = {response_login,
+    void (*response[])(response_t *) = {response_login,
     response_logout, response_user, response_users, response_send,
     response_messages, response_subscribe, response_subscribed,
     response_unsubscribed, response_create, response_list, response_info};
 
     printf("Server envoi un msg\n");
     if (res->code >= 200 && res->code <= 299)
-        response[res->command](cli, res);
+        response[res->command](res);
     else
         manage_error_response(res);
 }

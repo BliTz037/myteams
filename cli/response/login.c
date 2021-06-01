@@ -9,9 +9,8 @@
 #include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
-void response_login(cli_t *cli, response_t *rcv)
+void response_login(response_t *rcv)
 {
-    (void)(cli);
     if (rcv->code == 200 || rcv->code == 201) {
         if (rcv->code == 201)
             printf("Welcome %s, you are register.\n", rcv->user.users->name);

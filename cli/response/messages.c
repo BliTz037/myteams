@@ -9,7 +9,7 @@
 #include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
-void response_messages(cli_t *cli, response_t *rcv)
+void response_messages(response_t *rcv)
 {
     for (int i = 0; i != MAX_PM; i++)
     {

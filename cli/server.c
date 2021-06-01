@@ -31,7 +31,7 @@ int receive_message(cli_t *cli)
     valread = read(cli->sockfd, resp, sizeof(response_t));
     if (valread == 0)
         printf("Connection Lost\n");
-    translate_response(cli, resp);
+    translate_response(resp);
     free(resp);
     return (valread);
 }

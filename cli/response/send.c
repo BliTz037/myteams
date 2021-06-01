@@ -9,10 +9,8 @@
 #include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
-void response_send(cli_t *cli, response_t *rcv)
+void response_send(response_t *rcv)
 {
-    (void)(rcv);
-
     client_event_private_message_received(rcv->message.user_uuid,
     rcv->message.messages[0].message);
 }

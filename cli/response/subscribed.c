@@ -29,9 +29,8 @@ static void print_teams(response_t *rcv)
     }
 }
 
-void response_subscribed(cli_t *cli, response_t *rcv)
+void response_subscribed(response_t *rcv)
 {
-    (void)(cli);
     if (rcv->subscribed.teams[0].team_name[0] != '\0')
         print_teams(rcv);
     else

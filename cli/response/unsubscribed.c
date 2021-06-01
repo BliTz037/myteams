@@ -9,9 +9,8 @@
 #include "../libs/myteams/logging_client.h"
 #include "cli.h"
 
-void response_unsubscribed(cli_t *cli, response_t *rcv)
+void response_unsubscribed(response_t *rcv)
 {
-    (void)(cli);
     client_print_unsubscribed(rcv->subscribe.user_uuid,
     rcv->subscribe.team_uuid);
     return;

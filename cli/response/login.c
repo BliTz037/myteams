@@ -14,7 +14,7 @@ void response_login(cli_t *cli, response_t *rcv)
     (void)(cli);
     if (rcv->code == 200 || rcv->code == 201) {
         if (rcv->code == 201)
-            printf("Welcome %s ! You are register.\n", rcv->user.users->name);
+            printf("Welcome %s, you are register.\n", rcv->user.users->name);
         client_event_logged_in(rcv->user.users->uuid, rcv->user.users->name);
     }
     return;

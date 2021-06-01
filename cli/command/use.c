@@ -46,11 +46,11 @@ int command_use(char **argv, request_t *msg, cli_t *cli)
     if (argv[0] != NULL && argv[1] == NULL) {
         use_team(argv, cli);
         return (0);
-    } 
+    }
     if (argv[0] != NULL && argv[1] != NULL && argv[2] == NULL) {
         use_channel(argv, cli);
         return (0);
-    } 
+    }
     if (argv[0] != NULL && argv[1] != NULL && argv[2] != NULL) {
         use_thread(argv, cli);
         return (0);

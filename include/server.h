@@ -68,7 +68,7 @@ typedef struct server_t
 int launch_server(server_t *server, int port);
 int init_server(server_t *server, int port);
 void close_connection(server_t *server, int fd, int client);
-char *generate_uuid();
+char *generate_uuid(void);
 
 //Data handling
 int save_data(const char *path, server_t *server);

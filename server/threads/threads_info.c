@@ -19,7 +19,7 @@ static void fill_thread_response(response_t *response, thread_t *thread)
     thread->message);
     strcpy(response->infos.thread[0].thread_title,
     thread->title);
-    response->infos.thread[0].timestamp = 
+    response->infos.thread[0].timestamp =
     thread->timestamp;
     memcpy(response->infos.thread[0].user_uuid,
     thread->user_uuid, UUID_SIZE);

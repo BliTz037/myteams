@@ -13,11 +13,11 @@ static void response_single_user(response_t *rcv)
 {
     if (rcv->create.type == TEAMS)
         client_print_team_created(rcv->create.teams[0].team_uuid,
-        rcv->create.teams[0].team_name, 
+        rcv->create.teams[0].team_name,
         rcv->create.teams[0].team_description);
     if (rcv->create.type == CHANNEL)
         client_print_channel_created(rcv->create.channel[0].team_uuid,
-        rcv->create.channel[0].channel_name, 
+        rcv->create.channel[0].channel_name,
         rcv->create.channel[0].channel_description);
     if (rcv->create.type == THREAD)
         client_print_thread_created(rcv->create.thread[0].thread_uuid,
@@ -34,11 +34,11 @@ static void response_all_users(response_t *rcv)
 {
     if (rcv->create.type == TEAMS)
         client_event_team_created(rcv->create.teams[0].team_uuid,
-        rcv->create.teams[0].team_name, 
+        rcv->create.teams[0].team_name,
         rcv->create.teams[0].team_description);
     if (rcv->create.type == CHANNEL)
         client_event_channel_created(rcv->create.channel[0].team_uuid,
-        rcv->create.channel[0].channel_name, 
+        rcv->create.channel[0].channel_name,
         rcv->create.channel[0].channel_description);
     if (rcv->create.type == THREAD)
         client_event_thread_created(rcv->create.thread[0].thread_uuid,

@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, XXXX
-** NWP_myteams_XXXX
+** EPITECH PROJECT, 2021
+** B-NWP-400-PAR-4-1-myteams-tom.rives
 ** File description:
-** a file containing libs functions that should be called in myteams_server
+** logging_server
 */
 
 #ifndef LIB_MYTEAMS_LOGGING_SERVER_H

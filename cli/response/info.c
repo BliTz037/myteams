@@ -12,6 +12,7 @@
 void response_info(cli_t *cli, response_t *rcv)
 {
     (void) cli;
+    printf("Info enum: %d\n", rcv->infos.type);
     if (rcv->infos.type == USER_INFO)
         client_print_user(rcv->user.users[0].uuid,
         rcv->user.users[0].name, rcv->user.users[0].status);

@@ -34,7 +34,8 @@ void load_data(const char *path, server_t *server)
     for (int i = 0; i != MAX_CLIENTS; i++)
     {
         if (strlen(server->clients[i].name) > 0)
-            server_event_user_loaded(server->clients[i].uuid, server->clients[i].name);
+            server_event_user_loaded(server->clients[i].uuid,
+            server->clients[i].name);
     }
     return;
 }

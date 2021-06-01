@@ -28,7 +28,7 @@ static void info_teams_subscribed(server_t *server, int client)
 {
     response_t *response = malloc(sizeof(response));
     int k = 0;
-
+    printf("Print list member of team\n");
     for (int i = 0; i != MAX_TEAMS; i++)
     {
         for (int j = 0; j != MAX_CLIENTS; j++)

@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, XXXX
-** NWP_myteams_XXXX
+** EPITECH PROJECT, 2021
+** B-NWP-400-PAR-4-1-myteams-tom.rives
 ** File description:
-** a file containing libs functions that should be called in myteams_cli
+** logging_client
 */
 
 #ifndef LIB_MYTEAMS_LOGGING_CLIENT_H
@@ -260,7 +260,7 @@ int client_private_message_print_messages(
 ** /create "reply_body"
 ** /info
 **/
-int client_error_unknown_team(char const *team_uuid);
+int client_error_unknown_team(char const *team_uuid); //404
 
 /**
 ** @brief Must be called when the user try to do an action
@@ -273,7 +273,7 @@ int client_error_unknown_team(char const *team_uuid);
 ** /create "reply_body"
 ** /info
 **/
-int client_error_unknown_channel(char const *channel_uuid);
+int client_error_unknown_channel(char const *channel_uuid); //404
 
 /**
 ** @brief Must be called when the user try to do an action
@@ -285,7 +285,7 @@ int client_error_unknown_channel(char const *channel_uuid);
 ** /create "reply_body"
 ** /info
 **/
-int client_error_unknown_thread(char const *thread_uuid);
+int client_error_unknown_thread(char const *thread_uuid); //404
 
 /**
 ** @brief Must be called when the user try to do an action
@@ -297,7 +297,7 @@ int client_error_unknown_thread(char const *thread_uuid);
 ** /user "user_uuid"
 ** /messages "user_uuid"
 **/
-int client_error_unknown_user(char const *user_uuid);
+int client_error_unknown_user(char const *user_uuid); //404
 
 /**
 ** @brief Must be called when the user try to do an action he is not allowed
@@ -308,7 +308,7 @@ int client_error_unknown_user(char const *user_uuid);
 ** Commands:
 ** Everything except /login
 **/
-int client_error_unauthorized(void);
+int client_error_unauthorized(void); //403
 
 /**
 ** @brief Must be called when the user try to do an action and the resource
@@ -321,7 +321,7 @@ int client_error_unauthorized(void);
 ** /create "channel_name" "channel_description"
 ** /create "thread_title" "thread_body"
 **/
-int client_error_already_exist(void);
+int client_error_already_exist(void); //410
 
 /**
 ** @brief Must be called when you requested an individual user

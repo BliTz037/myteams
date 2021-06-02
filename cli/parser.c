@@ -46,7 +46,6 @@ void translate_response(response_t *res)
     response_messages, response_subscribe, response_subscribed,
     response_unsubscribed, response_create, response_list, response_info};
 
-    printf("Server envoi un msg\n");
     if (res->code >= 200 && res->code <= 299)
         response[res->command](res);
     else

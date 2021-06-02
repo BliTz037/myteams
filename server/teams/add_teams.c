@@ -68,7 +68,6 @@ int check_team_exist(server_t *server, create_t *create, int client)
         server->teams[i].name, create->teams.team_name);
         if (strcmp(server->teams[i].name, create->teams.team_name) == 0)
         {
-            printf("Fuc\n");
             request_code(server->clients[client].socket, 403);
             return -1;
         }

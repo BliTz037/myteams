@@ -15,7 +15,6 @@ void create_new_team(char **argv, request_t *msg, cli_t *cli)
     (void) cli;
     strcpy(msg->create.teams.team_name, argv[0]);
     strcpy(msg->create.teams.team_description, argv[1]);
-    printf("msg->create.teams.team_name : '%s'\n", msg->create.teams.team_name);
     msg->create.type = TEAMS;
 }
 

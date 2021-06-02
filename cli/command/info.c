@@ -41,7 +41,6 @@ int command_info(char **argv, request_t *msg, cli_t *cli)
 {
     (void) argv;
     msg->command = INFO;
-    printf("get_context : %d\n", get_context(cli));
     switch (get_context(cli))
     {
         case (NOTHING):

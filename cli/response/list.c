@@ -63,7 +63,7 @@ void display_replies(response_t *rcv)
 
 void response_list(response_t *rcv)
 {
-    switch (rcv->infos.type){
+    switch (rcv->infos.type) {
         case (TEAMS):
             display_team(rcv);
             break;

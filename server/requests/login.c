@@ -13,7 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void logout_response(int fd, int code, char *username, char *uuid)
+static void logout_response(server_t *server,
+int code, char *username, char *uuid)
 {
     response_t *response = malloc(sizeof(response_t));
 
@@ -21,11 +22,16 @@ static void logout_response(int fd, int code, char *username, char *uuid)
     response->command = LOGOUT;
     strcpy(response->user.users[0].name, username);
     memcpy(response->user.users[0].uuid, uuid, UUID_SIZE);
-    write(fd, response, sizeof(response_t));
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (server->clients[i].loged == 1)
+            write(server->clients[i].socket, response, sizeof(response_t));
+    }
     free(response);
 }
 
-static void login_response(int fd, int code, char *username, char *uuid)
+static void login_response(server_t *server,
+int code, char *username, char *uuid)
 {
     response_t *response = malloc(sizeof(response_t));
 
@@ -33,7 +39,11 @@ static void login_response(int fd, int code, char *username, char *uuid)
     response->command = LOGIN;
     strcpy(response->user.users[0].name, username);
     memcpy(response->user.users[0].uuid, uuid, UUID_SIZE);
-    write(fd, response, sizeof(response_t));
+    for (int i = 0; i != MAX_CLIENTS; i++)
+    {
+        if (server->clients[i].loged == 1)
+            write(server->clients[i].socket, response, sizeof(response_t));
+    }
     free(response);
 }
 
@@ -44,7 +54,7 @@ static void login_new_user(server_t *server, int client, request_t *request)
     strcpy(server->clients[client].name, request->login.username);
     memcpy(server->clients[client].uuid, uuid, UUID_SIZE);
     server->clients[client].loged = 1;
-    login_response(server->clients[client].socket, 201,
+    login_response(server, 201,
     server->clients[client].name, server->clients[client].uuid);
     server_event_user_created(server->clients[client].uuid,
     server->clients[client].name);
@@ -64,7 +74,7 @@ void login(server_t *server, int client, request_t *request)
             server->clients[i].loged = 1;
             if (i != client)
                 server->clients[client].socket = 0;
-            login_response(server->clients[i].socket, 200,
+            login_response(server, 200,
             server->clients[i].name, server->clients[i].uuid);
             server_event_user_logged_in(server->clients[i].uuid);
             return;
@@ -77,7 +87,7 @@ void logout(server_t *server, int client, request_t *request)
 {
     (void)request;
     server->clients[client].loged = -1;
-    logout_response(server->clients[client].socket, 200,
+    logout_response(server, 200,
     server->clients[client].name, server->clients[client].uuid);
     server_event_user_logged_out(server->clients[client].uuid);
 }

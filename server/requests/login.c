@@ -86,8 +86,8 @@ void login(server_t *server, int client, request_t *request)
 void logout(server_t *server, int client, request_t *request)
 {
     (void)request;
-    server->clients[client].loged = -1;
     logout_response(server, 200,
     server->clients[client].name, server->clients[client].uuid);
+    server->clients[client].loged = -1;
     server_event_user_logged_out(server->clients[client].uuid);
 }

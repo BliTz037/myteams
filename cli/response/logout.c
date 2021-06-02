@@ -11,8 +11,5 @@
 
 void response_logout(response_t *rcv)
 {
-    if (rcv->code == 200)
-        printf("Good bye %s !\n", rcv->user.users->name);
     client_event_logged_out(rcv->user.users->uuid, rcv->user.users->name);
-    return;
 }

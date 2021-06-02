@@ -56,9 +56,9 @@ typedef struct subscribe_s
 
 typedef struct teams_manipulation_s
 {
-    char team_name[MAX_NAME_LENGTH];
     char team_description[MAX_DESCRIPTION_LENGTH];
     char team_uuid[UUID_SIZE];
+    char team_name[MAX_NAME_LENGTH];
 } teams_manipulation_t;
 
 typedef struct channel_manipulation_s

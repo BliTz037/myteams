@@ -13,10 +13,7 @@ void display_team(response_t *rcv)
 {
     for (int i = 0; i != MAX_TEAMS; i++)
     {
-        printf("Len: %ld\n", strlen(rcv->infos.teams[i].team_name));
-        printf("char : %c\n", rcv->infos.teams[i].team_name[0]);
         if (rcv->infos.teams[i].team_name[0] != '\0') {
-            printf("rcv->infos.teams[i].team_uuid : %s\n", rcv->infos.teams[i].team_uuid);
             client_print_team(rcv->infos.teams[i].team_uuid,
             rcv->infos.teams[i].team_name,
             rcv->infos.teams[i].team_description);

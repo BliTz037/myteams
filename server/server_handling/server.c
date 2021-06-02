@@ -19,7 +19,7 @@
 #include "server_request.h"
 #include <signal.h>
 
-static int is_running = 1;
+static volatile int is_running = 1;
 
 static int select_socket(server_t *server)
 {
@@ -97,6 +97,5 @@ int launch_server(server_t *server, int port)
         if (handle_existing_connection(server) == -1)
             return -1;
     }
-    printf("end\n");
     return 0;
 }

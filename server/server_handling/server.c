@@ -97,5 +97,6 @@ int launch_server(server_t *server, int port)
         if (handle_existing_connection(server) == -1)
             return -1;
     }
+    printf("end\n");
     return 0;
 }

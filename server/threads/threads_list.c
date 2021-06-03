@@ -15,16 +15,11 @@
 
 static void fill_thread_response(response_t *response, thread_t *thread, int j)
 {
-    strcpy(response->infos.thread[j].thread_message,
-    thread->message);
-    strcpy(response->infos.thread[j].thread_title,
-    thread->title);
-    response->infos.thread[j].timestamp =
-    thread->timestamp;
-    memcpy(response->infos.thread[j].user_uuid,
-    thread->user_uuid, UUID_SIZE);
-    memcpy(response->infos.thread[j].thread_uuid,
-    thread->uuid, UUID_SIZE);
+    strcpy(response->infos.thread[j].thread_message, thread->message);
+    strcpy(response->infos.thread[j].thread_title, thread->title);
+    response->infos.thread[j].timestamp = thread->timestamp;
+    memcpy(response->infos.thread[j].user_uuid, thread->user_uuid, UUID_SIZE);
+    memcpy(response->infos.thread[j].thread_uuid, thread->uuid, UUID_SIZE);
 }
 
 static void thread_info_in_channel(channel_t *channel, int fd)

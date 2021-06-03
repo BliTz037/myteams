@@ -12,7 +12,7 @@ int print_help(char *av)
     printf("USAGE: %s ip port\n\n", av);
     printf("\tip is the server ip address on which the server socket listens\n"
     );
-    ("\tport is the port number on which the server socket listens\n");
+    printf("\tport is the port number on which the server socket listens\n");
     return (0);
 }
 

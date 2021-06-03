@@ -46,7 +46,6 @@ void messages(server_t *server, int client, request_t *request)
         if (strcmp(send->user_uuid,
         server->clients[client].private_messages[i].user_uuid) == 0)
         {
-
             list_private_messages(server->clients[client].socket,
             &server->clients[client].private_messages[i]);
             return;

@@ -28,7 +28,7 @@ static int select_socket(server_t *server)
 
     FD_ZERO(&server->readfds);
     FD_SET(server->control_socket, &server->readfds);
-    for (int i = 0; i < MAX_CLIENTS ; i++)
+    for (int i = 0; i < MAX_CLIENTS; i++)
     {
         sd = server->clients[i].socket;
         if (sd > 0)

@@ -18,10 +18,8 @@ static void channels_teams_info(teams_t *team, int fd)
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
 
-    for (int i = 0; i != MAX_CHANNEL; i++)
-    {
-        if (strlen(team->channels[i].name) > 0)
-        {
+    for (int i = 0; i != MAX_CHANNEL; i++) {
+        if (strlen(team->channels[i].name) > 0) {
             strcpy(response->infos.channel[j].channel_description,
             team->channels[i].description);
             strcpy(response->infos.channel[j].channel_name,

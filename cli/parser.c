@@ -15,15 +15,12 @@ static char *commmand_str[] =
 
 int get_context(cli_t *cli)
 {
-    if (strcmp(cli->context.team_uuid, "\0") == 0) {
+    if (strcmp(cli->context.team_uuid, "\0") == 0)
         return (NOTHING);
-    }
-    if (strcmp(cli->context.channel_uuid, "\0") == 0) {
+    if (strcmp(cli->context.channel_uuid, "\0") == 0)
         return (TEAMS);
-    }
-    if (strcmp(cli->context.thread_uuid, "\0") == 0) {
+    if (strcmp(cli->context.thread_uuid, "\0") == 0)
         return (CHANNEL);
-    }
     return (THREAD);
 }
 

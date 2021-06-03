@@ -36,9 +36,7 @@ void create(server_t *server, int client, request_t *request)
 int is_subscribed_to_team(teams_t *team, char *uuid)
 {
     for (int i = 0; i != MAX_CLIENTS; i++)
-    {
         if (strcmp(team->subscribed_users[i].uuid, uuid) == 0)
             return 1;
-    }
     return 0;
 }

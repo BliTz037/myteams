@@ -71,7 +71,7 @@ int client, channel_t *channel, thread_manipulation_t *thread_info)
             thread_info->thread_message);
             add_thread_response(response, &channel->threads[i]);
             write(server->clients[client].socket, response, sizeof(response_t));
-            free (uuid);
+            free(uuid);
             free(response);
             return &channel->threads[i];
         }
@@ -81,7 +81,7 @@ int client, channel_t *channel, thread_manipulation_t *thread_info)
 static void find_channel(server_t *server, int client, teams_t *team,
 thread_manipulation_t *thread_info)
 {
-    thread_t *thread ;
+    thread_t *thread;
 
     for (int i = 0; i != MAX_CHANNEL; i++)
     {

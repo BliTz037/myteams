@@ -28,7 +28,6 @@ void request_code(int fd, int code)
     response_t *response = malloc(sizeof(response_t));
 
     response->code = code;
-
     write(fd, response, sizeof(response_t));
     free(response);
 }

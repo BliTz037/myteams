@@ -20,7 +20,8 @@ void close_connection(server_t *server, int fd, int client)
     response->code = 200;
     response->command = LOGOUT;
     strcpy(response->user.users[0].name, server->clients[client].name);
-    memcpy(response->user.users[0].uuid, server->clients[client].uuid, UUID_SIZE);
+    memcpy(response->user.users[0].uuid, server->clients[client].uuid,
+    UUID_SIZE);
     close(fd);
     server->clients[client].socket = 0;
     if (server->clients[client].loged == 1)

@@ -22,12 +22,12 @@ message_manipulation_t *message_info, int fd, response_t *response)
     {
         if (strlen(thread->comments[i].body) > 0)
         {
-            strcpy(response->infos.comments[0].body, message_info->body);
-            memcpy(response->infos.comments[0].thread_uuid,
-            message_info->thread_uuid, UUID_SIZE);
-            memcpy(response->infos.comments[0].team_uuid,
-            message_info->team_uuid, UUID_SIZE);
-            response->infos.comments[0].timestamp =
+            strcpy(response->infos.comments[j].body, thread->comments[i].body);
+            memcpy(response->infos.comments[j].thread_uuid,
+            thread->uuid, UUID_SIZE);
+            memcpy(response->infos.comments[j].user_uuid,
+            thread->comments[i].user_uuid, UUID_SIZE);
+            response->infos.comments[j].timestamp =
             thread->comments[i].timestamp;
             j++;
         }
@@ -35,7 +35,6 @@ message_manipulation_t *message_info, int fd, response_t *response)
     response->code = 200;
     response->infos.type = MESSAGE;
     write(fd, response, sizeof(response_t));
-    free(response);
 }
 
 static void find_thread(channel_t *channel,
@@ -75,7 +74,7 @@ int client)
     response_t *response;
 
     for (int i = 0; i != MAX_TEAMS; i++) {
-        if (strcmp(message_info->team_uuid, server->teams[i].uuid)) {
+        if (strcmp(message_info->team_uuid, server->teams[i].uuid) == 0) {
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)
                 return;

@@ -63,7 +63,7 @@ int client)
 
     for (int i = 0; i != MAX_TEAMS; i++)
     {
-        if (strcmp(thread_info->team_uuid, server->teams[i].uuid))
+        if (strcmp(thread_info->team_uuid, server->teams[i].uuid) == 0)
         {
             if (check_subscribed_request(server->clients[client].socket,
             server->clients[client].uuid, &server->teams[i]) == -1)

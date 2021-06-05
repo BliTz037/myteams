@@ -18,6 +18,7 @@ static void channels_teams_info(teams_t *team, int fd)
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
 
+    response->infos.nb = 0;
     for (int i = 0; i != MAX_CHANNEL; i++) {
         if (strlen(team->channels[i].name) > 0) {
             strcpy(response->infos.channel[j].channel_description,
@@ -27,6 +28,7 @@ static void channels_teams_info(teams_t *team, int fd)
             memcpy(response->infos.channel[j].team_uuid,
             team->channels[i].uuid, UUID_SIZE);
             j++;
+            response->infos.nb++;
         }
     }
     response->code = 200;

@@ -63,9 +63,9 @@ typedef struct teams_manipulation_s
 
 typedef struct channel_manipulation_s
 {
-    char channel_name[MAX_NAME_LENGTH];
     char channel_description[MAX_DESCRIPTION_LENGTH];
     char team_uuid[UUID_SIZE];
+    char channel_name[MAX_NAME_LENGTH];
 } channel_manipulation_t;
 
 typedef struct thread_manipulation_s
@@ -179,6 +179,7 @@ typedef struct infos_response_s
         comment_response_t comments[MAX_COMMENTS];
     };
     service_type type;
+    int nb;
 } infos_response_t;
 
 typedef struct create_response_s

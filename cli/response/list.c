@@ -11,53 +11,42 @@
 
 void display_team(response_t *rcv)
 {
-    for (int i = 0; i != MAX_TEAMS; i++)
+    for (int i = 0; i < rcv->infos.nb; i++)
     {
-        if (rcv->infos.teams[i].team_name[0] != '\0') {
-            client_print_team(rcv->infos.teams[i].team_uuid,
-            rcv->infos.teams[i].team_name,
-            rcv->infos.teams[i].team_description);
-        }
+        client_print_team(rcv->infos.teams[i].team_uuid,
+        rcv->infos.teams[i].team_name,
+        rcv->infos.teams[i].team_description);
     }
 }
 
 void display_channel(response_t *rcv)
 {
-    for (int i = 0; i != MAX_CHANNEL; i++)
+    for (int i = 0; i < rcv->infos.nb; i++)
     {
-        if (strlen(rcv->infos.channel[i].channel_name) > 0)
-        {
-            client_print_channel(rcv->infos.channel[i].team_uuid,
-            rcv->infos.channel[i].channel_name,
-            rcv->infos.channel[i].channel_description);
-        }
+        client_print_channel(rcv->infos.channel[i].team_uuid,
+        rcv->infos.channel[i].channel_name,
+        rcv->infos.channel[i].channel_description);
     }
 }
 
 void display_thread(response_t *rcv)
 {
-    for (int i = 0; i != MAX_THREADS; i++)
+    for (int i = 0; i < rcv->infos.nb; i++)
     {
-        if (strlen(rcv->infos.thread[i].thread_title) > 0)
-        {
-            client_print_thread(rcv->infos.thread[i].thread_uuid,
-            rcv->infos.thread[i].user_uuid, rcv->infos.thread[i].timestamp,
-            rcv->infos.thread[i].thread_title,
-            rcv->infos.thread[i].thread_message);
-        }
+        client_print_thread(rcv->infos.thread[i].thread_uuid,
+        rcv->infos.thread[i].user_uuid, rcv->infos.thread[i].timestamp,
+        rcv->infos.thread[i].thread_title,
+        rcv->infos.thread[i].thread_message);
     }
 }
 
 void display_replies(response_t *rcv)
 {
-    for (int i = 0; i != MAX_COMMENTS; i++)
+    for (int i = 0; i < rcv->infos.nb; i++)
     {
-        if (strlen(rcv->infos.comments[i].body) > 0)
-        {
-            client_thread_print_replies(rcv->infos.comments[i].thread_uuid,
-            rcv->infos.comments[i].user_uuid, rcv->infos.comments[i].timestamp,
-            rcv->infos.comments[i].body);
-        }
+        client_thread_print_replies(rcv->infos.comments[i].thread_uuid,
+        rcv->infos.comments[i].user_uuid, rcv->infos.comments[i].timestamp,
+        rcv->infos.comments[i].body);
     }
 }
 

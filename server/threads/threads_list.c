@@ -27,12 +27,14 @@ static void thread_info_in_channel(channel_t *channel, int fd)
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
 
+    response->infos.nb = 0;
     for (int i = 0; i != MAX_THREADS; i++)
     {
         if (strlen(channel->threads[i].title) > 0)
         {
             fill_thread_response(response, &channel->threads[i], j);
             j++;
+            response->infos.nb++;
         }
     }
     response->code = 200;

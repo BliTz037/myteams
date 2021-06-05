@@ -19,16 +19,16 @@ void get_teams_list(server_t *server, int client)
     response_t *response = malloc(sizeof(response_t));
     int j = 0;
 
+    response->infos.nb = 0;
     for (int i = 0; i != MAX_TEAMS; i++) {
-        printf("strlen teams_list %ld\n", strlen(server->teams[i].name));
         if (strlen(server->teams[i].name) > 0) {
-            printf("server->teams[%d].uuid = %s\n", i, server->teams[i].uuid);
             strcpy(response->infos.teams[j].team_name, server->teams[i].name);
             memcpy(response->infos.teams[j].team_uuid,
             server->teams[i].uuid, UUID_SIZE);
             strcpy(response->infos.teams[j].team_description,
             server->teams[i].description);
             j++;
+            response->infos.nb++;
         }
     }
     response->code = 200;

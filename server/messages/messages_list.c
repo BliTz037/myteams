@@ -17,7 +17,7 @@ static void message_info_in_thread(thread_t *thread,
 message_manipulation_t *message_info, int fd, response_t *response)
 {
     int j = 0;
-
+    response->infos.nb = 0;
     for (int i = 0; i != MAX_COMMENTS; i++)
     {
         if (strlen(thread->comments[i].body) > 0)
@@ -30,6 +30,7 @@ message_manipulation_t *message_info, int fd, response_t *response)
             response->infos.comments[j].timestamp =
             thread->comments[i].timestamp;
             j++;
+            response->infos.nb++;
         }
     }
     response->code = 200;

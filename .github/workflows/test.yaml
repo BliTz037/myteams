@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo "Github Action OK !"
-      - run: make tests_run && make coverage
+      - run: make tests_run

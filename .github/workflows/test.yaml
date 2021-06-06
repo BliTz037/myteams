@@ -1,0 +1,14 @@
+name: "Test Unit"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  unit-test:
+    runs-on: "ubuntu-20.04"
+    container: epitechcontent/epitest-docker
+    name: unit-test
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "Github Action OK !"
+      - run: make tests_run && make coverage

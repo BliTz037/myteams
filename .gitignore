@@ -10,3 +10,7 @@ protocole.txt
 vgcore
 test.c
 *.dat
+*.gcda
+*.gcno
+unit_tests
+a.out

@@ -68,16 +68,35 @@ SRC_CLI	 =		cli/command/create.c	\
 				cli/str_to_word_array.c \
 				cli/parser.c
 
+SRC_TESTS	=	tests/other/test_strtwa.c \
+				tests/cli_cmd/test_cli_cmd_create.c \
+				tests/cli_cmd/test_cli_cmd_info.c \
+				tests/cli_cmd/test_cli_cmd_list.c \
+				tests/cli_cmd/test_cli_cmd_login.c \
+				tests/cli_cmd/test_cli_cmd_msg.c \
+				tests/cli_cmd/test_cli_cmd_subscribe.c \
+				tests/cli_cmd/test_cli_cmd_use.c \
+				tests/cli_cmd/test_cli_cmd_user.c \
+				tests/cli_cmd/test_cli_response.c \
+				tests/cli_resp/test_resp_error.c \
+				tests/cli_resp/test_resp_info.c \
+				tests/cli_resp/test_resp_list.c \
+				tests/cli_resp/test_resp_login.c \
+				tests/cli_resp/test_resp_msg.c \
+				tests/cli_resp/test_resp_subscribe.c \
+				tests/cli_resp/test_resp_user.c \
+				tests/cli_resp/test_resp_create.c
+
 ## NAME
-NAME_SERVER	=	myteams_server
+NAME_SERVER	= myteams_server
 NAME_CLI = myteams_cli
+NAME_TEST	= unit_tests
 
 ## OBJ
 OBJ_SERVER	=	$(SRC_SERVER:.c=.o)
 OBJ_CLI	=	$(SRC_CLI:.c=.o)
 OBJ_MAIN_SERVER	=	$(MAIN_SERVER:.c=.o)
 OBJ_MAIN_CLI = 	$(MAIN_CLI:.c=.o)
-
 
 CC		=	gcc
 
@@ -94,16 +113,24 @@ cli:	$(NAME_CLI)
 $(NAME_CLI): 	$(OBJ_CLI) $(OBJ_MAIN_CLI)
 					$(CC) -o $(NAME_CLI) $(OBJ_MAIN_CLI) $(OBJ_CLI) $(CPPFLAGS)
 
+tests_run:
+	$(CC) -o $(NAME_TEST) $(SRC_TESTS) $(SRC_SERVER) $(SRC_CLI) $(CPPFLAGS) -lcriterion --coverage
+	export LD_LIBRARY_PATH=${PWD}/libs/myteams:$$LD_LIBRARY_PATH && 	./$(NAME_TEST)
+	@gcovr
+
 clean:
 	rm -f $(OBJ_MAIN_SERVER)
 	rm -f $(OBJ_MAIN_CLI)
 	rm -f $(OBJ_SERVER)
 	rm -f $(OBJ_CLI)
+	rm -f *.gcno
+	rm -f *.gcda
 
 fclean:	clean
 	rm -f $(NAME_SERVER)
 	rm -f $(NAME_CLI)
+	rm -f $(NAME_TEST)
 
 re:	fclean	all
 
-.PHONY: clean fclean re
+.PHONY: clean fclean re tests_run

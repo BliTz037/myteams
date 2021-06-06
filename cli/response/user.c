@@ -12,7 +12,7 @@
 void response_user(response_t *rcv)
 {
     client_print_user(rcv->user.users[0].uuid, rcv->user.users[0].name,
-    rcv->user.users[1].status);
+    rcv->user.users[0].status);
 }
 
 void response_users(response_t *rcv)
